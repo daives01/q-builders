@@ -2,21 +2,19 @@
 import Layout from '../layouts/Layout.astro';
 import { config } from '../config';
 import Hero from '../components/Hero.astro';
+import Lightbox from '../components/Lightbox.astro';
 ---
 
 <Layout>
 	<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-[var(--transition-medium)] transform -translate-y-full" aria-label="Main navigation">
 		<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-			<a href="#hero" class="text-xl font-semibold tracking-tight text-white hover:text-white/80 transition-colors">Q Builders</a>
-			<div class="flex items-center gap-3 md:gap-6">
+			<a href="#hero" class="hidden md:block text-xl font-semibold tracking-tight text-white hover:text-white/80 transition-colors">Q Builders</a>
+			<div class="flex items-center justify-around w-full md:justify-end md:w-auto gap-3 md:gap-6">
 				{['about', 'gallery', 'testimonials', 'contact'].map((section) => (
 					<a href={`#${section}`} class="nav-link text-white/70 hover:text-white text-xs md:text-sm tracking-wide transition-colors" aria-label={`Navigate to ${section}`}>
 						{section.charAt(0).toUpperCase() + section.slice(1)}
 					</a>
 				))}
-				<a href={`mailto:${config.hero.email}`} class="text-white/90 hover:text-white text-xs md:text-sm tracking-wide transition-colors" aria-label="Send email to Q Builders">
-					Get in Touch
-				</a>
 			</div>
 		</div>
 	</nav>
@@ -73,37 +71,28 @@ import Hero from '../components/Hero.astro';
 					</h2>
 				</div>
 				<div class="hidden md:block">
-					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[280px]">
+					<div class="columns-3 gap-6 space-y-6">
 						{config.gallery.map((image, index) => {
-							const pattern = index % 6;
-							const mdSpans = pattern === 0 ? 'md:col-span-2 md:row-span-2' :
-							               pattern === 1 ? 'md:col-span-1 md:row-span-1' :
-							               pattern === 2 ? 'md:col-span-1 md:row-span-1' :
-							               pattern === 3 ? 'md:col-span-2 md:row-span-1' :
-							               pattern === 4 ? 'md:col-span-1 md:row-span-1' :
-							               'md:col-span-1 md:row-span-1';
-							const lgSpans = pattern === 0 ? 'lg:col-span-2 lg:row-span-2' :
-							               pattern === 1 ? 'lg:col-span-1 lg:row-span-2' :
-							               pattern === 2 ? 'lg:col-span-2 lg:row-span-1' :
-							               pattern === 3 ? 'lg:col-span-1 lg:row-span-1' :
-							               pattern === 4 ? 'lg:col-span-1 lg:row-span-1' :
-							               'lg:col-span-2 lg:row-span-1';
+							const isPortrait = index % 3 === 0 || index % 5 === 0;
+							const aspectRatio = isPortrait ? 'aspect-[3/4]' : 'aspect-[4/3]';
 
 							return (
-								<figure class:list={[`group relative overflow-hidden backdrop-blur-xl bg-stone-900/60 rounded-2xl h-full`, mdSpans, lgSpans]}>
+								<figure class={`group relative overflow-hidden backdrop-blur-xl bg-stone-900/60 rounded-2xl break-inside-avoid cursor-pointer ${aspectRatio}`} data-lightbox-index={index}>
 									<picture class="block w-full h-full">
 										<source srcset={image.src} type="image/jpeg" />
-										<img src={image.src} alt={image.alt} loading="lazy" class="w-full h-full object-cover transition-transform duration-[var(--transition-slow)]" />
+										<img src={image.src} alt={image.alt} loading="lazy" class="w-full h-full object-cover transition-transform duration-[var(--transition-slow)] group-hover:scale-105" />
 									</picture>
 								</figure>
 							);
 						})}
 					</div>
 				</div>
+
+				<Lightbox images={config.gallery} />
 				</div>
 				<div class="md:hidden flex flex-col items-center justify-center gap-6 min-h-[50vh] px-4">
 					<a href="/gallery" class="inline-flex items-center gap-3 bg-white hover:bg-white/90 text-stone-900 font-semibold px-8 py-4 rounded-[var(--radius-md)] transition-all duration-[var(--transition-fast)] tracking-wide">
-						<span>View Gallery</span>
+						<span>View gallery</span>
 						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
 						</svg>
@@ -117,18 +106,17 @@ import Hero from '../components/Hero.astro';
 
 		<section id="testimonials" class="relative py-24 md:py-32 px-6 snap-start min-h-screen md:min-h-[100dvh]" aria-labelledby="testimonials-heading">
 			<div class="max-w-7xl mx-auto">
-				<div class="backdrop-blur-xl bg-stone-900/60 rounded-2xl p-8 md:p-16 shadow-xl">
-					<div class="text-center mb-16">
+				<div class="text-center mb-16">
 					<p class="text-amber-500 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
 						Testimonials
 					</p>
 					<h2 id="testimonials-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
-						Client Stories
+						Client stories
 					</h2>
 				</div>
-				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 					{config.testimonials.map((testimonial) => (
-						<figure class="bg-stone-800 p-8 hover:bg-stone-700 transition-colors duration-[var(--transition-fast)]">
+						<figure class="backdrop-blur-xl bg-stone-900/60 rounded-2xl p-8">
 							<blockquote class="text-stone-300 leading-relaxed mb-6 text-lg font-light">
 								"{testimonial.quote}"
 							</blockquote>
@@ -143,14 +131,13 @@ import Hero from '../components/Hero.astro';
 						</figure>
 					))}
 				</div>
-				</div>
 			</div>
 		</section>
 
 	<section id="contact" class="relative py-24 md:py-32 px-6 snap-start min-h-screen md:min-h-[100dvh] flex items-center" aria-labelledby="contact-heading">
 		<div class="max-w-7xl mx-auto w-full text-center">
 			<p class="text-amber-600 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
-				Get Started
+				Get started
 			</p>
 			<h2 id="contact-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6">
 				{config.contact.headline}

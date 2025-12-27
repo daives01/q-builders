@@ -29,7 +29,7 @@ interface Config {
 export const config: Config = {
 	hero: {
 		headline: "Q Builders",
-		subline: "Custom residential construction in the Greater Denver Area",
+		subline: "Custom residential construction in the Greater Denver area",
 		blueprintImage: "/hero-blueprint-old.jpg",
 		framingImage: "/hero-framing.jpg",
 		houseImage: "/hero-image.jpeg",
@@ -38,26 +38,27 @@ export const config: Config = {
 	about: {
 		name: "Tommy Cagle",
 		photo: "/profile-picture.jpg",
-		bio: "I've been building custom homes in Denver for over 10 years. I'm hands-on with every project—you’ll see me on-site, not just in meetings. I care about getting the details right and keeping you in the loop throughout the entire build.",
+		bio: "I've been building custom homes in Denver for over 10 years. My job is to make sure you get the exact home you want at the price you expect.\
+		I'm very good at finding what's worth spending and what's not ",
 		stats: [
-			{ label: "Homes Built", value: "38" },
-			{ label: "Years Experience", value: "10+" },
-			{ label: "Denver Neighborhoods", value: "12" }
+			{ label: "Homes built", value: "38" },
+			{ label: "Years of experience", value: "10+" },
+			{ label: "Denver neighborhoods", value: "12" }
 		]
 	},
 	gallery: [
-		{ src: "/knox/knox-front.jpg", alt: "Knox residence front" },
-		{ src: "/knox/knox-deck.jpg", alt: "Knox deck" },
-		{ src: "/knox/knox-kitchen.jpg", alt: "Knox kitchen" },
-		{ src: "/knox/knox-outside.jpg", alt: "Knox exterior" },
+		{ src: "/wolf/wolf-living-room.jpeg", alt: "Wolf living room" },
+		{ src: "/wolf/wolf-bathroom.jpeg", alt: "Wolf bathroom" },
+		{ src: "/wolf/wolf-dining-room.jpeg", alt: "Wolf dining room" },
+		{ src: "/wolf/wolf-pantry.jpeg", alt: "Wolf pantry" },
 		{ src: "/lowell/lowell-front.jpg", alt: "Lowell residence front" },
 		{ src: "/lowell/lowell-living-room.jpg", alt: "Lowell living room" },
 		{ src: "/lowell/lowell-main-room.jpg", alt: "Lowell main room" },
 		{ src: "/lowell/lowell-bedroom.jpg", alt: "Lowell bedroom" },
-		{ src: "/wolf/wolf-living-room.jpeg", alt: "Wolf living room" },
-		{ src: "/wolf/wolf-dining-room.jpeg", alt: "Wolf dining room" },
-		{ src: "/wolf/wolf-bathroom.jpeg", alt: "Wolf bathroom" },
-		{ src: "/wolf/wolf-pantry.jpeg", alt: "Wolf pantry" }
+		{ src: "/knox/knox-front.jpg", alt: "Knox residence front" },
+		{ src: "/knox/knox-deck.jpg", alt: "Knox deck" },
+		{ src: "/knox/knox-kitchen.jpg", alt: "Knox kitchen" },
+		{ src: "/knox/knox-outside.jpg", alt: "Knox exterior" },
 	],
 	testimonials: [
 		{ quote: "Tommy was on-site almost every day. We always knew exactly where things stood, and he caught issues before they became problems.", name: "Sarah & Tom", neighborhood: "Cherry Creek", project: "Custom Build" },
@@ -68,8 +69,8 @@ export const config: Config = {
 		{ quote: "Clear communication from day one. There were no surprises on the invoice and the finish work is exceptional.", name: "Chris & Amy", neighborhood: "Capitol Hill", project: "Victorian Restoration" }
 	],
 	contact: {
-		headline: "Let's Talk",
-		description: "Thinking about building or renovating? Reach out and we can discuss your project and budget."
+		headline: "Let's talk",
+		description: "Thinking about building your dream home? I'm just an email away."
 	}
 };
 

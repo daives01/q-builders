@@ -1,0 +1,142 @@
+---
+interface Props {
+	images: Array<{ src: string; alt: string }>;
+}
+
+const { images } = Astro.props;
+---
+
+<div id="lightbox" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-xl flex items-center justify-center p-4" role="dialog" aria-modal="true" data-lightbox-images={JSON.stringify(images)}>
+	<button id="lightbox-close" class="absolute top-6 right-6 text-white hover:text-white/80 transition-colors p-2 rounded-full bg-white/10 hover:bg-white/20" aria-label="Close lightbox">
+		<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+		</svg>
+	</button>
+
+	<button id="lightbox-prev" class="absolute left-4 text-white hover:text-white/80 transition-colors p-4 rounded-full bg-white/10 hover:bg-white/20" aria-label="Previous image">
+		<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+		</svg>
+	</button>
+
+	<button id="lightbox-next" class="absolute right-4 text-white hover:text-white/80 transition-colors p-4 rounded-full bg-white/10 hover:bg-white/20" aria-label="Next image">
+		<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+		</svg>
+	</button>
+
+	<img id="lightbox-image" src="" alt="" class="max-w-full max-h-[90vh] object-contain rounded-lg" />
+
+	<div id="lightbox-counter" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/80 text-sm font-medium bg-black/50 px-4 py-2 rounded-full">
+		<span id="lightbox-current">1</span> / <span id="lightbox-total">{images.length}</span>
+	</div>
+</div>
+
+<script is:inline>
+	(() => {
+		const lightbox = document.getElementById('lightbox');
+		if (lightbox) {
+			const imagesData = lightbox.getAttribute('data-lightbox-images');
+			if (imagesData) {
+				window.lightboxImages = JSON.parse(imagesData);
+			}
+		}
+	})();
+</script>
+
+<script>
+	const lightbox = document.getElementById('lightbox');
+	const lightboxImage = document.getElementById('lightbox-image');
+	const lightboxClose = document.getElementById('lightbox-close');
+	const lightboxPrev = document.getElementById('lightbox-prev');
+	const lightboxNext = document.getElementById('lightbox-next');
+	const lightboxCurrent = document.getElementById('lightbox-current');
+
+	let currentIndex = 0;
+	let images = window.lightboxImages || [];
+
+	const updateImage = (index) => {
+		if (lightboxImage) {
+			lightboxImage.src = images[index].src;
+			lightboxImage.alt = images[index].alt;
+		}
+		if (lightboxCurrent) {
+			lightboxCurrent.textContent = String(index + 1);
+		}
+	};
+
+	const showLightbox = (index) => {
+		currentIndex = index;
+		updateImage(currentIndex);
+		if (lightbox) {
+			lightbox.classList.remove('hidden');
+			document.body.style.overflow = 'hidden';
+		}
+	};
+
+	const closeLightbox = () => {
+		if (lightbox) {
+			lightbox.classList.add('hidden');
+			document.body.style.overflow = '';
+		}
+	};
+
+	const nextImage = () => {
+		currentIndex = (currentIndex + 1) % images.length;
+		updateImage(currentIndex);
+	};
+
+	const prevImage = () => {
+		currentIndex = (currentIndex - 1 + images.length) % images.length;
+		updateImage(currentIndex);
+	};
+
+	document.addEventListener('DOMContentLoaded', () => {
+		const galleryImages = document.querySelectorAll('[data-lightbox-index]');
+		
+		galleryImages.forEach((img) => {
+			img.addEventListener('click', () => {
+				const index = parseInt(img.getAttribute('data-lightbox-index') || '0');
+				showLightbox(index);
+			});
+		});
+
+		if (lightboxClose) {
+			lightboxClose.addEventListener('click', closeLightbox);
+		}
+
+		if (lightboxPrev) {
+			lightboxPrev.addEventListener('click', (e) => {
+				e.stopPropagation();
+				prevImage();
+			});
+		}
+
+		if (lightboxNext) {
+			lightboxNext.addEventListener('click', (e) => {
+				e.stopPropagation();
+				nextImage();
+			});
+		}
+
+		if (lightbox) {
+			lightbox.addEventListener('click', (e) => {
+				if (e.target === lightbox) {
+					closeLightbox();
+				}
+			});
+		}
+
+		document.addEventListener('keydown', (e) => {
+			if (lightbox && !lightbox.classList.contains('hidden')) {
+				if (e.key === 'Escape') {
+					closeLightbox();
+				} else if (e.key === 'ArrowRight') {
+					nextImage();
+				} else if (e.key === 'ArrowLeft') {
+					prevImage();
+				}
+			}
+		});
+	});
+</script>
