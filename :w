@@ -91,10 +91,10 @@
 
 		let isDesktop = window.innerWidth >= 768;
 		const transitionDistance = window.innerHeight * 4;
-		let spotlightRadius = 350;
+		let spotlightRadius = 250;
 		let easingFactor = 0.25;
-		let gradientMidOpacity = 0.25;
-		let gradientMidMultiplier = 0.5;
+		let gradientMidOpacity = 1;
+		let gradientMidMultiplier = 0.0;
 		const centerOpacity = 0.0;
 		const outerOpacity = 1;
 		const delayBlueprintFade = 1000;
