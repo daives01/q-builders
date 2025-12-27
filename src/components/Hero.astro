@@ -1,0 +1,224 @@
+---
+import { config } from '../config';
+---
+
+<section id="hero" class="relative h-screen md:h-dvh flex items-center justify-center overflow-hidden snap-start md:cursor-none" aria-labelledby="hero-heading">
+	<div class="absolute inset-0" aria-hidden="true">
+		<img id="hero-house" src={config.hero.backgroundImage} alt="" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
+		<img id="hero-blueprint" src={config.hero.blueprintImage} alt="" class="absolute inset-0 w-full h-full object-cover md:hidden will-change-mask" fetchpriority="high" style="opacity: 0;" />
+		<img id="hero-blueprint-desktop" src={config.hero.blueprintImage} alt="" class="absolute inset-0 w-full h-full object-cover hidden md:block will-change-mask" />
+	</div>
+	<div id="hero-overlay" class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60 pointer-events-none md:hidden" aria-hidden="true" />
+	<div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+		<h1 id="hero-heading" class="text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight mb-8 leading-tight animate-fade-in-up">
+			{config.hero.headline}
+		</h1>
+		<p class="text-xl md:text-2xl text-white/90 mb-12 font-light max-w-2xl mx-auto leading-relaxed animate-fade-in-up">
+			{config.hero.subline}
+		</p>
+		<a href={`mailto:${config.hero.email}`} class="inline-flex items-center gap-3 bg-white hover:bg-white/90 text-stone-900 font-semibold px-8 py-4 rounded-none transition-all duration-300 tracking-wide group animate-fade-in-up" aria-label="Start your project with Q Builders">
+			<span>Start Your Project</span>
+			<svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+			</svg>
+		</a>
+	</div>
+	<div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 animate-bounce" aria-hidden="true">
+		<svg class="w-6 h-6 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+		</svg>
+	</div>
+</section>
+
+<style>
+	@keyframes fade-in-up {
+		from { opacity: 0; transform: translateY(20px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+
+	.animate-fade-in-up {
+		animation: fade-in-up 1s ease-out;
+	}
+
+	.will-change-mask {
+		will-change: mask-image, opacity;
+		backface-visibility: hidden;
+		transform: translateZ(0);
+	}
+</style>
+
+<script>
+	const initBlueprintReveal = () => {
+		const heroSection = document.getElementById('hero');
+		const blueprintDesktop = document.getElementById('hero-blueprint-desktop');
+		const blueprintMobile = document.getElementById('hero-blueprint');
+		if (!heroSection || !blueprintDesktop || !blueprintMobile) return;
+
+		const setHeroHeight = () => {
+			if (!heroSection) return;
+			const isMobile = window.innerWidth < 768;
+			if (!isMobile) {
+				heroSection.style.height = `${window.innerHeight}px`;
+			} else {
+				heroSection.style.height = '';
+			}
+		};
+
+		window.addEventListener('resize', setHeroHeight, { passive: true });
+		window.addEventListener('orientationchange', setHeroHeight);
+		setHeroHeight();
+
+		let cleanup: (() => void) | null = null;
+		let isMobile = window.innerWidth < 768;
+
+		const initMode = () => {
+			if (cleanup) {
+				cleanup();
+				cleanup = null;
+			}
+
+			if (isMobile) {
+				initMobileCycle();
+			} else {
+				initDesktopFlashlight();
+			}
+		};
+
+		const handleResize = () => {
+			const newIsMobile = window.innerWidth < 768;
+			if (newIsMobile !== isMobile) {
+				isMobile = newIsMobile;
+				initMode();
+			}
+		};
+
+		function initDesktopFlashlight() {
+			if (!heroSection || !blueprintDesktop) return;
+
+			let mouseX = window.innerWidth / 2;
+			let mouseY = window.innerHeight / 2;
+			let currentX = mouseX;
+			let currentY = mouseY;
+			let animationId: number | null = null;
+
+			const updatePosition = () => {
+				if (!blueprintDesktop) return;
+
+				currentX += (mouseX - currentX) * 0.15;
+				currentY += (mouseY - currentY) * 0.15;
+
+				const radius = Math.min(window.innerWidth, window.innerHeight) * 0.25;
+
+				blueprintDesktop.style.maskImage = `radial-gradient(circle ${radius}px at ${currentX}px ${currentY}px, black 0%, rgba(0,0,0,0.7) 70%, transparent 100%)`;
+				blueprintDesktop.style.webkitMaskImage = `radial-gradient(circle ${radius}px at ${currentX}px ${currentY}px, black 0%, rgba(0,0,0,0.7) 70%, transparent 100%)`;
+
+				animationId = requestAnimationFrame(updatePosition);
+			};
+
+			const onMouseMove = (e: MouseEvent) => {
+				mouseX = e.clientX;
+				mouseY = e.clientY;
+			};
+
+			heroSection.addEventListener('mousemove', onMouseMove, { passive: true });
+			animationId = requestAnimationFrame(updatePosition);
+
+			cleanup = () => {
+				heroSection.removeEventListener('mousemove', onMouseMove);
+				if (animationId) cancelAnimationFrame(animationId);
+				if (blueprintDesktop) {
+					blueprintDesktop.style.maskImage = '';
+					blueprintDesktop.style.webkitMaskImage = '';
+				}
+			};
+		}
+
+		function initMobileCycle() {
+			if (!heroSection || !blueprintMobile) return;
+
+			let animationFrame: number | null = null;
+			let lastTime = performance.now();
+			let phase = 'blueprint_fade_in';
+			let progress = 0;
+
+			const cycleDuration = 12000;
+			const fadeInDuration = 2500;
+			const holdDuration = 4000;
+			const fadeOutDuration = 2500;
+
+			const animate = (currentTime: number) => {
+				const deltaTime = currentTime - lastTime;
+				lastTime = currentTime;
+
+				progress += deltaTime;
+
+				switch (phase) {
+					case 'blueprint_fade_in':
+						blueprintMobile.style.transition = 'opacity 2.5s ease-in-out';
+						blueprintMobile.style.opacity = `${Math.min(progress / fadeInDuration, 1)}`;
+
+						if (progress >= fadeInDuration) {
+							phase = 'blueprint_hold';
+							progress = 0;
+						}
+						break;
+
+					case 'blueprint_hold':
+						blueprintMobile.style.opacity = '1';
+
+						if (progress >= holdDuration) {
+							phase = 'blueprint_fade_out';
+							progress = 0;
+						}
+						break;
+
+					case 'blueprint_fade_out':
+						blueprintMobile.style.transition = 'opacity 2.5s ease-in-out';
+						blueprintMobile.style.opacity = `${1 - Math.min(progress / fadeOutDuration, 1)}`;
+
+						if (progress >= fadeOutDuration) {
+							phase = 'house_hold';
+							progress = 0;
+						}
+						break;
+
+					case 'house_hold':
+						blueprintMobile.style.opacity = '0';
+
+						if (progress >= holdDuration) {
+							phase = 'blueprint_fade_in';
+							progress = 0;
+						}
+						break;
+				}
+
+				animationFrame = requestAnimationFrame(animate);
+			};
+
+			animationFrame = requestAnimationFrame(animate);
+
+			cleanup = () => {
+				if (animationFrame) cancelAnimationFrame(animationFrame);
+				if (blueprintMobile) {
+					blueprintMobile.style.opacity = '0';
+					blueprintMobile.style.transition = '';
+				}
+			};
+		}
+
+		window.addEventListener('resize', handleResize, { passive: true });
+		initMode();
+
+		cleanup = () => {
+			window.removeEventListener('resize', handleResize);
+			window.removeEventListener('resize', setHeroHeight);
+			window.removeEventListener('orientationchange', setHeroHeight);
+		};
+	};
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initBlueprintReveal);
+	} else {
+		initBlueprintReveal();
+	}
+</script>

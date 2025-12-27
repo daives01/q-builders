@@ -1,101 +1,78 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { config } from '../config';
+import Hero from '../components/Hero.astro';
 ---
 
 <Layout>
-	<main class="scroll-smooth">
-		<section id="hero" class="relative h-screen flex items-center justify-center scroll-snap-start scroll-mt-0">
-			<picture class="absolute inset-0">
-				<source srcset={config.hero.backgroundImage} type="image/jpeg" />
-				<img src={config.hero.backgroundImage} alt="Custom home exterior" class="w-full h-full object-cover" />
-			</picture>
-			<div class="absolute inset-0 bg-black/40" />
-			<div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-				<h1 class="text-5xl md:text-7xl font-bold text-white tracking-tight mb-4">
-					{config.hero.headline}
-				</h1>
-				<p class="text-xl md:text-2xl text-gray-100 mb-8 font-light">
-					{config.hero.subline}
-				</p>
-				<a href={`mailto:${config.hero.email}`} class="inline-block bg-amber-500 hover:bg-amber-600 text-white font-semibold px-8 py-4 rounded-lg transition-colors">
-					Email Me
-				</a>
-			</div>
-		</section>
+	<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 transform -translate-y-full" aria-label="Main navigation">
+		<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+			<span class="text-xl font-semibold tracking-tight text-white">Q Builders</span>
+			<a href={`mailto:${config.hero.email}`} class="text-white/90 hover:text-white text-sm tracking-wide transition-colors" aria-label="Send email to Q Builders">
+				Get in Touch
+			</a>
+		</div>
+	</nav>
 
-		<section id="about" class="min-h-screen flex items-center justify-center py-20 px-4 bg-stone-50 scroll-snap-start">
-			<div class="max-w-5xl mx-auto w-full">
-				<div class="grid md:grid-cols-2 gap-12 items-center">
-					<div class="order-2 md:order-1">
-						<h2 class="text-4xl md:text-5xl font-bold text-stone-800 tracking-tight mb-6">
+	<main class="scroll-smooth snap-y snap-mandatory">
+		<Hero />
+
+		<section id="about" class="relative py-32 px-6 bg-white snap-start" aria-labelledby="about-heading">
+			<div class="max-w-7xl mx-auto">
+				<div class="grid lg:grid-cols-2 gap-20 items-center">
+					<div class="relative order-2 lg:order-1">
+						<div class="absolute -top-8 -left-8 w-full h-full bg-stone-100" aria-hidden="true" />
+						<picture class="relative block">
+							<source srcset={config.about.photo} type="image/jpeg" />
+							<img src={config.about.photo} alt={config.about.name} class="w-full h-[600px] object-cover" loading="lazy" />
+						</picture>
+					</div>
+					<div class="order-1 lg:order-2">
+						<p class="text-amber-600 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
+							About Us
+						</p>
+						<h2 id="about-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-stone-900 tracking-tight mb-8 leading-tight">
 							{config.about.name}
 						</h2>
-						<p class="text-lg text-stone-600 leading-relaxed mb-8">
+						<p class="text-lg text-stone-600 leading-relaxed mb-12">
 							{config.about.bio}
 						</p>
-						<div class="grid grid-cols-2 gap-6">
-					{config.about.stats.map((stat) => (
-						<div>
-							<div class="text-3xl font-bold text-amber-600 mb-1">
-								{stat.value}
-							</div>
-							<div class="text-sm text-stone-500 uppercase tracking-wide">
-								{stat.label}
-							</div>
-						</div>
-					))}
-						</div>
-					</div>
-					<div class="order-1 md:order-2 flex justify-center">
-						<div class="relative">
-							<picture>
-								<source srcset={config.about.photo} type="image/jpeg" />
-								<img src={config.about.photo} alt={config.about.name} class="w-64 h-64 md:w-80 md:h-80 object-cover rounded-full shadow-2xl" />
-							</picture>
+						<div class="grid grid-cols-2 gap-8">
+							{config.about.stats.map((stat) => (
+								<div>
+									<div class="text-5xl font-bold text-stone-900 mb-2 tracking-tight">
+										{stat.value}
+									</div>
+									<div class="text-sm text-stone-500 uppercase tracking-wider">
+										{stat.label}
+									</div>
+								</div>
+							))}
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 
-		<section id="gallery" class="min-h-screen py-20 px-4 bg-white scroll-snap-start">
-			<div class="max-w-6xl mx-auto">
-				<h2 class="text-4xl md:text-5xl font-bold text-stone-800 tracking-tight mb-12 text-center">
-					Recent Work
-				</h2>
-				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+		<section id="gallery" class="relative py-32 px-6 bg-stone-50 snap-start" aria-labelledby="gallery-heading">
+			<div class="max-w-7xl mx-auto">
+				<div class="text-center mb-20">
+					<p class="text-amber-600 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
+						Our Work
+					</p>
+					<h2 id="gallery-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-stone-900 tracking-tight">
+						Crafted Homes
+					</h2>
+				</div>
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 					{config.gallery.map((image, index) => (
-						<div class={`relative overflow-hidden rounded-lg shadow-lg ${index === 1 ? 'md:mt-8' : ''} ${index === 4 ? 'md:-mt-8' : ''}`}>
+						<div class={`group relative overflow-hidden ${index === 0 ? 'lg:col-span-2 lg:row-span-2' : ''}`}>
 							<picture>
 								<source srcset={image.src} type="image/jpeg" />
-								<img src={image.src} alt={image.alt} loading="lazy" class="w-full h-80 object-cover transition-transform duration-300 hover:scale-105" />
+								<img src={image.src} alt={image.alt} loading="lazy" class={`w-full object-cover transition-transform duration-700 ${index === 0 ? 'h-full min-h-[600px]' : 'h-80'} group-hover:scale-105`} />
 							</picture>
-						</div>
-					))}
-				</div>
-			</div>
-		</section>
-
-		<section id="testimonials" class="min-h-screen flex items-center justify-center py-20 px-4 bg-stone-50 scroll-snap-start">
-			<div class="max-w-4xl mx-auto">
-				<h2 class="text-4xl md:text-5xl font-bold text-stone-800 tracking-tight mb-12 text-center">
-					What Clients Say
-				</h2>
-				<div class="grid gap-8">
-					{config.testimonials.map((testimonial, index) => (
-						<div class="bg-white rounded-lg shadow-md p-8">
-							<p class="text-lg text-stone-700 leading-relaxed mb-4">
-								"{testimonial.quote}"
-							</p>
-							<div class="flex items-center gap-2">
-								<div class="font-semibold text-stone-800">
-									{testimonial.name}
-								</div>
-								<span class="text-stone-400">•</span>
-								<div class="text-stone-500">
-									{testimonial.neighborhood}
-								</div>
+							<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+								<p class="text-white text-sm font-light tracking-wide">{image.alt}</p>
 							</div>
 						</div>
 					))}
@@ -103,18 +80,106 @@ import { config } from '../config';
 			</div>
 		</section>
 
-		<section id="contact" class="min-h-screen flex items-center justify-center py-20 px-4 bg-white scroll-snap-start">
-			<div class="max-w-3xl mx-auto text-center">
-				<h2 class="text-4xl md:text-5xl font-bold text-stone-800 tracking-tight mb-6">
+		<section id="testimonials" class="relative py-32 px-6 bg-stone-900 snap-start" aria-labelledby="testimonials-heading">
+			<div class="max-w-7xl mx-auto">
+				<div class="text-center mb-20">
+					<p class="text-amber-500 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
+						Testimonials
+					</p>
+					<h2 id="testimonials-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
+						Client Stories
+					</h2>
+				</div>
+				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+					{config.testimonials.map((testimonial) => (
+						<figure class="bg-stone-800/50 p-10 hover:bg-stone-800 transition-colors duration-300">
+							<blockquote class="text-stone-300 leading-relaxed mb-8 text-lg font-light">
+								"{testimonial.quote}"
+							</blockquote>
+							<figcaption>
+								<div class="text-white font-semibold mb-1">
+									{testimonial.name}
+								</div>
+								<div class="text-stone-500 text-sm">
+									{testimonial.neighborhood}
+								</div>
+							</figcaption>
+						</figure>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section id="contact" class="relative py-32 px-6 bg-white snap-start" aria-labelledby="contact-heading">
+			<div class="max-w-4xl mx-auto text-center">
+				<p class="text-amber-600 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
+					Get Started
+				</p>
+				<h2 id="contact-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-stone-900 tracking-tight mb-8">
 					{config.contact.headline}
 				</h2>
-				<p class="text-lg text-stone-600 mb-8 leading-relaxed">
+				<p class="text-xl text-stone-600 mb-12 leading-relaxed max-w-2xl mx-auto">
 					{config.contact.description}
 				</p>
-				<a href={`mailto:${config.hero.email}`} class="inline-block bg-amber-500 hover:bg-amber-600 text-white font-semibold px-8 py-4 rounded-lg transition-colors text-lg">
-					{config.hero.email}
+				<a href={`mailto:${config.hero.email}`} class="inline-flex items-center gap-3 bg-stone-900 hover:bg-stone-800 text-white font-semibold px-10 py-5 transition-all duration-300 tracking-wide group" aria-label={`Send email to ${config.hero.email}`}>
+					<span>{config.hero.email}</span>
+					<svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+					</svg>
 				</a>
+				<dl class="mt-16 grid grid-cols-3 gap-8 pt-16 border-t border-stone-200">
+					<div>
+						<dt class="text-2xl font-bold text-stone-900 mb-2">Denver</dt>
+						<dd class="text-stone-500">Colorado</dd>
+					</div>
+					<div>
+						<dt class="text-2xl font-bold text-stone-900 mb-2">{config.about.stats[0].value}</dt>
+						<dd class="text-stone-500">Homes Crafted</dd>
+					</div>
+					<div>
+						<dt class="text-2xl font-bold text-stone-900 mb-2">{config.about.stats[1].value}</dt>
+						<dd class="text-stone-500">Years Experience</dd>
+					</div>
+				</dl>
 			</div>
 		</section>
 	</main>
+
+	<script>
+		const createNavbar = () => {
+			const navbar = document.getElementById('navbar');
+			if (!navbar) return;
+
+			let ticking = false;
+
+			const updateNavbar = () => {
+				const scrollY = window.scrollY || window.pageYOffset;
+
+				if (scrollY > 100) {
+					navbar.classList.remove('-translate-y-full');
+					navbar.classList.add('translate-y-0', 'bg-stone-900/95', 'backdrop-blur-md');
+				} else {
+					navbar.classList.add('-translate-y-full');
+					navbar.classList.remove('translate-y-0', 'bg-stone-900/95', 'backdrop-blur-md');
+				}
+
+				ticking = false;
+			};
+
+			const onScroll = () => {
+				if (!ticking) {
+					window.requestAnimationFrame(() => {
+						updateNavbar();
+					});
+					ticking = true;
+				}
+			};
+
+			window.addEventListener('scroll', onScroll, { passive: true });
+		};
+
+		document.addEventListener('DOMContentLoaded', () => {
+			createNavbar();
+		});
+	</script>
 </Layout>

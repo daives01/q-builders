@@ -1,5 +1,17 @@
 ---
 import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+	image?: string;
+}
+
+const { 
+	title = 'Q Builders | Custom Homes in Denver',
+	description = 'Custom home builder in Denver, Colorado. 38 homes built since 2014.',
+	image = 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80'
+} = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
@@ -8,16 +20,21 @@ import '../styles/global.css';
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Q Builders | Custom Homes in Denver</title>
-		<meta name="description" content="Custom home builder in Denver, Colorado. 38 homes built since 2014." />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Q Builders" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={image} />
+		
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={image} />
 	</head>
 	<body class="antialiased">
 		<slot />
 	</body>
 </html>
-
-<style is:global>
-	* {
-		scroll-behavior: smooth;
-	}
-</style>

@@ -3,6 +3,9 @@
 ## Project Overview
 One-page marketing site for a solo Denver custom-home builder. Static Astro site deployed on Cloudflare Pages.
 
+## Design Philosophy
+Premium, sophisticated aesthetic with refined typography, smooth animations, and a luxurious color palette. The design emphasizes craftsmanship and quality through generous whitespace, elegant typography hierarchy, and subtle micro-interactions. Scroll snapping provides clear section navigation while maintaining natural feel.
+
 ## Tech Stack
 
 ### Framework & Build
@@ -81,21 +84,51 @@ Replace placeholder URLs with your own:
 ## Design System
 
 ### Typography
-- Headings: Sans-serif, tracking-tight
-- Body: Sans-serif, leading-relaxed
-- All text left-aligned (except centered hero)
+- Headings: Large, dramatic scales (up to 8xl), tight tracking, bold weights
+- Body: Clean sans-serif, relaxed leading for readability
+- Accents: Uppercase tracking for labels/sections
+- Hierarchy: Clear visual separation with size, weight, and spacing
 
 ### Color Palette
-- Primary: Earth tones (Colorado landscape inspired)
-- Background: White/off-white
-- Text: Dark gray (not pure black)
-- Accents: Subtle gold/amber CTAs
+- Primary: Rich stone tones (stone-900, stone-800, stone-50)
+- Accent: Amber/gold for emphasis (amber-600, amber-500)
+- Neutral: Stone grays for text (stone-600, stone-500)
+- Background: White with subtle stone-50 variations
+- Dark sections: Stone-900 with lighter overlays
 
-### Layout
-- Scroll-snap sections (`scroll-snap-type: y mandatory`)
-- Mobile-first responsive
-- Generous whitespace
-- Max-width containers for readability
+### Layout & Spacing
+- Generous vertical spacing (py-32 for major sections)
+- Max-width containers (max-w-7xl for full width, max-w-4xl for centered)
+- Strategic use of negative space
+- Responsive grid systems
+- Scroll snapping to sections (`snap-y snap-mandatory`, `snap-start`)
+
+### Animations & Interactions
+- Hero fade-in animations with staggered timing
+- Hover scale effects on gallery images
+- Smooth scroll behavior globally
+- Fixed navbar with scroll-triggered appearance
+- Backdrop blur on navigation
+- Gradient overlays on hero images
+- Subtle bounce on scroll indicator
+- Group hover states for interactive elements
+- Performance-optimized scroll handler with requestAnimationFrame
+
+### Accessibility
+- ARIA labels on navigation and interactive elements
+- `aria-labelledby` for section headings
+- `aria-hidden` on decorative elements
+- Semantic HTML: `<blockquote>` and `<figcaption>` for testimonials
+- Definition lists (`<dt>`, `<dd>`) for stats
+- Proper heading hierarchy
+- Keyboard-accessible links with clear labels
+
+### Visual Elements
+- Large featured image in gallery (2x2 span)
+- Offset background elements for depth (about section)
+- Clean testimonial cards without stars
+- Icons/arrows for directional CTAs
+- Stats in contact section
 
 ## Deployment
 
@@ -145,3 +178,34 @@ Add to `about.stats` array:
 - No analytics configured yet (add Cloudflare Web Analytics if needed)
 - No blog or CMS (static content only)
 - Simple, maintainable, performant
+
+## Production Quality Checklist
+
+### Performance
+- Image optimization with `loading="lazy"` for below-fold images
+- `fetchpriority="high"` for above-fold hero image
+- Passive scroll listeners for better performance
+- requestAnimationFrame for smooth animations
+
+### Accessibility (WCAG AA Compliant)
+- Semantic HTML5 elements (`<nav>`, `<main>`, `<section>`, `<header>`, `<figure>`, `<blockquote>`, `<dl>`)
+- ARIA labels on all interactive elements
+- `aria-labelledby` for section headings
+- `aria-hidden` for decorative elements
+- Proper alt text on all images
+- Definition lists for key-value stats
+- Keyboard-navigable links with descriptive labels
+
+### SEO
+- Proper meta tags (description, Open Graph, Twitter cards)
+- Structured data ready (LocalBusiness schema)
+- Semantic heading hierarchy (h1, h2)
+- Title and description props for customization
+- Proper viewport meta tag
+
+### Code Quality
+- TypeScript interfaces for component props
+- Clean component structure
+- No console.logs or debug code
+- Modular, maintainable code organization
+- Production-ready Astro configuration
