@@ -2,28 +2,35 @@
 import { config } from '../config';
 ---
 
-<section id="hero" class="relative h-screen md:h-dvh flex items-center justify-center overflow-hidden snap-start md:cursor-none" aria-labelledby="hero-heading">
-	<div class="absolute inset-0" aria-hidden="true">
-		<img id="hero-house" src={config.hero.backgroundImage} alt="" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
-		<img id="hero-blueprint" src={config.hero.blueprintImage} alt="" class="absolute inset-0 w-full h-full object-cover md:hidden will-change-mask" fetchpriority="high" style="opacity: 0;" />
-		<img id="hero-blueprint-desktop" src={config.hero.blueprintImage} alt="" class="absolute inset-0 w-full h-full object-cover hidden md:block will-change-mask" />
+<div id="hero-backgrounds" class="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
+	<img id="hero-blueprint" src={config.hero.blueprintImage} alt="" class="hero-layer absolute inset-0 w-full h-full object-cover transition-opacity duration-[var(--transition-slow)] ease-in-out" style="opacity: 1;" fetchpriority="high" />
+	<img id="hero-framing" src={config.hero.framingImage} alt="" class="hero-layer absolute inset-0 w-full h-full object-cover transition-opacity duration-[var(--transition-slow)] ease-in-out hidden md:block" style="opacity: 0;" fetchpriority="high" />
+	<img id="hero-house" src={config.hero.houseImage} alt="" class="hero-layer absolute inset-0 w-full h-full object-cover transition-opacity duration-[var(--transition-slow)] ease-in-out hidden md:block" style="opacity: 0;" fetchpriority="high" />
+	<img id="hero-framing-mobile" src={config.hero.framingImage} alt="" class="hero-layer absolute inset-0 w-full h-full object-cover transition-opacity duration-[var(--transition-slow)] ease-in-out md:hidden" style="opacity: 0;" fetchpriority="high" />
+	<img id="hero-house-mobile" src={config.hero.houseImage} alt="" class="hero-layer absolute inset-0 w-full h-full object-cover transition-opacity duration-[var(--transition-slow)] ease-in-out md:hidden" style="opacity: 0;" fetchpriority="high" />
+	<div id="hero-overlay" class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60 md:from-black/35 md:via-black/20 md:to-black/60" />
+</div>
+
+<section id="hero" class="relative h-screen z-10" aria-labelledby="hero-heading">
+	<div class="absolute inset-0 flex flex-col justify-center md:justify-end px-6 md:px-16 pb-8 md:pb-40">
+		<div class="max-w-7xl mx-auto w-full text-center md:text-left">
+			<h1 id="hero-heading" class="text-5xl md:text-6xl lg:text-8xl font-bold text-white tracking-tight mb-6 leading-tight animate-fade-in md:drop-shadow-lg">
+				{config.hero.headline}
+			</h1>
+			<p class="text-xl md:text-2xl lg:text-3xl text-white/95 mb-10 font-normal max-w-4xl md:max-w-5xl lg:max-w-7xl mx-auto md:mx-0 leading-relaxed animate-fade-in drop-shadow-sm md:drop-shadow-md">
+				{config.hero.subline}
+			</p>
+		</div>
 	</div>
-	<div id="hero-overlay" class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60 pointer-events-none md:hidden" aria-hidden="true" />
-	<div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
-		<h1 id="hero-heading" class="text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight mb-8 leading-tight animate-fade-in-up">
-			{config.hero.headline}
-		</h1>
-		<p class="text-xl md:text-2xl text-white/90 mb-12 font-light max-w-2xl mx-auto leading-relaxed animate-fade-in-up">
-			{config.hero.subline}
-		</p>
-		<a href={`mailto:${config.hero.email}`} class="inline-flex items-center gap-3 bg-white hover:bg-white/90 text-stone-900 font-semibold px-8 py-4 rounded-none transition-all duration-300 tracking-wide group animate-fade-in-up" aria-label="Start your project with Q Builders">
+	<div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-20">
+		<a href={`mailto:${config.hero.email}`} class="inline-flex items-center gap-3 bg-white hover:bg-white/90 text-stone-900 font-semibold px-6 md:px-8 py-3 md:py-4 rounded-[var(--radius-md)] transition-all duration-[var(--transition-fast)] tracking-wide group animate-fade-in" aria-label="Start your project with Q Builders">
 			<span>Start Your Project</span>
 			<svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
 				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
 			</svg>
 		</a>
 	</div>
-	<div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 animate-bounce" aria-hidden="true">
+	<div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce z-10" aria-hidden="true">
 		<svg class="w-6 h-6 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
 		</svg>
@@ -31,194 +38,199 @@ import { config } from '../config';
 </section>
 
 <style>
-	@keyframes fade-in-up {
+	@keyframes fade-in {
 		from { opacity: 0; transform: translateY(20px); }
 		to { opacity: 1; transform: translateY(0); }
 	}
 
-	.animate-fade-in-up {
-		animation: fade-in-up 1s ease-out;
+	.animate-fade-in {
+		animation: fade-in 1s ease-out 1s backwards;
 	}
 
-	.will-change-mask {
-		will-change: mask-image, opacity;
-		backface-visibility: hidden;
-		transform: translateZ(0);
+	.animate-fade-in:nth-child(2) { animation-delay: 1.2s; }
+	.animate-fade-in:nth-child(3) { animation-delay: 1.4s; }
+
+	.hero-layer {
+		will-change: opacity;
+	}
+
+	@media (min-width: 768px) {
+		.hero-layer {
+			will-change: mask-image, opacity;
+		}
 	}
 </style>
 
 <script>
-	const initBlueprintReveal = () => {
+	const initHeroEffects = () => {
 		const heroSection = document.getElementById('hero');
-		const blueprintDesktop = document.getElementById('hero-blueprint-desktop');
-		const blueprintMobile = document.getElementById('hero-blueprint');
-		if (!heroSection || !blueprintDesktop || !blueprintMobile) return;
+		const blueprint = document.getElementById('hero-blueprint');
+		const framing = document.getElementById('hero-framing');
+		const house = document.getElementById('hero-house');
+		const framingMobile = document.getElementById('hero-framing-mobile');
+		const houseMobile = document.getElementById('hero-house-mobile');
 
-		const setHeroHeight = () => {
-			if (!heroSection) return;
-			const isMobile = window.innerWidth < 768;
-			if (!isMobile) {
-				heroSection.style.height = `${window.innerHeight}px`;
-			} else {
-				heroSection.style.height = '';
-			}
-		};
+		if (!heroSection || !blueprint || !framing || !house) return;
 
-		window.addEventListener('resize', setHeroHeight, { passive: true });
-		window.addEventListener('orientationchange', setHeroHeight);
-		setHeroHeight();
+		let isDesktop = window.innerWidth >= 768;
+		const transitionDistance = window.innerHeight * 4;
+		const spotlightRadius = 250;
 
-		let cleanup: (() => void) | null = null;
-		let isMobile = window.innerWidth < 768;
+		let mouseX = window.innerWidth / 2;
+		let mouseY = window.innerHeight / 2;
+		let currentX = mouseX;
+		let currentY = mouseY;
+		let animationFrame: number | null = null;
+		let ticking = false;
 
-		const initMode = () => {
-			if (cleanup) {
-				cleanup();
-				cleanup = null;
-			}
+		if (isDesktop) {
+			blueprint.style.opacity = '0';
+			framing.style.opacity = '1';
+			house.style.opacity = '1';
+		} else {
+			blueprint.style.opacity = '1';
+			framingMobile!.style.opacity = '0';
+			houseMobile!.style.opacity = '0';
+		}
 
-			if (isMobile) {
-				initMobileCycle();
-			} else {
-				initDesktopFlashlight();
-			}
-		};
-
-		const handleResize = () => {
-			const newIsMobile = window.innerWidth < 768;
-			if (newIsMobile !== isMobile) {
-				isMobile = newIsMobile;
-				initMode();
-			}
-		};
-
-		function initDesktopFlashlight() {
-			if (!heroSection || !blueprintDesktop) return;
-
-			let mouseX = window.innerWidth / 2;
-			let mouseY = window.innerHeight / 2;
-			let currentX = mouseX;
-			let currentY = mouseY;
-			let animationId: number | null = null;
-
-			const updatePosition = () => {
-				if (!blueprintDesktop) return;
-
+		const update = () => {
+			if (isDesktop) {
 				currentX += (mouseX - currentX) * 0.15;
 				currentY += (mouseY - currentY) * 0.15;
 
-				const radius = Math.min(window.innerWidth, window.innerHeight) * 0.25;
+				const maskGradient = `radial-gradient(circle ${spotlightRadius}px at ${currentX}px ${currentY}px, transparent 0%, rgba(0,0,0,0.3) ${spotlightRadius * 0.7}px, black ${spotlightRadius}px)`;
 
-				blueprintDesktop.style.maskImage = `radial-gradient(circle ${radius}px at ${currentX}px ${currentY}px, black 0%, rgba(0,0,0,0.7) 70%, transparent 100%)`;
-				blueprintDesktop.style.webkitMaskImage = `radial-gradient(circle ${radius}px at ${currentX}px ${currentY}px, black 0%, rgba(0,0,0,0.7) 70%, transparent 100%)`;
+				house.style.maskImage = maskGradient;
+				house.style.webkitMaskImage = maskGradient;
+				framing.style.maskImage = '';
+				framing.style.webkitMaskImage = '';
+				blueprint.style.maskImage = '';
+				blueprint.style.webkitMaskImage = '';
+			} else {
+				const scrollProgress = Math.max(0, Math.min(1, window.scrollY / transitionDistance));
 
-				animationId = requestAnimationFrame(updatePosition);
-			};
+				let blueprintOpacity = 1;
+				let framingOpacity = 0;
+				let houseOpacity = 0;
 
-			const onMouseMove = (e: MouseEvent) => {
-				mouseX = e.clientX;
-				mouseY = e.clientY;
-			};
-
-			heroSection.addEventListener('mousemove', onMouseMove, { passive: true });
-			animationId = requestAnimationFrame(updatePosition);
-
-			cleanup = () => {
-				heroSection.removeEventListener('mousemove', onMouseMove);
-				if (animationId) cancelAnimationFrame(animationId);
-				if (blueprintDesktop) {
-					blueprintDesktop.style.maskImage = '';
-					blueprintDesktop.style.webkitMaskImage = '';
-				}
-			};
-		}
-
-		function initMobileCycle() {
-			if (!heroSection || !blueprintMobile) return;
-
-			let animationFrame: number | null = null;
-			let lastTime = performance.now();
-			let phase = 'blueprint_fade_in';
-			let progress = 0;
-
-			const cycleDuration = 12000;
-			const fadeInDuration = 2500;
-			const holdDuration = 4000;
-			const fadeOutDuration = 2500;
-
-			const animate = (currentTime: number) => {
-				const deltaTime = currentTime - lastTime;
-				lastTime = currentTime;
-
-				progress += deltaTime;
-
-				switch (phase) {
-					case 'blueprint_fade_in':
-						blueprintMobile.style.transition = 'opacity 2.5s ease-in-out';
-						blueprintMobile.style.opacity = `${Math.min(progress / fadeInDuration, 1)}`;
-
-						if (progress >= fadeInDuration) {
-							phase = 'blueprint_hold';
-							progress = 0;
-						}
-						break;
-
-					case 'blueprint_hold':
-						blueprintMobile.style.opacity = '1';
-
-						if (progress >= holdDuration) {
-							phase = 'blueprint_fade_out';
-							progress = 0;
-						}
-						break;
-
-					case 'blueprint_fade_out':
-						blueprintMobile.style.transition = 'opacity 2.5s ease-in-out';
-						blueprintMobile.style.opacity = `${1 - Math.min(progress / fadeOutDuration, 1)}`;
-
-						if (progress >= fadeOutDuration) {
-							phase = 'house_hold';
-							progress = 0;
-						}
-						break;
-
-					case 'house_hold':
-						blueprintMobile.style.opacity = '0';
-
-						if (progress >= holdDuration) {
-							phase = 'blueprint_fade_in';
-							progress = 0;
-						}
-						break;
+				if (scrollProgress < 0.3) {
+					blueprintOpacity = 1;
+					framingOpacity = 0;
+					houseOpacity = 0;
+				} else if (scrollProgress < 0.5) {
+					const localProgress = (scrollProgress - 0.3) / 0.2;
+					blueprintOpacity = 1 - localProgress;
+					framingOpacity = localProgress;
+					houseOpacity = 0;
+				} else if (scrollProgress < 0.7) {
+					blueprintOpacity = 0;
+					framingOpacity = 1;
+					houseOpacity = 0;
+				} else {
+					const localProgress = (scrollProgress - 0.7) / 0.3;
+					blueprintOpacity = 0;
+					framingOpacity = 1 - localProgress;
+					houseOpacity = localProgress;
 				}
 
+				blueprint.style.opacity = `${blueprintOpacity}`;
+				if (framingMobile) framingMobile.style.opacity = `${framingOpacity}`;
+				if (houseMobile) houseMobile.style.opacity = `${houseOpacity}`;
+			}
+
+			ticking = false;
+		};
+
+		const onScroll = () => {
+			if (!ticking) {
+				window.requestAnimationFrame(update);
+				ticking = true;
+			}
+		};
+
+		const onMouseMove = (e: MouseEvent) => {
+			if (!isDesktop) return;
+			mouseX = e.clientX;
+			mouseY = e.clientY;
+			if (!ticking) {
+				ticking = true;
+			}
+		};
+
+		const animate = () => {
+			if (isDesktop) {
+				update();
 				animationFrame = requestAnimationFrame(animate);
-			};
+			}
+		};
 
-			animationFrame = requestAnimationFrame(animate);
+		window.addEventListener('scroll', onScroll, { passive: true });
 
-			cleanup = () => {
-				if (animationFrame) cancelAnimationFrame(animationFrame);
-				if (blueprintMobile) {
-					blueprintMobile.style.opacity = '0';
-					blueprintMobile.style.transition = '';
-				}
-			};
+		if (isDesktop) {
+			window.addEventListener('mousemove', onMouseMove, { passive: true });
+			animate();
 		}
+
+		const handleResize = () => {
+			const newIsDesktop = window.innerWidth >= 768;
+
+			if (newIsDesktop !== isDesktop) {
+				isDesktop = newIsDesktop;
+
+				if (isDesktop) {
+					window.removeEventListener('mousemove', onMouseMove);
+					if (animationFrame) cancelAnimationFrame(animationFrame);
+
+					window.addEventListener('mousemove', onMouseMove, { passive: true });
+					animate();
+				} else {
+					window.removeEventListener('mousemove', onMouseMove);
+					if (animationFrame) cancelAnimationFrame(animationFrame);
+
+					house.style.maskImage = '';
+					house.style.webkitMaskImage = '';
+					framing.style.maskImage = '';
+					framing.style.webkitMaskImage = '';
+
+					blueprint.style.opacity = '1';
+					if (framingMobile) framingMobile.style.opacity = '0';
+					if (houseMobile) houseMobile.style.opacity = '0';
+				}
+
+				if (isDesktop) {
+					blueprint.style.opacity = '0';
+					framing.style.opacity = '1';
+					house.style.opacity = '1';
+				}
+			}
+		};
 
 		window.addEventListener('resize', handleResize, { passive: true });
-		initMode();
 
-		cleanup = () => {
+		return () => {
+			window.removeEventListener('scroll', onScroll);
 			window.removeEventListener('resize', handleResize);
-			window.removeEventListener('resize', setHeroHeight);
-			window.removeEventListener('orientationchange', setHeroHeight);
+			if (isDesktop) {
+				window.removeEventListener('mousemove', onMouseMove);
+				if (animationFrame) cancelAnimationFrame(animationFrame);
+				house.style.maskImage = '';
+				house.style.webkitMaskImage = '';
+				framing.style.maskImage = '';
+				framing.style.webkitMaskImage = '';
+			} else {
+				if (framingMobile) {
+					framingMobile.style.opacity = '0';
+				}
+				if (houseMobile) {
+					houseMobile.style.opacity = '0';
+				}
+			}
 		};
 	};
 
 	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', initBlueprintReveal);
+		document.addEventListener('DOMContentLoaded', initHeroEffects);
 	} else {
-		initBlueprintReveal();
+		initHeroEffects();
 	}
 </script>

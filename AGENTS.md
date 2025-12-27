@@ -66,7 +66,7 @@ const config = {
   },
   gallery: [
     { src: "...", alt: "..." },
-    // ... 6-8 images
+    // ... 6-8 images (sample work, not comprehensive portfolio)
   ],
   testimonials: [
     { quote: "...", name: "Sarah", neighborhood: "LoDo" },
@@ -154,7 +154,7 @@ git push origin main    # Auto-deploys via Cloudflare Pages
 
 ## Adding New Content
 
-### New Gallery Images
+### New Gallery Images (Sample Work)
 Add to `gallery` array in config:
 ```javascript
 { src: "/images/new-home.jpg", alt: "Modern kitchen in Cherry Creek" }

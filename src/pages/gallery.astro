@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { config } from '../config';
+---
+
+<Layout title="Gallery | Q Builders">
+	<nav class="fixed top-0 left-0 right-0 z-50 bg-stone-900/95 backdrop-blur-[var(--backdrop-blur)]" aria-label="Main navigation">
+		<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+			<a href="/" class="text-xl font-semibold tracking-tight text-white hover:text-white/80 transition-colors">Q Builders</a>
+			<a href="/" class="text-white/90 hover:text-white text-sm tracking-wide transition-colors">
+				← Back to Home
+			</a>
+		</div>
+	</nav>
+
+	<main class="pt-24 pb-16">
+		<div class="max-w-7xl mx-auto px-6">
+			<div class="text-center mb-16">
+				<p class="text-amber-600 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
+					Gallery
+				</p>
+				<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-stone-900 tracking-tight">
+					Sample Work
+				</h1>
+			</div>
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{config.gallery.map((image, index) => (
+					<figure class:list={[`group relative overflow-hidden bg-white`, index === 0 ? 'md:col-span-2 lg:col-span-2 lg:row-span-2' : '']}>
+						<picture>
+							<source srcset={image.src} type="image/jpeg" />
+							<img src={image.src} alt={image.alt} loading="lazy" class:list={['w-full object-cover transition-transform duration-[var(--transition-slow)]', index === 0 ? 'h-full min-h-[400px] md:min-h-[500px]' : 'h-72']} />
+						</picture>
+						<figcaption class="hidden md:block absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-[var(--transition-fast)]">
+							<p class="text-white text-sm font-medium">{image.alt}</p>
+						</figcaption>
+					</figure>
+				))}
+			</div>
+		</div>
+	</main>
+</Layout>

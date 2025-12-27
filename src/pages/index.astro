@@ -5,84 +5,124 @@ import Hero from '../components/Hero.astro';
 ---
 
 <Layout>
-	<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 transform -translate-y-full" aria-label="Main navigation">
+	<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-[var(--transition-medium)] transform -translate-y-full" aria-label="Main navigation">
 		<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-			<span class="text-xl font-semibold tracking-tight text-white">Q Builders</span>
-			<a href={`mailto:${config.hero.email}`} class="text-white/90 hover:text-white text-sm tracking-wide transition-colors" aria-label="Send email to Q Builders">
-				Get in Touch
-			</a>
+			<a href="#hero" class="text-xl font-semibold tracking-tight text-white hover:text-white/80 transition-colors">Q Builders</a>
+			<div class="flex items-center gap-3 md:gap-6">
+				{['about', 'gallery', 'testimonials', 'contact'].map((section) => (
+					<a href={`#${section}`} class="nav-link text-white/70 hover:text-white text-xs md:text-sm tracking-wide transition-colors" aria-label={`Navigate to ${section}`}>
+						{section.charAt(0).toUpperCase() + section.slice(1)}
+					</a>
+				))}
+				<a href={`mailto:${config.hero.email}`} class="text-white/90 hover:text-white text-xs md:text-sm tracking-wide transition-colors" aria-label="Send email to Q Builders">
+					Get in Touch
+				</a>
+			</div>
 		</div>
 	</nav>
 
-	<main class="scroll-smooth snap-y snap-mandatory">
+	<main class="scroll-smooth snap-y snap-mandatory overflow-y-scroll overflow-x-hidden">
 		<Hero />
 
-		<section id="about" class="relative py-32 px-6 bg-white snap-start" aria-labelledby="about-heading">
+		<section id="about" class="relative py-24 md:py-32 px-6 bg-white snap-start min-h-screen md:min-h-[100dvh]" aria-labelledby="about-heading">
 			<div class="max-w-7xl mx-auto">
-				<div class="grid lg:grid-cols-2 gap-20 items-center">
-					<div class="relative order-2 lg:order-1">
-						<div class="absolute -top-8 -left-8 w-full h-full bg-stone-100" aria-hidden="true" />
-						<picture class="relative block">
-							<source srcset={config.about.photo} type="image/jpeg" />
-							<img src={config.about.photo} alt={config.about.name} class="w-full h-[600px] object-cover" loading="lazy" />
-						</picture>
-					</div>
-					<div class="order-1 lg:order-2">
+				<div class="grid lg:grid-cols-2 gap-16 items-center">
+					<div class="order-2 lg:order-1">
 						<p class="text-amber-600 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
-							About Us
+							About
 						</p>
-						<h2 id="about-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-stone-900 tracking-tight mb-8 leading-tight">
+						<h2 id="about-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-stone-900 tracking-tight mb-6 leading-tight">
 							{config.about.name}
 						</h2>
-						<p class="text-lg text-stone-600 leading-relaxed mb-12">
+						<p class="text-lg text-stone-600 leading-relaxed mb-10">
 							{config.about.bio}
 						</p>
-						<div class="grid grid-cols-2 gap-8">
+						<dl class="grid grid-cols-2 md:grid-cols-3 gap-8">
 							{config.about.stats.map((stat) => (
 								<div>
-									<div class="text-5xl font-bold text-stone-900 mb-2 tracking-tight">
+									<dt class="text-4xl md:text-5xl font-bold text-stone-900 mb-2 tracking-tight">
 										{stat.value}
-									</div>
-									<div class="text-sm text-stone-500 uppercase tracking-wider">
+									</dt>
+									<dd class="text-sm text-stone-500 uppercase tracking-wider">
 										{stat.label}
-									</div>
+									</dd>
 								</div>
 							))}
-						</div>
+						</dl>
+					</div>
+					<div class="relative order-1 lg:order-2">
+						<div class="absolute -top-6 -left-6 w-full h-full bg-stone-100" aria-hidden="true" />
+						<picture class="relative block">
+							<source srcset={config.about.photo} type="image/jpeg" />
+							<img src={config.about.photo} alt={config.about.name} class="w-full h-[400px] md:h-[600px] object-cover" loading="lazy" />
+						</picture>
 					</div>
 				</div>
 			</div>
 		</section>
 
-		<section id="gallery" class="relative py-32 px-6 bg-stone-50 snap-start" aria-labelledby="gallery-heading">
-			<div class="max-w-7xl mx-auto">
-				<div class="text-center mb-20">
-					<p class="text-amber-600 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
-						Our Work
+		<section id="gallery" class="relative py-24 md:py-32 px-6 md:bg-stone-50 snap-start min-h-screen md:min-h-[100dvh]" aria-labelledby="gallery-heading">
+			<div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70 md:hidden" />
+			<div class="relative z-10 max-w-7xl mx-auto">
+				<div class="text-center md:text-center mb-16">
+					<p class="text-amber-600 md:text-amber-600 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
+						Gallery
 					</p>
-					<h2 id="gallery-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-stone-900 tracking-tight">
-						Crafted Homes
+					<h2 id="gallery-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-white md:text-stone-900 tracking-tight">
+						Sample Work
 					</h2>
 				</div>
-				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-					{config.gallery.map((image, index) => (
-						<div class={`group relative overflow-hidden ${index === 0 ? 'lg:col-span-2 lg:row-span-2' : ''}`}>
-							<picture>
-								<source srcset={image.src} type="image/jpeg" />
-								<img src={image.src} alt={image.alt} loading="lazy" class={`w-full object-cover transition-transform duration-700 ${index === 0 ? 'h-full min-h-[600px]' : 'h-80'} group-hover:scale-105`} />
-							</picture>
-							<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
-								<p class="text-white text-sm font-light tracking-wide">{image.alt}</p>
-							</div>
-						</div>
-					))}
+				<div class="hidden md:block">
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[280px]">
+						{config.gallery.map((image, index) => {
+							const pattern = index % 6;
+							const mdSpans = pattern === 0 ? 'md:col-span-2 md:row-span-2' :
+							               pattern === 1 ? 'md:col-span-1 md:row-span-1' :
+							               pattern === 2 ? 'md:col-span-1 md:row-span-1' :
+							               pattern === 3 ? 'md:col-span-2 md:row-span-1' :
+							               pattern === 4 ? 'md:col-span-1 md:row-span-1' :
+							               'md:col-span-1 md:row-span-1';
+							const lgSpans = pattern === 0 ? 'lg:col-span-2 lg:row-span-2' :
+							               pattern === 1 ? 'lg:col-span-1 lg:row-span-2' :
+							               pattern === 2 ? 'lg:col-span-2 lg:row-span-1' :
+							               pattern === 3 ? 'lg:col-span-1 lg:row-span-1' :
+							               pattern === 4 ? 'lg:col-span-1 lg:row-span-1' :
+							               'lg:col-span-2 lg:row-span-1';
+							const heights = pattern === 0 ? 'h-[580px]' :
+							               pattern === 1 ? 'h-[580px]' :
+							               pattern === 2 ? 'h-[280px]' :
+							               pattern === 3 ? 'h-[280px]' :
+							               pattern === 4 ? 'h-[280px]' :
+							               'h-[280px]';
+
+							return (
+								<figure class:list={[`group relative overflow-hidden bg-white`, mdSpans, lgSpans]}>
+									<picture>
+										<source srcset={image.src} type="image/jpeg" />
+										<img src={image.src} alt={image.alt} loading="lazy" class:list={['w-full object-cover transition-transform duration-[var(--transition-slow)]', heights]} />
+									</picture>
+								</figure>
+							);
+						})}
+					</div>
+				</div>
+				<div class="md:hidden flex flex-col items-center justify-center gap-6 min-h-[50vh]">
+					<a href="/gallery" class="inline-flex items-center gap-3 bg-white hover:bg-white/90 text-stone-900 font-semibold px-8 py-4 rounded-[var(--radius-md)] transition-all duration-[var(--transition-fast)] tracking-wide">
+						<span>View Gallery</span>
+						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+						</svg>
+					</a>
+					<p class="text-white/90 text-center max-w-2xl min-w-[320px] px-4">
+						A few examples of our work around Denver
+					</p>
 				</div>
 			</div>
 		</section>
 
-		<section id="testimonials" class="relative py-32 px-6 bg-stone-900 snap-start" aria-labelledby="testimonials-heading">
+		<section id="testimonials" class="relative py-24 md:py-32 px-6 bg-stone-900 snap-start min-h-screen md:min-h-[100dvh]" aria-labelledby="testimonials-heading">
 			<div class="max-w-7xl mx-auto">
-				<div class="text-center mb-20">
+				<div class="text-center mb-16">
 					<p class="text-amber-500 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
 						Testimonials
 					</p>
@@ -92,8 +132,8 @@ import Hero from '../components/Hero.astro';
 				</div>
 				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 					{config.testimonials.map((testimonial) => (
-						<figure class="bg-stone-800/50 p-10 hover:bg-stone-800 transition-colors duration-300">
-							<blockquote class="text-stone-300 leading-relaxed mb-8 text-lg font-light">
+						<figure class="bg-stone-800 p-8 hover:bg-stone-700 transition-colors duration-[var(--transition-fast)]">
+							<blockquote class="text-stone-300 leading-relaxed mb-6 text-lg font-light">
 								"{testimonial.quote}"
 							</blockquote>
 							<figcaption>
@@ -110,43 +150,30 @@ import Hero from '../components/Hero.astro';
 			</div>
 		</section>
 
-		<section id="contact" class="relative py-32 px-6 bg-white snap-start" aria-labelledby="contact-heading">
-			<div class="max-w-4xl mx-auto text-center">
-				<p class="text-amber-600 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
+		<section id="contact" class="relative py-24 md:py-32 px-6 md:bg-white snap-start min-h-screen md:min-h-[100dvh] flex items-center" aria-labelledby="contact-heading">
+			<div class="absolute inset-0 bg-gradient-to-br from-stone-900/25 via-stone-800/20 to-stone-900/25 md:hidden" />
+			<div class="relative z-10 max-w-7xl mx-auto w-full text-center">
+				<p class="text-amber-600 md:text-amber-600 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
 					Get Started
 				</p>
-				<h2 id="contact-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-stone-900 tracking-tight mb-8">
+				<h2 id="contact-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-white md:text-stone-900 tracking-tight mb-6">
 					{config.contact.headline}
 				</h2>
-				<p class="text-xl text-stone-600 mb-12 leading-relaxed max-w-2xl mx-auto">
+				<p class="text-lg md:text-xl text-white/90 md:text-stone-600 mb-10 leading-relaxed max-w-5xl md:max-w-6xl mx-auto">
 					{config.contact.description}
 				</p>
-				<a href={`mailto:${config.hero.email}`} class="inline-flex items-center gap-3 bg-stone-900 hover:bg-stone-800 text-white font-semibold px-10 py-5 transition-all duration-300 tracking-wide group" aria-label={`Send email to ${config.hero.email}`}>
+				<a href={`mailto:${config.hero.email}`} class="inline-flex items-center gap-3 bg-white md:bg-stone-900 hover:bg-white/90 md:hover:bg-stone-800 text-stone-900 md:text-white font-semibold px-10 py-5 rounded-[var(--radius-md)] transition-all duration-[var(--transition-fast)] tracking-wide group" aria-label={`Send email to ${config.hero.email}`}>
 					<span>{config.hero.email}</span>
 					<svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
 					</svg>
 				</a>
-				<dl class="mt-16 grid grid-cols-3 gap-8 pt-16 border-t border-stone-200">
-					<div>
-						<dt class="text-2xl font-bold text-stone-900 mb-2">Denver</dt>
-						<dd class="text-stone-500">Colorado</dd>
-					</div>
-					<div>
-						<dt class="text-2xl font-bold text-stone-900 mb-2">{config.about.stats[0].value}</dt>
-						<dd class="text-stone-500">Homes Crafted</dd>
-					</div>
-					<div>
-						<dt class="text-2xl font-bold text-stone-900 mb-2">{config.about.stats[1].value}</dt>
-						<dd class="text-stone-500">Years Experience</dd>
-					</div>
-				</dl>
 			</div>
 		</section>
 	</main>
 
 	<script>
-		const createNavbar = () => {
+		const initNavbar = () => {
 			const navbar = document.getElementById('navbar');
 			if (!navbar) return;
 
@@ -157,10 +184,10 @@ import Hero from '../components/Hero.astro';
 
 				if (scrollY > 100) {
 					navbar.classList.remove('-translate-y-full');
-					navbar.classList.add('translate-y-0', 'bg-stone-900/95', 'backdrop-blur-md');
+					navbar.classList.add('translate-y-0', 'bg-stone-900/95', 'backdrop-blur-[var(--backdrop-blur)]');
 				} else {
 					navbar.classList.add('-translate-y-full');
-					navbar.classList.remove('translate-y-0', 'bg-stone-900/95', 'backdrop-blur-md');
+					navbar.classList.remove('translate-y-0', 'bg-stone-900/95', 'backdrop-blur-[var(--backdrop-blur)]');
 				}
 
 				ticking = false;
@@ -176,10 +203,56 @@ import Hero from '../components/Hero.astro';
 			};
 
 			window.addEventListener('scroll', onScroll, { passive: true });
+
+			return () => {
+				window.removeEventListener('scroll', onScroll);
+			};
+		};
+
+		const initNavHighlight = () => {
+			const sections = document.querySelectorAll('section[id]');
+			const navLinks = document.querySelectorAll('.nav-link');
+
+			if (!sections.length || !navLinks.length) return;
+
+			let ticking = false;
+
+			const updateActiveLink = () => {
+				const scrollY = window.scrollY || window.pageYOffset;
+
+				sections.forEach((section) => {
+					const sectionTop = (section as HTMLElement).offsetTop;
+					const sectionHeight = (section as HTMLElement).offsetHeight;
+					const sectionId = section.getAttribute('id');
+
+					if (scrollY >= sectionTop - 300 && scrollY < sectionTop + sectionHeight - 300) {
+						navLinks.forEach((link) => {
+							link.classList.remove('text-white');
+							if (link.getAttribute('href') === `#${sectionId}`) {
+								link.classList.add('text-white');
+							}
+						});
+					}
+				});
+
+				ticking = false;
+			};
+
+			const onScroll = () => {
+				if (!ticking) {
+					window.requestAnimationFrame(() => {
+						updateActiveLink();
+					});
+					ticking = true;
+				}
+			};
+
+			window.addEventListener('scroll', onScroll, { passive: true });
 		};
 
 		document.addEventListener('DOMContentLoaded', () => {
-			createNavbar();
+			initNavbar();
+			initNavHighlight();
 		});
 	</script>
 </Layout>
