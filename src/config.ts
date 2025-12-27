@@ -37,7 +37,7 @@ export const config: Config = {
 	},
 	about: {
 		name: "Tommy Cagle",
-		photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80",
+		photo: "/profile-picture.jpg",
 		bio: "I've been building custom homes in Denver for over 10 years. I'm hands-on with every project—you’ll see me on-site, not just in meetings. I care about getting the details right and keeping you in the loop throughout the entire build.",
 		stats: [
 			{ label: "Homes Built", value: "38" },

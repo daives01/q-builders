@@ -24,52 +24,52 @@ import Hero from '../components/Hero.astro';
 	<main class="scroll-smooth snap-y snap-mandatory overflow-y-scroll overflow-x-hidden">
 		<Hero />
 
-		<section id="about" class="relative py-24 md:py-32 px-6 bg-white snap-start min-h-screen md:min-h-[100dvh]" aria-labelledby="about-heading">
+		<section id="about" class="relative py-24 md:py-32 px-6 snap-start min-h-screen md:min-h-[100dvh]" aria-labelledby="about-heading">
 			<div class="max-w-7xl mx-auto">
-				<div class="grid lg:grid-cols-2 gap-16 items-center">
-					<div class="order-2 lg:order-1">
-						<p class="text-amber-600 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
-							About
-						</p>
-						<h2 id="about-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-stone-900 tracking-tight mb-6 leading-tight">
-							{config.about.name}
-						</h2>
-						<p class="text-lg text-stone-600 leading-relaxed mb-10">
-							{config.about.bio}
-						</p>
-						<dl class="grid grid-cols-2 md:grid-cols-3 gap-8">
-							{config.about.stats.map((stat) => (
-								<div>
-									<dt class="text-4xl md:text-5xl font-bold text-stone-900 mb-2 tracking-tight">
-										{stat.value}
-									</dt>
-									<dd class="text-sm text-stone-500 uppercase tracking-wider">
-										{stat.label}
-									</dd>
-								</div>
-							))}
-						</dl>
-					</div>
+				<div class="backdrop-blur-xl bg-stone-900/60 rounded-2xl p-8 md:p-16 shadow-xl">
+					<div class="grid lg:grid-cols-2 gap-16 items-center">
+						<div class="order-2 lg:order-1">
+							<p class="text-amber-500 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
+								About
+							</p>
+							<h2 id="about-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6 leading-tight">
+								{config.about.name}
+							</h2>
+							<p class="text-lg text-stone-300 leading-relaxed mb-10">
+								{config.about.bio}
+							</p>
+							<dl class="grid grid-cols-2 md:grid-cols-3 gap-8">
+								{config.about.stats.map((stat) => (
+									<div>
+										<dt class="text-4xl md:text-5xl font-bold text-white mb-2 tracking-tight">
+											{stat.value}
+										</dt>
+										<dd class="text-sm text-stone-400 uppercase tracking-wider">
+											{stat.label}
+										</dd>
+									</div>
+								))}
+							</dl>
+						</div>
 					<div class="relative order-1 lg:order-2">
-						<div class="absolute -top-6 -left-6 w-full h-full bg-stone-100" aria-hidden="true" />
-						<picture class="relative block">
+						<picture class="relative block rounded-lg overflow-hidden">
 							<source srcset={config.about.photo} type="image/jpeg" />
 							<img src={config.about.photo} alt={config.about.name} class="w-full h-[400px] md:h-[600px] object-cover" loading="lazy" />
 						</picture>
 					</div>
 				</div>
+				</div>
 			</div>
 		</section>
 
-		<section id="gallery" class="relative py-24 md:py-32 px-6 md:bg-stone-50 snap-start min-h-screen md:min-h-[100dvh]" aria-labelledby="gallery-heading">
-			<div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70 md:hidden" />
+		<section id="gallery" class="relative py-24 md:py-32 px-6 snap-start min-h-screen md:min-h-[100dvh]" aria-labelledby="gallery-heading">
 			<div class="relative z-10 max-w-7xl mx-auto">
 				<div class="text-center md:text-center mb-16">
-					<p class="text-amber-600 md:text-amber-600 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
+					<p class="text-amber-600 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
 						Gallery
 					</p>
-					<h2 id="gallery-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-white md:text-stone-900 tracking-tight">
-						Sample Work
+					<h2 id="gallery-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
+						My work
 					</h2>
 				</div>
 				<div class="hidden md:block">
@@ -96,7 +96,7 @@ import Hero from '../components/Hero.astro';
 							               'h-[280px]';
 
 							return (
-								<figure class:list={[`group relative overflow-hidden bg-white`, mdSpans, lgSpans]}>
+								<figure class:list={[`group relative overflow-hidden`, mdSpans, lgSpans]}>
 									<picture>
 										<source srcset={image.src} type="image/jpeg" />
 										<img src={image.src} alt={image.alt} loading="lazy" class:list={['w-full object-cover transition-transform duration-[var(--transition-slow)]', heights]} />
@@ -106,7 +106,7 @@ import Hero from '../components/Hero.astro';
 						})}
 					</div>
 				</div>
-				<div class="md:hidden flex flex-col items-center justify-center gap-6 min-h-[50vh]">
+				<div class="md:hidden flex flex-col items-center justify-center gap-6 min-h-[50vh] px-4">
 					<a href="/gallery" class="inline-flex items-center gap-3 bg-white hover:bg-white/90 text-stone-900 font-semibold px-8 py-4 rounded-[var(--radius-md)] transition-all duration-[var(--transition-fast)] tracking-wide">
 						<span>View Gallery</span>
 						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -120,9 +120,10 @@ import Hero from '../components/Hero.astro';
 			</div>
 		</section>
 
-		<section id="testimonials" class="relative py-24 md:py-32 px-6 bg-stone-900 snap-start min-h-screen md:min-h-[100dvh]" aria-labelledby="testimonials-heading">
+		<section id="testimonials" class="relative py-24 md:py-32 px-6 snap-start min-h-screen md:min-h-[100dvh]" aria-labelledby="testimonials-heading">
 			<div class="max-w-7xl mx-auto">
-				<div class="text-center mb-16">
+				<div class="backdrop-blur-xl bg-stone-900/60 rounded-2xl p-8 md:p-16 shadow-xl">
+					<div class="text-center mb-16">
 					<p class="text-amber-500 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
 						Testimonials
 					</p>
@@ -147,22 +148,22 @@ import Hero from '../components/Hero.astro';
 						</figure>
 					))}
 				</div>
+				</div>
 			</div>
 		</section>
 
-		<section id="contact" class="relative py-24 md:py-32 px-6 md:bg-white snap-start min-h-screen md:min-h-[100dvh] flex items-center" aria-labelledby="contact-heading">
-			<div class="absolute inset-0 bg-gradient-to-br from-stone-900/25 via-stone-800/20 to-stone-900/25 md:hidden" />
-			<div class="relative z-10 max-w-7xl mx-auto w-full text-center">
-				<p class="text-amber-600 md:text-amber-600 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
+		<section id="contact" class="relative py-24 md:py-32 px-6 snap-start min-h-screen md:min-h-[100dvh] flex items-center" aria-labelledby="contact-heading">
+			<div class="max-w-7xl mx-auto w-full text-center">
+				<p class="text-amber-600 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
 					Get Started
 				</p>
-				<h2 id="contact-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-white md:text-stone-900 tracking-tight mb-6">
+				<h2 id="contact-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6">
 					{config.contact.headline}
 				</h2>
-				<p class="text-lg md:text-xl text-white/90 md:text-stone-600 mb-10 leading-relaxed max-w-5xl md:max-w-6xl mx-auto">
+				<p class="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-5xl md:max-w-6xl mx-auto">
 					{config.contact.description}
 				</p>
-				<a href={`mailto:${config.hero.email}`} class="inline-flex items-center gap-3 bg-white md:bg-stone-900 hover:bg-white/90 md:hover:bg-stone-800 text-stone-900 md:text-white font-semibold px-10 py-5 rounded-[var(--radius-md)] transition-all duration-[var(--transition-fast)] tracking-wide group" aria-label={`Send email to ${config.hero.email}`}>
+				<a href={`mailto:${config.hero.email}`} class="inline-flex items-center gap-3 bg-white hover:bg-white/90 text-stone-900 font-semibold px-10 py-5 rounded-[var(--radius-md)] transition-all duration-[var(--transition-fast)] tracking-wide group" aria-label={`Send email to ${config.hero.email}`}>
 					<span>{config.hero.email}</span>
 					<svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -173,15 +174,15 @@ import Hero from '../components/Hero.astro';
 	</main>
 
 	<script>
-		const initNavbar = () => {
-			const navbar = document.getElementById('navbar');
-			if (!navbar) return;
+		const navbar = document.getElementById('navbar');
+		const sections = document.querySelectorAll('section[id]');
+		const navLinks = document.querySelectorAll('.nav-link');
+		let ticking = false;
 
-			let ticking = false;
+		const updateUI = () => {
+			const scrollY = window.scrollY || window.pageYOffset;
 
-			const updateNavbar = () => {
-				const scrollY = window.scrollY || window.pageYOffset;
-
+			if (navbar) {
 				if (scrollY > 100) {
 					navbar.classList.remove('-translate-y-full');
 					navbar.classList.add('translate-y-0', 'bg-stone-900/95', 'backdrop-blur-[var(--backdrop-blur)]');
@@ -189,37 +190,9 @@ import Hero from '../components/Hero.astro';
 					navbar.classList.add('-translate-y-full');
 					navbar.classList.remove('translate-y-0', 'bg-stone-900/95', 'backdrop-blur-[var(--backdrop-blur)]');
 				}
+			}
 
-				ticking = false;
-			};
-
-			const onScroll = () => {
-				if (!ticking) {
-					window.requestAnimationFrame(() => {
-						updateNavbar();
-					});
-					ticking = true;
-				}
-			};
-
-			window.addEventListener('scroll', onScroll, { passive: true });
-
-			return () => {
-				window.removeEventListener('scroll', onScroll);
-			};
-		};
-
-		const initNavHighlight = () => {
-			const sections = document.querySelectorAll('section[id]');
-			const navLinks = document.querySelectorAll('.nav-link');
-
-			if (!sections.length || !navLinks.length) return;
-
-			let ticking = false;
-
-			const updateActiveLink = () => {
-				const scrollY = window.scrollY || window.pageYOffset;
-
+			if (sections.length && navLinks.length) {
 				sections.forEach((section) => {
 					const sectionTop = (section as HTMLElement).offsetTop;
 					const sectionHeight = (section as HTMLElement).offsetHeight;
@@ -227,32 +200,28 @@ import Hero from '../components/Hero.astro';
 
 					if (scrollY >= sectionTop - 300 && scrollY < sectionTop + sectionHeight - 300) {
 						navLinks.forEach((link) => {
-							link.classList.remove('text-white');
 							if (link.getAttribute('href') === `#${sectionId}`) {
 								link.classList.add('text-white');
+							} else {
+								link.classList.remove('text-white');
 							}
 						});
 					}
 				});
+			}
 
-				ticking = false;
-			};
+			ticking = false;
+		};
 
-			const onScroll = () => {
-				if (!ticking) {
-					window.requestAnimationFrame(() => {
-						updateActiveLink();
-					});
-					ticking = true;
-				}
-			};
-
-			window.addEventListener('scroll', onScroll, { passive: true });
+		const onScroll = () => {
+			if (!ticking) {
+				window.requestAnimationFrame(updateUI);
+				ticking = true;
+			}
 		};
 
 		document.addEventListener('DOMContentLoaded', () => {
-			initNavbar();
-			initNavHighlight();
+			window.addEventListener('scroll', onScroll, { passive: true });
 		});
 	</script>
 </Layout>
