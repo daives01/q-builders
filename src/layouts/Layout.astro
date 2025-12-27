@@ -9,30 +9,44 @@ interface Props {
 
 const { 
 	title = 'Q Builders | Custom Homes in Denver',
-	description = 'Custom home builder in Denver, Colorado. 38 homes built since 2014.',
-	image = 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80'
+	description = 'Custom home builder in Denver, Colorado. 38 homes built across 12 neighborhoods since 2014. Expert craftsmanship, transparent communication, and hands-on project management.',
+	image = '/hero-image.jpeg'
 } = Astro.props;
+
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
 ---
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="theme-color" content="#1c1917" />
 		<link rel="icon" href="/favicon.ico" />
+		{canonical && <link rel="canonical" href={canonical} />}
 		<meta name="generator" content={Astro.generator} />
+		
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		<meta name="keywords" content="custom home builder, Denver, Colorado, residential construction, new construction, home renovation, custom homes, luxury homes, house builder, construction company, Cherry Creek, Washington Park, LoDo, Highland, Capitol Hill" />
+		<meta name="author" content="Q Builders" />
+		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 		
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content="Q Builders" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={image} />
+		{canonical && <meta property="og:url" content={canonical} />}
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:image:alt" content={title} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
 		
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={image} />
+		{canonical && <meta name="twitter:url" content={canonical} />}
 	</head>
 	<body class="antialiased">
 		<slot />

@@ -179,6 +179,25 @@ Add to `about.stats` array:
 - No blog or CMS (static content only)
 - Simple, maintainable, performant
 
+## SEO Features
+
+### Meta Tags
+- Optimized title and meta descriptions
+- Keywords for custom home building in Denver
+- Robots meta tag with proper directives
+- Theme color for mobile browsers
+
+### Search Engine Optimization
+- Sitemap.xml (generates when site URL is configured)
+- Robots.txt (updates when site URL is configured)
+- Canonical URLs (active when site URL is configured)
+- Open Graph tags for social sharing
+- Twitter Card tags
+
+### Configuration
+- Add your domain in `astro.config.mjs` (uncomment `site` line)
+- Sitemap and canonical URLs will activate automatically
+
 ## Production Quality Checklist
 
 ### Performance
@@ -197,10 +216,14 @@ Add to `about.stats` array:
 - Keyboard-navigable links with descriptive labels
 
 ### SEO
-- Proper meta tags (description, Open Graph, Twitter cards)
-- Structured data ready (LocalBusiness schema)
+- Proper meta tags (description, keywords, robots)
+- Open Graph tags for social sharing
+- Twitter Card tags
 - Semantic heading hierarchy (h1, h2)
 - Title and description props for customization
+- Sitemap.xml (requires site URL in config)
+- Robots.txt (requires site URL in config)
+- Canonical URLs (requires site URL in config)
 - Proper viewport meta tag
 
 ### Code Quality

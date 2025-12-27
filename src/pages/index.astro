@@ -88,23 +88,18 @@ import Hero from '../components/Hero.astro';
 							               pattern === 3 ? 'lg:col-span-1 lg:row-span-1' :
 							               pattern === 4 ? 'lg:col-span-1 lg:row-span-1' :
 							               'lg:col-span-2 lg:row-span-1';
-							const heights = pattern === 0 ? 'h-[580px]' :
-							               pattern === 1 ? 'h-[580px]' :
-							               pattern === 2 ? 'h-[280px]' :
-							               pattern === 3 ? 'h-[280px]' :
-							               pattern === 4 ? 'h-[280px]' :
-							               'h-[280px]';
 
 							return (
-								<figure class:list={[`group relative overflow-hidden`, mdSpans, lgSpans]}>
-									<picture>
+								<figure class:list={[`group relative overflow-hidden backdrop-blur-xl bg-stone-900/60 rounded-2xl h-full`, mdSpans, lgSpans]}>
+									<picture class="block w-full h-full">
 										<source srcset={image.src} type="image/jpeg" />
-										<img src={image.src} alt={image.alt} loading="lazy" class:list={['w-full object-cover transition-transform duration-[var(--transition-slow)]', heights]} />
+										<img src={image.src} alt={image.alt} loading="lazy" class="w-full h-full object-cover transition-transform duration-[var(--transition-slow)]" />
 									</picture>
 								</figure>
 							);
 						})}
 					</div>
+				</div>
 				</div>
 				<div class="md:hidden flex flex-col items-center justify-center gap-6 min-h-[50vh] px-4">
 					<a href="/gallery" class="inline-flex items-center gap-3 bg-white hover:bg-white/90 text-stone-900 font-semibold px-8 py-4 rounded-[var(--radius-md)] transition-all duration-[var(--transition-fast)] tracking-wide">
@@ -152,25 +147,25 @@ import Hero from '../components/Hero.astro';
 			</div>
 		</section>
 
-		<section id="contact" class="relative py-24 md:py-32 px-6 snap-start min-h-screen md:min-h-[100dvh] flex items-center" aria-labelledby="contact-heading">
-			<div class="max-w-7xl mx-auto w-full text-center">
-				<p class="text-amber-600 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
-					Get Started
-				</p>
-				<h2 id="contact-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6">
-					{config.contact.headline}
-				</h2>
-				<p class="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-5xl md:max-w-6xl mx-auto">
-					{config.contact.description}
-				</p>
-				<a href={`mailto:${config.hero.email}`} class="inline-flex items-center gap-3 bg-white hover:bg-white/90 text-stone-900 font-semibold px-10 py-5 rounded-[var(--radius-md)] transition-all duration-[var(--transition-fast)] tracking-wide group" aria-label={`Send email to ${config.hero.email}`}>
-					<span>{config.hero.email}</span>
-					<svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-					</svg>
-				</a>
-			</div>
-		</section>
+	<section id="contact" class="relative py-24 md:py-32 px-6 snap-start min-h-screen md:min-h-[100dvh] flex items-center" aria-labelledby="contact-heading">
+		<div class="max-w-7xl mx-auto w-full text-center">
+			<p class="text-amber-600 tracking-[0.2em] uppercase text-sm font-semibold mb-4">
+				Get Started
+			</p>
+			<h2 id="contact-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6">
+				{config.contact.headline}
+			</h2>
+			<p class="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-5xl md:max-w-6xl mx-auto">
+				{config.contact.description}
+			</p>
+			<a href={`mailto:${config.hero.email}`} class="inline-flex items-center gap-3 bg-white hover:bg-white/90 text-stone-900 font-semibold px-10 py-5 rounded-[var(--radius-md)] transition-all duration-[var(--transition-fast)] tracking-wide group" aria-label={`Send email to ${config.hero.email}`}>
+				<span>{config.hero.email}</span>
+				<svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+				</svg>
+			</a>
+		</div>
+	</section>
 	</main>
 
 	<script>
