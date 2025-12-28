@@ -29,20 +29,19 @@ interface Config {
 export const config: Config = {
 	hero: {
 		headline: "Q Builders",
-		subline: "Custom residential construction in the Greater Denver area",
+		subline: "Custom residential construction along Denver's front range",
 		blueprintImage: "/hero-blueprint-old.jpg",
 		framingImage: "/hero-framing.jpg",
 		houseImage: "/hero-image.jpeg",
-		email: "hello@qbuilders.com"
+		email: "qbuilders123@gmail.com"
 	},
 	about: {
 		name: "Tommy Cagle",
 		photo: "/profile-picture.jpg",
-		bio: "I've been building custom homes in Denver for over 10 years. My job is to deliver exactly what you want at the price you expect, without surprises.\n\nI don't inflate costs. I find smart ways to save you money on things that don't matter and invest in things that do. I've built my own house twice, so I bring the same standards to yours.\n\nWhen I'm not building, I'm hiking or rock climbing with family.",
+		bio: "I've been in the construction industry for over 20 years and building custom homes for 10. My job is to deliver exactly what you want at the price you expect, without surprises.\n\nI don't inflate costs. I find smart ways to save you money on things that don't matter and invest in things that do. I've built my own house twice, so I bring the same standards to yours.\n\nWhen I'm not building, I'm hiking or rock climbing with family.",
 		stats: [
-			{ label: "Homes built", value: "38" },
-			{ label: "Years of experience", value: "10+" },
-			{ label: "Denver neighborhoods", value: "12" }
+			{ label: "Homes built", value: "75+" },
+			{ label: "Years of experience", value: "20+" },
 		]
 	},
 	gallery: [
