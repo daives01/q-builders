@@ -70,6 +70,17 @@ import Lightbox from '../components/Lightbox.astro';
 						My work
 					</h2>
 				</div>
+				<div class="grid grid-cols-1 md:hidden gap-6">
+					{config.gallery.map((image, index) => (
+						<figure class="group relative overflow-hidden backdrop-blur-xl bg-stone-900/60 rounded-2xl cursor-pointer aspect-[4/3]" data-lightbox-index={index}>
+							<picture class="block w-full h-full">
+								<source srcset={image.src} type="image/jpeg" />
+								<img src={image.src} alt={image.alt} loading="lazy" class="w-full h-full object-cover transition-transform duration-[var(--transition-slow)] group-hover:scale-105" />
+							</picture>
+						</figure>
+					))}
+				</div>
+
 				<div class="hidden md:block">
 					<div class="columns-3 gap-6 space-y-6">
 						{config.gallery.map((image, index) => {
@@ -89,18 +100,6 @@ import Lightbox from '../components/Lightbox.astro';
 				</div>
 
 				<Lightbox images={config.gallery} />
-				</div>
-				<div class="md:hidden flex flex-col items-center justify-center gap-6 min-h-[50vh] px-4">
-					<a href="/gallery" class="inline-flex items-center gap-3 bg-white hover:bg-white/90 text-stone-900 font-semibold px-8 py-4 rounded-[var(--radius-md)] transition-all duration-[var(--transition-fast)] tracking-wide">
-						<span>View gallery</span>
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-						</svg>
-					</a>
-					<p class="text-white/90 text-center max-w-2xl min-w-[320px] px-4">
-						A few examples of our work around Denver
-					</p>
-				</div>
 			</div>
 		</section>
 
