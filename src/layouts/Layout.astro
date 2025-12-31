@@ -14,6 +14,8 @@ const {
 } = Astro.props;
 
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+
+const siteUrl = Astro.site?.href || 'https://qbuilderscolorado.com';
 ---
 <!doctype html>
 <html lang="en">
@@ -24,12 +26,15 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : un
 		<link rel="icon" href="/favicon.ico" />
 		{canonical && <link rel="canonical" href={canonical} />}
 		<meta name="generator" content={Astro.generator} />
-		
+
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		<meta name="keywords" content="custom home builder, Denver, Colorado, residential construction, new construction, home renovation, custom homes, luxury homes, house builder, construction company, Cherry Creek, Washington Park, LoDo, Highland, Capitol Hill" />
+		<meta name="keywords" content="Colorado custom home builders, Denver house builder, custom home builder Denver, Denver custom home construction, Colorado residential construction, new home builder Denver, custom homes Colorado, Denver luxury home builder, home renovation Denver, Colorado house construction, Denver front range builder, custom home builder Cherry Creek, Washington Park home builder, LoDo custom home builder, Highland Denver home builder, Capitol Hill renovation, Golden custom home builder" />
 		<meta name="author" content="Q Builders" />
 		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+		<meta name="geo.region" content="US-CO" />
+		<meta name="geo.placename" content="Denver, Colorado" />
+		<meta name="ICBM" content="39.7392, -104.9903" />
 		
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content="Q Builders" />
@@ -47,6 +52,72 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : un
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={image} />
 		{canonical && <meta name="twitter:url" content={canonical} />}
+
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "HomeAndConstructionBusiness",
+			"name": "Q Builders",
+			"description": "Custom home builder in Denver, Colorado. Specializing in custom residential construction, new construction, and home renovations across Denver's front range.",
+			"url": siteUrl,
+			"image": `${siteUrl}${image}`,
+			"email": "qbuilders123@gmail.com",
+			"areaServed": {
+				"@type": "GeoCircle",
+				"geoMidpoint": {
+					"@type": "GeoCoordinates",
+					"latitude": 39.7392,
+					"longitude": -104.9903
+				},
+				"geoRadius": "50 mi"
+			},
+			"address": {
+				"@type": "PostalAddress",
+				"addressRegion": "CO",
+				"addressCountry": "US"
+			},
+			"founder": {
+				"@type": "Person",
+				"name": "Tommy Cagle",
+				"jobTitle": "Owner & Founder"
+			},
+			"foundingDate": "2014",
+			"serviceType": [
+				"Custom Home Building",
+				"New Home Construction",
+				"Home Renovation",
+				"Residential Construction",
+				"House Construction",
+				"Luxury Home Building"
+			],
+			"offers": [
+				{
+					"@type": "Offer",
+					"name": "Custom Home Building",
+					"description": "Full-service custom home construction from design to completion",
+					"areaServed": ["Denver", "Cherry Creek", "Washington Park", "LoDo", "Highland", "Capitol Hill", "Golden", "Boulder", "Aurora", "Englewood", "Lakewood", "Littleton"]
+				},
+				{
+					"@type": "Offer",
+					"name": "Home Renovation",
+					"description": "Complete home renovations and remodeling services",
+					"areaServed": ["Denver", "Cherry Creek", "Washington Park", "LoDo", "Highland", "Capitol Hill", "Golden", "Boulder", "Aurora", "Englewood", "Lakewood", "Littleton"]
+				}
+			],
+			"knowsAbout": [
+				"custom home builders Colorado",
+				"Denver custom home builder",
+				"Colorado house builder",
+				"Denver residential construction",
+				"custom homes Denver",
+				"luxury home builder Denver",
+				"new construction Denver",
+				"home renovation Denver",
+				"Colorado custom home construction",
+				"Denver front range home builder"
+			],
+			"hasCredential": "Licensed General Contractor",
+			"priceRange": "$$$"
+		})} />
 	</head>
 	<body class="antialiased">
 		<slot />
