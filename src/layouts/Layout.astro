@@ -1,5 +1,6 @@
----
+ ---
 import '../styles/global.css';
+import FontSwitcher from '../components/FontSwitcher.astro';
 
 interface Props {
 	title?: string;
@@ -23,7 +24,7 @@ const siteUrl = Astro.site?.href || 'https://qbuilderscolorado.com';
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="theme-color" content="#1c1917" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 		{canonical && <link rel="canonical" href={canonical} />}
 		<meta name="generator" content={Astro.generator} />
 
@@ -35,7 +36,7 @@ const siteUrl = Astro.site?.href || 'https://qbuilderscolorado.com';
 		<meta name="geo.region" content="US-CO" />
 		<meta name="geo.placename" content="Denver, Colorado" />
 		<meta name="ICBM" content="39.7392, -104.9903" />
-		
+
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content="Q Builders" />
 		<meta property="og:title" content={title} />
@@ -46,12 +47,16 @@ const siteUrl = Astro.site?.href || 'https://qbuilderscolorado.com';
 		<meta property="og:image:alt" content={title} />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
-		
+
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={image} />
 		{canonical && <meta name="twitter:url" content={canonical} />}
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400&family=Cardo:wght@400;500;600&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600;700&family=Crimson+Pro:wght@400;500;600;700&family=DM+Serif+Display&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=Inter:wght@400;500;600&family=Lato:wght@400;500;600&family=Libre+Baskerville:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600&family=Merriweather:wght@400;500;600;700&family=Montserrat:wght@400;500;600&family=Nunito+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500;600;700&family=Prata&family=Poppins:wght@400;500;600&family=Raleway:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;500;600&family=Tenor+Sans&display=swap" rel="stylesheet" />
 
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",
@@ -118,8 +123,9 @@ const siteUrl = Astro.site?.href || 'https://qbuilderscolorado.com';
 			"hasCredential": "Licensed General Contractor",
 			"priceRange": "$$$"
 		})} />
-	</head>
-	<body class="antialiased">
-		<slot />
-	</body>
-</html>
+ 	</head>
+ 	<body class="antialiased">
+ 		<slot />
+ 		<FontSwitcher />
+ 	</body>
+ </html>
