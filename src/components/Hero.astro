@@ -101,7 +101,7 @@
 		let isDesktop = window.innerWidth >= 768;
 		const spotlightRadius = 350;
 		const easingFactor = 0.25;
-		const gradientMidOpacity = 0.5;
+		const gradientMidOpacity = 0.3;
 		const gradientMidMultiplier = 0.5;
 		const centerOpacity = 0.0;
 		const outerOpacity = 1;
@@ -118,10 +118,26 @@
 		let animationFrame: ReturnType<typeof requestAnimationFrame> | null = null;
 		let spotlightActive = false;
 
+		// Velocity tracking
+		let lastX = 0;
+		let lastY = 0;
+		let smoothedVelocity = 0;
+		const velocitySmoothing = .15;
+		const maxVelocity = 50; // Velocity at which we hit minimum size
+
+		// Dynamic spotlight params
+		const minRadius = 100;
+		const maxRadius = spotlightRadius; // 350
+		const minMidMultiplier = 1; // Tight edge when fast
+		const maxMidMultiplier = gradientMidMultiplier; // 0.5 - soft edge when slow
+		const minMidOpacity = 0.0;
+		const maxMidOpacity = gradientMidOpacity;
+
 		// Fade-in animation
 		let currentRadius = 0;
 		let spotlightFadeStartTime = 0;
 		const spotlightFadeDuration = 400;
+		let fadeInComplete = false;
 
 		blueprint.style.opacity = '1';
 		framing.style.opacity = '0';
@@ -132,8 +148,11 @@
 		const startSpotlight = () => {
 			currentX = mouseX;
 			currentY = mouseY;
+			lastX = currentX;
+			lastY = currentY;
 			spotlightFadeStartTime = Date.now();
 			currentRadius = 0;
+			fadeInComplete = false;
 			spotlightActive = true;
 			animate();
 		};
@@ -155,12 +174,34 @@
 			currentX += (mouseX - currentX) * easingFactor;
 			currentY += (mouseY - currentY) * easingFactor;
 
-			// Animate radius fade-in with easing
-			const elapsed = Date.now() - spotlightFadeStartTime;
-			const progress = easeOutCubic(Math.min(elapsed / spotlightFadeDuration, 1));
-			currentRadius = spotlightRadius * progress;
+			// Calculate and smooth velocity
+			const dx = currentX - lastX;
+			const dy = currentY - lastY;
+			const instantVelocity = Math.sqrt(dx * dx + dy * dy);
+			smoothedVelocity += (instantVelocity - smoothedVelocity) * velocitySmoothing;
+			lastX = currentX;
+			lastY = currentY;
 
-			const maskGradient = `radial-gradient(circle ${currentRadius}px at ${currentX}px ${currentY}px, rgba(0,0,0,${centerOpacity}) 0%, rgba(0,0,0,${gradientMidOpacity}) ${currentRadius * gradientMidMultiplier}px, rgba(0,0,0,${outerOpacity}) ${currentRadius}px)`;
+			// Map velocity to spotlight params (0 = slow, 1 = fast)
+			const velocityFactor = Math.min(smoothedVelocity / maxVelocity, 1);
+
+			// Fade-in animation
+			const elapsed = Date.now() - spotlightFadeStartTime;
+			const fadeProgress = easeOutCubic(Math.min(elapsed / spotlightFadeDuration, 1));
+			if (fadeProgress >= 1) fadeInComplete = true;
+
+			// Calculate dynamic radius (larger when slow, smaller when fast)
+			const targetRadius = maxRadius - (maxRadius - minRadius) * velocityFactor;
+			const dynamicRadius = fadeInComplete ? targetRadius : targetRadius * fadeProgress;
+			currentRadius = dynamicRadius;
+
+			// Calculate dynamic gradient (softer when slow, tighter when fast)
+			const dynamicMidMultiplier = maxMidMultiplier + (minMidMultiplier - maxMidMultiplier) * velocityFactor;
+
+			// Calculate dynamic gradient opacity (softer when slow, tighter when fast)
+			const dynamicMidOpacity = maxMidOpacity + (minMidOpacity - maxMidOpacity) * velocityFactor;
+
+			const maskGradient = `radial-gradient(circle ${currentRadius}px at ${currentX}px ${currentY}px, rgba(0,0,0,${centerOpacity}) 0%, rgba(0,0,0,${dynamicMidOpacity}) ${currentRadius * dynamicMidMultiplier}px, rgba(0,0,0,${outerOpacity}) ${currentRadius}px)`;
 
 			house.style.maskImage = maskGradient;
 			house.style.webkitMaskImage = maskGradient;
