@@ -11,7 +11,6 @@ interface Config {
 		name: string;
 		photo: string;
 		bio: string;
-		stats: Array<{ label: string; value: string }>;
 	};
 	owner: {
 		name: string;
@@ -44,14 +43,13 @@ export const config: Config = {
 	about: {
 		name: "Q Builders",
 		photo: "",
-		bio: "We are a premier custom home builder specializing in duplexes and luxury residences throughout Denver's front range. Our team combines exceptional craftsmanship with modern design to deliver homes that exceed expectations. From initial concept to final walkthrough, we handle every detail with precision and care.",
-		stats: []
+		bio: "We are a premier custom home builder specializing in duplexes and luxury residences throughout Denver's front range. Our team combines exceptional craftsmanship with modern design to deliver homes that exceed expectations. From initial concept to final walkthrough, we handle every detail with precision and care."
 	},
 	owner: {
 		name: "Tommy Cagle",
 		photo: "/profile-picture.jpg",
 		bio: "With 20+ years in the construction industry, Tommy has gained deep knowledge of every step of the home build process. That experience allows him to avoid costly mistakes and unexpected delays, spot and fix issues before they cause problems, and find ways to save cost without sacrificing quality. He knows the right questions to ask to help clients realize their dream house.",
-		title: ""
+		title: "Owner"
 	},
 	gallery: [
 		{ src: "/gallery/wolf-living-room.jpeg", alt: "Wolf living room" },
