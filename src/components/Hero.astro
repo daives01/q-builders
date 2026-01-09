@@ -99,177 +99,85 @@
 		if (!heroSection || !blueprint || !framing || !house) return;
 
 		let isDesktop = window.innerWidth >= 768;
-		let spotlightRadius = 350;
-		let easingFactor = 0.25;
-		let gradientMidOpacity = 0.5;
-		let gradientMidMultiplier = 0.5;
-		let centerOpacity = 0.0;
-		let outerOpacity = 1;
-		let delayBlueprintFade = 1000;
-		let delayHouseFadeIn = 2000;
-		let delaySpotlightStart = 3000;
-		let delaySpotlightEnd = 6000;
+		const spotlightRadius = 350;
+		const easingFactor = 0.25;
+		const gradientMidOpacity = 0.5;
+		const gradientMidMultiplier = 0.5;
+		const centerOpacity = 0.0;
+		const outerOpacity = 1;
+		const delayBlueprintFade = 1000;
+		const delayHouseFadeIn = 2000;
+		const delaySpotlightStart = 3000;
 
-		/*
-		const createDebugPanel = () => {
-			const panel = document.createElement('div');
-			panel.id = 'hero-debug-panel';
-			panel.style.cssText = `
-				position: fixed;
-				top: 20px;
-				right: 20px;
-				background: rgba(0,0,0,0.9);
-				color: white;
-				padding: 20px;
-				border-radius: 12px;
-				font-size: 12px;
-				z-index: 9999;
-				max-width: 300px;
-				font-family: monospace;
-			`;
-
-			const controls = [
-				{ label: 'Spotlight Radius', prop: 'spotlightRadius', min: 100, max: 800, step: 10 },
-				{ label: 'Easing Factor', prop: 'easingFactor', min: 0.01, max: 1, step: 0.01 },
-				{ label: 'Gradient Mid Opacity', prop: 'gradientMidOpacity', min: 0, max: 1, step: 0.01 },
-				{ label: 'Gradient Mid Multiplier', prop: 'gradientMidMultiplier', min: 0.1, max: 1, step: 0.05 },
-				{ label: 'Center Opacity', prop: 'centerOpacity', min: 0, max: 1, step: 0.01 },
-				{ label: 'Outer Opacity', prop: 'outerOpacity', min: 0, max: 1, step: 0.01 },
-				{ label: 'Delay Blueprint Fade (ms)', prop: 'delayBlueprintFade', min: 0, max: 5000, step: 100 },
-				{ label: 'Delay House Fade In (ms)', prop: 'delayHouseFadeIn', min: 0, max: 5000, step: 100 },
-				{ label: 'Delay Spotlight Start (ms)', prop: 'delaySpotlightStart', min: 0, max: 10000, step: 100 },
-				{ label: 'Delay Spotlight End (ms)', prop: 'delaySpotlightEnd', min: 0, max: 15000, step: 100 },
-			];
-
-			const getVal = (prop: string) => {
-				switch(prop) {
-					case 'spotlightRadius': return spotlightRadius;
-					case 'easingFactor': return easingFactor;
-					case 'gradientMidOpacity': return gradientMidOpacity;
-					case 'gradientMidMultiplier': return gradientMidMultiplier;
-					case 'centerOpacity': return centerOpacity;
-					case 'outerOpacity': return outerOpacity;
-					case 'delayBlueprintFade': return delayBlueprintFade;
-					case 'delayHouseFadeIn': return delayHouseFadeIn;
-					case 'delaySpotlightStart': return delaySpotlightStart;
-					case 'delaySpotlightEnd': return delaySpotlightEnd;
-					default: return 0;
-				}
-			};
-
-			panel.innerHTML = `
-				<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-					<strong style="font-size: 14px;">Hero Spotlight Tuner</strong>
-					<button id="toggle-debug" style="background: #333; color: white; border: 1px solid #555; padding: 4px 8px; border-radius: 4px; cursor: pointer;">Toggle</button>
-				</div>
-				<div id="debug-content">
-					${controls.map(c => `
-						<div style="margin-bottom: 12px;">
-							<div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-								<label>${c.label}</label>
-								<span id="value-${c.prop}">${getVal(c.prop)}</span>
-							</div>
-							<input type="range" id="slider-${c.prop}" min="${c.min}" max="${c.max}" step="${c.step}" value="${getVal(c.prop)}" style="width: 100%;" data-prop="${c.prop}" />
-						</div>
-					`).join('')}
-					<button id="reload-animation" style="width: 100%; background: #4a5568; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer; margin-top: 10px;">Reload Animation</button>
-				</div>
-			`;
-
-			document.body.appendChild(panel);
-
-			const toggleBtn = panel.querySelector('#toggle-debug');
-			if (toggleBtn) {
-				toggleBtn.addEventListener('click', () => {
-					const content = panel.querySelector('#debug-content');
-					if (content) {
-						(content as HTMLElement).style.display = (content as HTMLElement).style.display === 'none' ? 'block' : 'none';
-					}
-				});
-			}
-
-			panel.querySelectorAll('input[type="range"]').forEach(slider => {
-				slider.addEventListener('input', (e) => {
-					const target = e.target as HTMLInputElement;
-					const prop = target.dataset.prop;
-					if (prop) {
-						const value = parseFloat(target.value);
-						switch(prop) {
-							case 'spotlightRadius': spotlightRadius = value; break;
-							case 'easingFactor': easingFactor = value; break;
-							case 'gradientMidOpacity': gradientMidOpacity = value; break;
-							case 'gradientMidMultiplier': gradientMidMultiplier = value; break;
-							case 'centerOpacity': centerOpacity = value; break;
-							case 'outerOpacity': outerOpacity = value; break;
-							case 'delayBlueprintFade': delayBlueprintFade = value; break;
-							case 'delayHouseFadeIn': delayHouseFadeIn = value; break;
-							case 'delaySpotlightStart': delaySpotlightStart = value; break;
-							case 'delaySpotlightEnd': delaySpotlightEnd = value; break;
-						}
-						const valueDisplay = document.getElementById(`value-${prop}`);
-						if (valueDisplay) {
-							valueDisplay.textContent = target.value;
-						}
-					}
-				});
-			});
-
-			const reloadBtn = panel.querySelector('#reload-animation');
-			if (reloadBtn) {
-				reloadBtn.addEventListener('click', () => {
-					window.location.reload();
-				});
-			}
-		};
-
-		createDebugPanel();
-		*/
-
+		// Track mouse position - will be updated by mouse events
 		let mouseX = 0;
 		let mouseY = 0;
 		let currentX = 0;
 		let currentY = 0;
+		let waitingForMouse = false;
 		let animationFrame: ReturnType<typeof requestAnimationFrame> | null = null;
-		let ticking = false;
-		let hasMovedMouse = false;
+		let spotlightActive = false;
+
+		// Fade-in animation
+		let currentRadius = 0;
+		let spotlightFadeStartTime = 0;
+		const spotlightFadeDuration = 400;
 
 		blueprint.style.opacity = '1';
 		framing.style.opacity = '0';
 		house.style.opacity = '0';
 
-		const update = () => {
-			if (isDesktop && hasMovedMouse) {
-				currentX += (mouseX - currentX) * easingFactor;
-				currentY += (mouseY - currentY) * easingFactor;
+		const easeOutCubic = (t: number): number => 1 - Math.pow(1 - t, 3);
 
-				const maskGradient = `radial-gradient(circle ${spotlightRadius}px at ${currentX}px ${currentY}px, rgba(0,0,0,${centerOpacity}) 0%, rgba(0,0,0,${gradientMidOpacity}) ${spotlightRadius * gradientMidMultiplier}px, rgba(0,0,0,${outerOpacity}) ${spotlightRadius}px)`;
-
-				house.style.maskImage = maskGradient;
-				house.style.webkitMaskImage = maskGradient;
-				framing.style.maskImage = '';
-				framing.style.webkitMaskImage = '';
-				blueprint.style.maskImage = '';
-				blueprint.style.webkitMaskImage = '';
-			}
-
-			ticking = false;
+		const startSpotlight = () => {
+			currentX = mouseX;
+			currentY = mouseY;
+			spotlightFadeStartTime = Date.now();
+			currentRadius = 0;
+			spotlightActive = true;
+			animate();
 		};
 
-		const onMouseMove = (e: MouseEvent) => {
-			if (!isDesktop) return;
-			hasMovedMouse = true;
+		const updateMousePosition = (e: MouseEvent) => {
 			mouseX = e.clientX;
 			mouseY = e.clientY;
+
+			// Start spotlight on first move after 3 seconds
+			if (waitingForMouse) {
+				waitingForMouse = false;
+				startSpotlight();
+			}
+		};
+
+		const update = () => {
+			if (!isDesktop || !spotlightActive) return;
+
+			currentX += (mouseX - currentX) * easingFactor;
+			currentY += (mouseY - currentY) * easingFactor;
+
+			// Animate radius fade-in with easing
+			const elapsed = Date.now() - spotlightFadeStartTime;
+			const progress = easeOutCubic(Math.min(elapsed / spotlightFadeDuration, 1));
+			currentRadius = spotlightRadius * progress;
+
+			const maskGradient = `radial-gradient(circle ${currentRadius}px at ${currentX}px ${currentY}px, rgba(0,0,0,${centerOpacity}) 0%, rgba(0,0,0,${gradientMidOpacity}) ${currentRadius * gradientMidMultiplier}px, rgba(0,0,0,${outerOpacity}) ${currentRadius}px)`;
+
+			house.style.maskImage = maskGradient;
+			house.style.webkitMaskImage = maskGradient;
 		};
 
 		const animate = () => {
-			if (isDesktop) {
+			if (isDesktop && spotlightActive) {
 				update();
 				animationFrame = requestAnimationFrame(animate);
 			}
 		};
 
 		const startDesktopEffects = () => {
+			// Track mouse position from any mouse event
+			document.addEventListener('mousemove', updateMousePosition, { passive: true });
+			document.addEventListener('mouseenter', updateMousePosition, { passive: true });
+
 			setTimeout(() => {
 				blueprint.style.opacity = '0';
 				framing.style.opacity = '1';
@@ -280,15 +188,9 @@
 			}, delayHouseFadeIn);
 
 			setTimeout(() => {
-				window.addEventListener('mousemove', onMouseMove, { passive: true });
-				animate();
+				// Wait for first mouse move after delay
+				waitingForMouse = true;
 			}, delaySpotlightStart);
-
-			setTimeout(() => {
-				hasMovedMouse = false;
-				house.style.maskImage = '';
-				house.style.webkitMaskImage = '';
-			}, delaySpotlightEnd);
 		};
 
 		const startMobileEffects = () => {
@@ -315,13 +217,24 @@
 			if (newIsDesktop !== isDesktop) {
 				isDesktop = newIsDesktop;
 
-				window.removeEventListener('mousemove', onMouseMove);
+				document.removeEventListener('mousemove', updateMousePosition);
+				document.removeEventListener('mouseenter', updateMousePosition);
 				if (animationFrame) cancelAnimationFrame(animationFrame);
 				animationFrame = null;
+				spotlightActive = false;
+
+				// Reset state for new viewport
+				mouseX = 0;
+				mouseY = 0;
+				currentX = 0;
+				currentY = 0;
+				waitingForMouse = false;
 
 				blueprint.style.opacity = '1';
 				framing.style.opacity = '0';
 				house.style.opacity = '0';
+				house.style.maskImage = '';
+				house.style.webkitMaskImage = '';
 
 				if (isDesktop) {
 					startDesktopEffects();
@@ -335,12 +248,11 @@
 
 		return () => {
 			window.removeEventListener('resize', handleResize);
-			window.removeEventListener('mousemove', onMouseMove);
+			document.removeEventListener('mousemove', updateMousePosition);
+			document.removeEventListener('mouseenter', updateMousePosition);
 			if (animationFrame) cancelAnimationFrame(animationFrame);
 			house.style.maskImage = '';
 			house.style.webkitMaskImage = '';
-			framing.style.maskImage = '';
-			framing.style.webkitMaskImage = '';
 		};
 	};
 
