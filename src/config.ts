@@ -8,8 +8,6 @@ interface Config {
 		email: string;
 	};
 	about: {
-		name: string;
-		photo: string;
 		bio: string;
 	};
 	owner: {
@@ -23,7 +21,6 @@ interface Config {
 		quote: string;
 		name: string;
 		neighborhood: string;
-		project?: string;
 	}>;
 	contact: {
 		headline: string;
@@ -41,8 +38,6 @@ export const config: Config = {
 		email: "qbuilders123@gmail.com"
 	},
 	about: {
-		name: "Q Builders",
-		photo: "",
 		bio: "We are a premier custom home builder specializing in duplexes and luxury residences throughout Denver's front range. Our team combines exceptional craftsmanship with modern design to deliver homes that exceed expectations. From initial concept to final walkthrough, we handle every detail with precision and care."
 	},
 	owner: {
@@ -56,12 +51,12 @@ export const config: Config = {
 		{ src: "/gallery/wolf-bathroom.jpeg", alt: "Wolf bathroom" },
 		{ src: "/gallery/wolf-dining-room.jpeg", alt: "Wolf dining room" },
 		{ src: "/gallery/wolf-pantry.jpeg", alt: "Wolf pantry" },
-		{ src: "/gallery/bannock-duplex.jpg", alt: "bannock duplex" },
+		{ src: "/gallery/bannock-duplex.jpg", alt: "Bannock duplex" },
 		{ src: "/gallery/lowell-front.jpg", alt: "Lowell residence front" },
 		{ src: "/gallery/lowell-living-room.jpg", alt: "Lowell living room" },
 		{ src: "/gallery/lowell-main-room.jpg", alt: "Lowell main room" },
 		{ src: "/gallery/lowell-bedroom.jpg", alt: "Lowell bedroom" },
-		{ src: "/gallery/mudroom.jpg", alt: "mudroom" },
+		{ src: "/gallery/mudroom.jpg", alt: "Mudroom" },
 		{ src: "/gallery/knox-front.jpg", alt: "Knox residence front" },
 		{ src: "/gallery/knox-kitchen.jpg", alt: "Knox kitchen" },
 		{ src: "/gallery/knox-outside.jpg", alt: "Knox exterior" },
@@ -72,4 +67,3 @@ export const config: Config = {
 		description: "Thinking about building your dream home? We're just an email away."
 	}
 };
-
