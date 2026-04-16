@@ -178,3 +178,12 @@ body, p {
 ::-webkit-scrollbar-thumb:hover {
 	background: rgba(201, 166, 107, 0.5);
 }
+
+.gallery-mobile-scroll {
+	scrollbar-width: none;
+	-webkit-overflow-scrolling: touch;
+}
+
+.gallery-mobile-scroll::-webkit-scrollbar {
+	display: none;
+}

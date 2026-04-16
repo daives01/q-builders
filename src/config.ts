@@ -16,7 +16,7 @@ interface Config {
 		photo: string;
 		bio: string;
 	};
-	gallery: Array<{ src: string; alt: string }>;
+	gallery: Array<{ src: string; alt: string; width: number; height: number }>;
 	testimonials: Array<{
 		quote: string;
 		name: string;
@@ -47,19 +47,19 @@ export const config: Config = {
 		title: "Owner"
 	},
 	gallery: [
-		{ src: "/gallery/wolf-living-room.jpeg", alt: "Wolf living room" },
-		{ src: "/gallery/wolf-bathroom.jpeg", alt: "Wolf bathroom" },
-		{ src: "/gallery/wolf-dining-room.jpeg", alt: "Wolf dining room" },
-		{ src: "/gallery/wolf-pantry.jpeg", alt: "Wolf pantry" },
-		{ src: "/gallery/bannock-duplex.jpg", alt: "Bannock duplex" },
-		{ src: "/gallery/lowell-front.jpg", alt: "Lowell residence front" },
-		{ src: "/gallery/lowell-living-room.jpg", alt: "Lowell living room" },
-		{ src: "/gallery/lowell-main-room.jpg", alt: "Lowell main room" },
-		{ src: "/gallery/lowell-bedroom.jpg", alt: "Lowell bedroom" },
-		{ src: "/gallery/mudroom.jpg", alt: "Mudroom" },
-		{ src: "/gallery/knox-front.jpg", alt: "Knox residence front" },
-		{ src: "/gallery/knox-kitchen.jpg", alt: "Knox kitchen" },
-		{ src: "/gallery/knox-outside.jpg", alt: "Knox exterior" },
+		{ src: "/gallery/wolf-living-room.jpeg", alt: "Wolf living room", width: 3840, height: 2160 },
+		{ src: "/gallery/wolf-bathroom.jpeg", alt: "Wolf bathroom", width: 3140, height: 2160 },
+		{ src: "/gallery/wolf-dining-room.jpeg", alt: "Wolf dining room", width: 3840, height: 2160 },
+		{ src: "/gallery/wolf-pantry.jpeg", alt: "Wolf pantry", width: 2128, height: 2160 },
+		{ src: "/gallery/bannock-duplex.jpg", alt: "Bannock duplex", width: 1536, height: 863 },
+		{ src: "/gallery/lowell-front.jpg", alt: "Lowell residence front", width: 1536, height: 1022 },
+		{ src: "/gallery/lowell-living-room.jpg", alt: "Lowell living room", width: 1344, height: 895 },
+		{ src: "/gallery/lowell-main-room.jpg", alt: "Lowell main room", width: 1344, height: 895 },
+		{ src: "/gallery/lowell-bedroom.jpg", alt: "Lowell bedroom", width: 1536, height: 1023 },
+		{ src: "/gallery/mudroom.jpg", alt: "Mudroom", width: 864, height: 1184 },
+		{ src: "/gallery/knox-front.jpg", alt: "Knox residence front", width: 1280, height: 843 },
+		{ src: "/gallery/knox-kitchen.jpg", alt: "Knox kitchen", width: 1279, height: 851 },
+		{ src: "/gallery/knox-outside.jpg", alt: "Knox exterior", width: 1280, height: 847 },
 	],
 	testimonials: [],
 	contact: {

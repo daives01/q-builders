@@ -1,0 +1,50 @@
+---
+import 'photoswipe/style.css';
+---
+
+<script>
+	import PhotoSwipeLightbox from 'photoswipe/lightbox';
+
+	let lightbox;
+
+	const initPhotoSwipe = () => {
+		const galleries = document.querySelectorAll('[data-pswp-gallery]');
+		if (!galleries.length || lightbox) {
+			return;
+		}
+
+		lightbox = new PhotoSwipeLightbox({
+			gallery: '[data-pswp-gallery]',
+			children: 'a[data-pswp-item]',
+			pswpModule: () => import('photoswipe'),
+			showHideAnimationType: 'zoom',
+			bgOpacity: 0.92,
+			wheelToZoom: true,
+			paddingFn: (viewportSize) => ({
+				top: viewportSize.y < 768 ? 20 : 40,
+				bottom: viewportSize.y < 768 ? 20 : 40,
+				left: viewportSize.x < 768 ? 16 : 40,
+				right: viewportSize.x < 768 ? 16 : 40
+			})
+		});
+
+		lightbox.init();
+	};
+
+	const destroyPhotoSwipe = () => {
+		if (!lightbox) {
+			return;
+		}
+
+		lightbox.destroy();
+		lightbox = undefined;
+	};
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initPhotoSwipe, { once: true });
+	} else {
+		initPhotoSwipe();
+	}
+
+	window.addEventListener('pagehide', destroyPhotoSwipe);
+</script>
