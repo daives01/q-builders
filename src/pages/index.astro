@@ -10,11 +10,11 @@ import PhotoSwipeGallery from '../components/PhotoSwipeGallery.astro';
 	<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-[var(--transition-medium)] transform -translate-y-full" aria-label="Main navigation">
 		<div class="w-full px-4 py-3 md:px-8 md:py-4 flex justify-between items-center">
 			<a href="#hero" class="hidden md:flex items-center gap-3 hover:opacity-80 transition-opacity" aria-label="Q Builders">
-				<img src="/white-logo.svg" alt="Q Builders" class="h-12 w-auto" />
+				<img src="/logo.svg" alt="Q Builders" class="h-12 w-auto" />
 			</a>
 			<div class="flex items-center justify-around w-full md:justify-end md:w-auto gap-1 md:gap-2">
 				{['about', 'owner', 'gallery', ...(config.testimonials.length > 0 ? ['testimonials'] : []), 'contact'].map((section) => (
-					<a href={`#${section}`} class="nav-link px-3 py-2 md:px-4 md:py-2 text-white/60 hover:text-white text-xs md:text-sm tracking-wide transition-all rounded-lg hover:bg-white/5" aria-label={`Navigate to ${section}`}>
+					<a href={`#${section}`} class="nav-link px-3 py-2 md:px-4 md:py-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)] text-xs md:text-sm font-semibold uppercase tracking-[0.1em] transition-all rounded hover:bg-[var(--color-secondary-container)]/25" aria-label={`Navigate to ${section}`}>
 						{section.charAt(0).toUpperCase() + section.slice(1)}
 					</a>
 				))}
@@ -30,17 +30,17 @@ import PhotoSwipeGallery from '../components/PhotoSwipeGallery.astro';
 				<div class="card p-8 md:p-16">
 					<div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 						<div class="order-2 lg:order-1">
-							<h2 id="about-heading" class="text-4xl md:text-5xl lg:text-6xl text-white tracking-tight mb-8 leading-[1.1]">
+							<h2 id="about-heading" class="text-4xl md:text-5xl lg:text-6xl text-[var(--color-primary)] mb-8 leading-[1.1]">
 								About Us
 							</h2>
-							<p class="text-lg text-white/70 leading-relaxed whitespace-pre-line">
+							<p class="text-lg text-[var(--color-on-surface-variant)] leading-relaxed whitespace-pre-line">
 								{config.about.bio}
 							</p>
 						</div>
 						<div class="relative order-1 lg:order-2 h-[320px] md:h-[450px]">
-							<div class="absolute -inset-4 bg-gradient-to-br from-[var(--color-accent)]/20 to-transparent rounded-3xl blur-2xl opacity-50"></div>
+							<div class="absolute -inset-4 border border-[var(--color-brass)]/30 rounded-lg opacity-70"></div>
 							{config.gallery.map((image, index) => (
-								<img src={image.src} alt={`Gallery image ${index + 1}`} class={`about-gallery-image absolute inset-0 w-full h-full object-cover rounded-2xl transition-opacity duration-[1500ms] ease-in-out shadow-2xl ${index === 0 ? 'opacity-100' : 'opacity-0'}`} data-index={index} loading="lazy" />
+								<img src={image.src} alt={`Gallery image ${index + 1}`} class={`about-gallery-image absolute inset-0 w-full h-full object-cover rounded-lg transition-opacity duration-[1500ms] ease-in-out ${index === 0 ? 'opacity-100' : 'opacity-0'}`} data-index={index} loading="lazy" />
 							))}
 						</div>
 					</div>
@@ -53,8 +53,8 @@ import PhotoSwipeGallery from '../components/PhotoSwipeGallery.astro';
 				<div class="card p-8 md:p-16">
 					<div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 						<div class="relative group">
-							<div class="absolute -inset-4 bg-gradient-to-tr from-[var(--color-accent)]/20 to-transparent rounded-3xl blur-2xl opacity-50"></div>
-							<div class="relative overflow-hidden rounded-2xl">
+							<div class="absolute -inset-4 border border-[var(--color-brass)]/30 rounded-lg opacity-70"></div>
+							<div class="relative overflow-hidden rounded-lg">
 								<picture class="block">
 									<source srcset={config.owner.photo} type="image/jpeg" />
 									<img src={config.owner.photo} alt={config.owner.name} class="w-full h-[320px] md:h-[450px] object-cover object-[50%_30%] transition-transform duration-700 group-hover:scale-105" loading="lazy" />
@@ -62,15 +62,15 @@ import PhotoSwipeGallery from '../components/PhotoSwipeGallery.astro';
 								<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 								<div class="absolute bottom-6 left-6 right-6">
 									<h3 class="text-2xl md:text-3xl text-white font-medium mb-1">{config.owner.name}</h3>
-									<p class="text-[var(--color-accent)] text-sm tracking-wide">{config.owner.title}</p>
+									<p class="text-[var(--color-accent)] text-sm font-semibold uppercase tracking-[0.1em]">{config.owner.title}</p>
 								</div>
 							</div>
 						</div>
 						<div>
-							<h2 id="owner-heading" class="text-4xl md:text-5xl lg:text-6xl text-white tracking-tight mb-8 leading-[1.1]">
+							<h2 id="owner-heading" class="text-4xl md:text-5xl lg:text-6xl text-[var(--color-primary)] mb-8 leading-[1.1]">
 								About the Owner
 							</h2>
-							<p class="text-lg text-white/70 leading-relaxed whitespace-pre-line">
+							<p class="text-lg text-[var(--color-on-surface-variant)] leading-relaxed whitespace-pre-line">
 								{config.owner.bio}
 							</p>
 						</div>
@@ -82,7 +82,7 @@ import PhotoSwipeGallery from '../components/PhotoSwipeGallery.astro';
 		<section id="gallery" class="relative py-24 md:py-40 px-6" aria-labelledby="gallery-heading">
 			<div class="relative z-10 max-w-7xl mx-auto">
 				<div class="text-center mb-16 md:mb-20">
-					<h2 id="gallery-heading" class="text-4xl md:text-5xl lg:text-6xl text-white tracking-tight">
+					<h2 id="gallery-heading" class="text-4xl md:text-5xl lg:text-6xl text-white">
 						Gallery
 					</h2>
 				</div>
@@ -90,7 +90,7 @@ import PhotoSwipeGallery from '../components/PhotoSwipeGallery.astro';
 				<div class="md:hidden -mx-6 overflow-x-auto px-6 pb-4 gallery-mobile-scroll" data-pswp-gallery>
 					<div class="flex gap-4 pr-6 snap-x snap-mandatory">
 					{config.gallery.map((image, index) => (
-						<figure class="group relative w-[78vw] max-w-[23rem] shrink-0 snap-start overflow-hidden rounded-[1.35rem] bg-white/5 shadow-[0_24px_60px_-28px_rgba(0,0,0,0.9)] ring-1 ring-white/10">
+						<figure class="group relative w-[78vw] max-w-[23rem] shrink-0 snap-start overflow-hidden rounded-lg bg-[var(--color-surface-container-lowest)] ring-1 ring-[var(--color-brass)]/35">
 							<a
 								href={image.src}
 								data-pswp-item
@@ -116,7 +116,7 @@ import PhotoSwipeGallery from '../components/PhotoSwipeGallery.astro';
 							const aspectRatio = isPortrait ? 'aspect-[3/4]' : 'aspect-[4/3]';
 
 							return (
-								<figure class={`group relative overflow-hidden rounded-xl break-inside-avoid ${aspectRatio} transition-all duration-300 hover:shadow-2xl hover:shadow-black/40`}>
+								<figure class={`group relative overflow-hidden rounded-lg break-inside-avoid ${aspectRatio} transition-all duration-300 ring-1 ring-[var(--color-brass)]/25 hover:ring-[var(--color-brass)]`}>
 									<a
 										href={image.src}
 										data-pswp-item
@@ -152,7 +152,7 @@ import PhotoSwipeGallery from '../components/PhotoSwipeGallery.astro';
 		<section id="testimonials" class="relative py-24 md:py-40 px-6" aria-labelledby="testimonials-heading">
 			<div class="max-w-7xl mx-auto">
 				<div class="text-center mb-16 md:mb-20">
-					<h2 id="testimonials-heading" class="text-4xl md:text-5xl lg:text-6xl text-white tracking-tight">
+					<h2 id="testimonials-heading" class="text-4xl md:text-5xl lg:text-6xl text-[var(--color-primary)]">
 						Testimonials
 					</h2>
 				</div>
@@ -160,18 +160,18 @@ import PhotoSwipeGallery from '../components/PhotoSwipeGallery.astro';
 					{config.testimonials.map((testimonial, index) => (
 						<figure class={`card p-8 ${index === 0 ? 'md:col-span-2 lg:col-span-1' : ''}`}>
 							<div class="text-[var(--color-accent)] text-5xl leading-none mb-4 opacity-50">"</div>
-							<blockquote class="text-white/80 leading-relaxed mb-8 text-lg">
+							<blockquote class="text-[var(--color-on-surface-variant)] leading-relaxed mb-8 text-lg">
 								{testimonial.quote}
 							</blockquote>
-							<figcaption class="flex items-center gap-4 pt-6 border-t border-white/10">
-								<div class="w-12 h-12 rounded-full bg-[var(--color-accent)]/20 flex items-center justify-center">
+							<figcaption class="flex items-center gap-4 pt-6 border-t border-[var(--color-outline-variant)]">
+								<div class="w-12 h-12 rounded-full bg-[var(--color-secondary-container)] flex items-center justify-center">
 									<span class="text-[var(--color-accent)] font-medium text-lg">{testimonial.name.charAt(0)}</span>
 								</div>
 								<div>
-									<div class="text-white font-medium mb-0.5">
+									<div class="text-[var(--color-on-surface)] font-semibold mb-0.5">
 										{testimonial.name}
 									</div>
-									<div class="text-white/50 text-sm">
+									<div class="text-[var(--color-warm-gray)] text-sm">
 										{testimonial.neighborhood}
 									</div>
 								</div>
@@ -184,14 +184,11 @@ import PhotoSwipeGallery from '../components/PhotoSwipeGallery.astro';
 		)}
 
 	<section id="contact" class="relative py-32 md:py-48 px-6" aria-labelledby="contact-heading">
-		<div class="absolute inset-0 overflow-hidden">
-			<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[var(--color-accent)]/5 rounded-full blur-3xl"></div>
-		</div>
-		<div class="relative z-10 max-w-4xl mx-auto text-center">
-			<h2 id="contact-heading" class="text-4xl md:text-5xl lg:text-6xl text-white tracking-tight mb-6">
+		<div class="card relative z-10 max-w-4xl mx-auto text-center p-8 md:p-16">
+			<h2 id="contact-heading" class="text-4xl md:text-5xl lg:text-6xl text-[var(--color-primary)] mb-6">
 				{config.contact.headline}
 			</h2>
-			<p class="text-lg md:text-xl text-white/70 mb-12 leading-relaxed max-w-2xl mx-auto">
+			<p class="text-lg md:text-xl text-[var(--color-on-surface-variant)] mb-12 leading-relaxed max-w-2xl mx-auto">
 				{config.contact.description}
 			</p>
 			<div class="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -205,27 +202,16 @@ import PhotoSwipeGallery from '../components/PhotoSwipeGallery.astro';
 					<svg id="copy-icon" class="w-5 h-5 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
 					</svg>
-					<svg id="check-icon" class="w-5 h-5 hidden text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+					<svg id="check-icon" class="w-5 h-5 hidden text-[var(--color-primary-container)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
 					</svg>
 					<span id="copy-text">Copy</span>
 				</button>
 			</div>
-			<p class="mt-6 text-white text-lg md:text-xl font-medium tracking-wide">{config.hero.email}</p>
+			<p class="mt-6 text-[var(--color-primary)] text-lg md:text-xl font-semibold">{config.hero.email}</p>
 		</div>
 	</section>
 
-	<footer class="relative py-12 px-6 border-t border-white/5">
-		<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-			<div class="flex items-center gap-3">
-				<img src="/white-logo.svg" alt="Q Builders" class="h-10 w-auto opacity-60" />
-			</div>
-			<p class="text-white/40 text-sm">© {new Date().getFullYear()} Q Builders. All rights reserved.</p>
-			<div class="flex items-center gap-6">
-				<a href="#hero" class="text-white/40 hover:text-[var(--color-accent)] text-sm transition-colors">Back to top</a>
-			</div>
-		</div>
-	</footer>
 	</main>
 
 	<script>
@@ -240,10 +226,10 @@ import PhotoSwipeGallery from '../components/PhotoSwipeGallery.astro';
 			if (navbar) {
 				if (scrollY > 100) {
 					navbar.classList.remove('-translate-y-full');
-					navbar.classList.add('translate-y-0', 'bg-stone-900/95', 'backdrop-blur-[var(--backdrop-blur)]');
+					navbar.classList.add('translate-y-0', 'bg-[var(--color-surface)]/95', 'backdrop-blur-[var(--backdrop-blur)]', 'border-b', 'border-[var(--color-outline-variant)]');
 				} else {
 					navbar.classList.add('-translate-y-full');
-					navbar.classList.remove('translate-y-0', 'bg-stone-900/95', 'backdrop-blur-[var(--backdrop-blur)]');
+					navbar.classList.remove('translate-y-0', 'bg-[var(--color-surface)]/95', 'backdrop-blur-[var(--backdrop-blur)]', 'border-b', 'border-[var(--color-outline-variant)]');
 				}
 			}
 
@@ -256,9 +242,9 @@ import PhotoSwipeGallery from '../components/PhotoSwipeGallery.astro';
 					if (sectionId && scrollY >= sectionTop - 300 && scrollY < sectionTop + sectionHeight - 300) {
 						navLinks.forEach((link) => {
 							if (link.getAttribute('href') === `#${sectionId}`) {
-								link.classList.add('text-white');
+								link.classList.add('text-[var(--color-primary)]');
 							} else {
-								link.classList.remove('text-white');
+								link.classList.remove('text-[var(--color-primary)]');
 							}
 						});
 					}
