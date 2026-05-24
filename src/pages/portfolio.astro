@@ -87,13 +87,13 @@ const spreads = config.portfolio.reduce<(typeof config.portfolio)[]>(
 
             <div class="relative mx-auto hidden w-full max-w-7xl lg:block">
                 <button
-                    class="absolute left-[-6rem] top-1/2 z-10 hidden h-[4.6rem] w-[4.6rem] -translate-y-1/2 items-center justify-center rounded-full border border-black/25 bg-white/90 text-black transition hover:scale-[1.04] hover:bg-white min-[900px]:flex"
+                    class="absolute left-4 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-black/25 bg-white/90 text-black shadow-[0_12px_30px_-18px_rgba(0,0,0,0.55)] transition hover:scale-[1.04] hover:bg-white min-[900px]:flex"
                     type="button"
                     aria-label="Previous portfolio spread"
                     data-carousel-prev
                 >
                     <svg
-                        class="h-7 w-7"
+                        class="h-5 w-5"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -127,6 +127,8 @@ const spreads = config.portfolio.reduce<(typeof config.portfolio)[]>(
                                                 alt={home.image.alt}
                                                 width={home.image.width}
                                                 height={home.image.height}
+                                                data-carousel-image
+                                                data-spread-index={spreadIndex}
                                                 loading={
                                                     spreadIndex === 0
                                                         ? "eager"
@@ -143,7 +145,7 @@ const spreads = config.portfolio.reduce<(typeof config.portfolio)[]>(
                                                     {home.neighborhood}
                                                 </p>
                                                 <h2 class="mt-2 text-[2rem] font-light leading-none text-black md:text-[2.7rem]">
-                                                    {home.address}
+                                                    {home.title}
                                                 </h2>
                                             </div>
                                             <dl class="mt-4 grid grid-cols-4 divide-x divide-black/35">
@@ -175,13 +177,13 @@ const spreads = config.portfolio.reduce<(typeof config.portfolio)[]>(
                 </div>
 
                 <button
-                    class="absolute right-[-6rem] top-1/2 z-10 hidden h-[4.6rem] w-[4.6rem] -translate-y-1/2 items-center justify-center rounded-full border border-black/25 bg-white/90 text-black transition hover:scale-[1.04] hover:bg-white min-[900px]:flex"
+                    class="absolute right-4 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-black/25 bg-white/90 text-black shadow-[0_12px_30px_-18px_rgba(0,0,0,0.55)] transition hover:scale-[1.04] hover:bg-white min-[900px]:flex"
                     type="button"
                     aria-label="Next portfolio spread"
                     data-carousel-next
                 >
                     <svg
-                        class="h-7 w-7"
+                        class="h-5 w-5"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -237,7 +239,7 @@ const spreads = config.portfolio.reduce<(typeof config.portfolio)[]>(
                                         {home.neighborhood}
                                     </p>
                                     <h2 class="mt-2 text-[1.9rem] font-light leading-none text-black">
-                                        {home.address}
+                                        {home.title}
                                     </h2>
                                 </div>
                                 <dl class="mt-4 grid grid-cols-4 divide-x divide-black/35">
@@ -273,10 +275,27 @@ const spreads = config.portfolio.reduce<(typeof config.portfolio)[]>(
         const dots = Array.from(
             document.querySelectorAll("[data-carousel-dot]"),
         ) as HTMLButtonElement[];
+        const images = Array.from(
+            document.querySelectorAll("[data-carousel-image]"),
+        ) as HTMLImageElement[];
 
         if (track && prev && next && dots.length) {
             let current = 0;
             const total = dots.length;
+            const preloaded = new Set<string>();
+
+            const preloadSpread = (index: number) => {
+                images
+                    .filter((image) => image.dataset.spreadIndex === `${index}`)
+                    .forEach((image) => {
+                        if (preloaded.has(image.src)) return;
+
+                        const preload = new Image();
+                        preload.decoding = "async";
+                        preload.src = image.src;
+                        preloaded.add(image.src);
+                    });
+            };
 
             const updateCarousel = () => {
                 track.style.transform = `translateX(-${current * 100}%)`;
@@ -286,6 +305,7 @@ const spreads = config.portfolio.reduce<(typeof config.portfolio)[]>(
                         index === current ? "true" : "false",
                     );
                 });
+                preloadSpread((current + 1) % total);
             };
 
             prev.addEventListener("click", () => {
@@ -304,6 +324,29 @@ const spreads = config.portfolio.reduce<(typeof config.portfolio)[]>(
                     updateCarousel();
                 });
             });
+
+            document.addEventListener("keydown", (event) => {
+                const target = event.target as HTMLElement | null;
+                const isTyping =
+                    target?.matches("input, textarea, select, [contenteditable='true']") ??
+                    false;
+
+                if (isTyping) return;
+
+                if (event.key === "ArrowLeft") {
+                    event.preventDefault();
+                    current = (current - 1 + total) % total;
+                    updateCarousel();
+                }
+
+                if (event.key === "ArrowRight") {
+                    event.preventDefault();
+                    current = (current + 1) % total;
+                    updateCarousel();
+                }
+            });
+
+            preloadSpread(1 % total);
         }
     </script>
 </Layout>

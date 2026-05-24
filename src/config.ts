@@ -19,7 +19,7 @@ interface Config {
   gallery: Array<{ src: string; alt: string; width: number; height: number }>;
   portfolio: Array<{
     neighborhood: string;
-    address: string;
+    title: string;
     image: { src: string; alt: string; width: number; height: number };
     stats: Array<{ label: string; value: string }>;
   }>;
@@ -56,100 +56,116 @@ export const config: Config = {
     {
       src: "/gallery/wolf-living-room.jpeg",
       alt: "Wolf living room",
-      width: 3840,
-      height: 2160,
+      width: 1600,
+      height: 1200,
     },
     {
       src: "/gallery/wolf-bathroom.jpeg",
       alt: "Wolf bathroom",
-      width: 3140,
-      height: 2160,
+      width: 1600,
+      height: 1200,
     },
     {
       src: "/gallery/wolf-dining-room.jpeg",
       alt: "Wolf dining room",
-      width: 3840,
-      height: 2160,
+      width: 1600,
+      height: 1200,
     },
     {
       src: "/gallery/wolf-pantry.jpeg",
       alt: "Wolf pantry",
-      width: 2128,
-      height: 2160,
+      width: 1600,
+      height: 1200,
     },
     {
       src: "/gallery/bannock-duplex.jpg",
       alt: "Bannock duplex",
-      width: 1536,
+      width: 1151,
       height: 863,
     },
     {
       src: "/gallery/lowell-front.jpg",
       alt: "Lowell residence front",
-      width: 1536,
+      width: 1362,
       height: 1022,
     },
     {
       src: "/gallery/lowell-living-room.jpg",
       alt: "Lowell living room",
-      width: 1344,
-      height: 895,
+      width: 1192,
+      height: 894,
     },
     {
       src: "/gallery/lowell-main-room.jpg",
       alt: "Lowell main room",
-      width: 1344,
-      height: 895,
+      width: 1192,
+      height: 894,
     },
     {
       src: "/gallery/lowell-bedroom.jpg",
       alt: "Lowell bedroom",
-      width: 1536,
-      height: 1023,
+      width: 1364,
+      height: 1022,
     },
-    { src: "/gallery/mudroom.jpg", alt: "Mudroom", width: 864, height: 1184 },
+    { src: "/gallery/mudroom.jpg", alt: "Mudroom", width: 864, height: 648 },
     {
       src: "/gallery/knox-front.jpg",
       alt: "Knox residence front",
-      width: 1280,
-      height: 843,
+      width: 1124,
+      height: 842,
     },
     {
       src: "/gallery/knox-kitchen.jpg",
       alt: "Knox kitchen",
-      width: 1279,
-      height: 851,
+      width: 1134,
+      height: 850,
     },
     {
       src: "/gallery/knox-outside.jpg",
       alt: "Knox exterior",
-      width: 1280,
-      height: 847,
+      width: 1128,
+      height: 846,
     },
   ],
   portfolio: [
     {
       neighborhood: "Berkeley",
-      address: "Wolff St",
+      title: "Wolff",
       image: {
-        src: "/portfolio/3968-wolff.png",
-        alt: "Front exterior of 3968 wolff",
-        width: 3840,
-        height: 2160,
+        src: "/portfolio/wolff-st.jpg",
+        alt: "Front exterior of a Wolff Street custom home in Berkeley",
+        width: 1024,
+        height: 768,
       },
       stats: [
-        { label: "Bedrooms", value: "5 + Office" },
+        { label: "Bedrooms + Office", value: "5" },
         { label: "Bathrooms", value: "6" },
         { label: "Square Feet", value: "5,710" },
         { label: "Garage", value: "2 Car" },
       ],
     },
     {
-      neighborhood: "South Denver",
-      address: "Sherman St",
+      neighborhood: "Berkeley",
+      title: "Wolff",
       image: {
-        src: "/portfolio/2186-sherman.png",
-        alt: "Front exterior and yard at 2186 South Sherman Street",
+        src: "/portfolio/wolff-st-2.jpg",
+        alt: "Front exterior of a second Wolff Street custom home in Berkeley",
+        width: 636,
+        height: 477,
+      },
+      stats: [
+        { label: "Bedrooms", value: "5" },
+        { label: "Bathrooms", value: "6" },
+        { label: "Square Feet", value: "5,170" },
+        { label: "Garage", value: "2 Car" },
+      ],
+    },
+    {
+      neighborhood: "Platt Park",
+      title: "Sherman",
+      image: {
+        src: "/portfolio/sherman-st.jpg",
+        alt: "Front exterior and yard of a Sherman Street custom home in South Denver",
         width: 1024,
         height: 768,
       },
@@ -162,12 +178,12 @@ export const config: Config = {
     },
     {
       neighborhood: "Berkeley",
-      address: "Raleigh St",
+      title: "Raleigh",
       image: {
-        src: "/portfolio/3916-raleigh.png",
-        alt: "Completed exterior at 3916 North Raleigh Street",
-        width: 4560,
-        height: 3404,
+        src: "/portfolio/raleigh-st-duplex.jpg",
+        alt: "Completed exterior of a Raleigh Street duplex in Berkeley",
+        width: 1600,
+        height: 1200,
       },
       stats: [
         { label: "Units", value: "2" },
@@ -178,10 +194,10 @@ export const config: Config = {
     },
     {
       neighborhood: "Berkeley",
-      address: "Raleigh St",
+      title: "Raleigh",
       image: {
-        src: "/portfolio/4545-raleigh.png",
-        alt: "Exterior at 4545 North Raleigh Street",
+        src: "/portfolio/raleigh-st-residence.jpg",
+        alt: "Exterior of a Raleigh Street residence in Berkeley",
         width: 1024,
         height: 768,
       },
@@ -194,10 +210,10 @@ export const config: Config = {
     },
     {
       neighborhood: "West Gold Meadows",
-      address: "Brandt Pl",
+      title: "Brandt",
       image: {
-        src: "/portfolio/11916-w-brandt.png",
-        alt: "Exterior at 11916 West Brandt Place",
+        src: "/portfolio/brandt-pl.jpg",
+        alt: "Exterior of a Brandt Place custom residence in West Gold Meadows",
         width: 1024,
         height: 768,
       },
@@ -209,13 +225,13 @@ export const config: Config = {
       ],
     },
     {
-      neighborhood: "",
-      address: "Lowell St",
+      neighborhood: "Berkeley",
+      title: "Lowell",
       image: {
-        src: "/portfolio/4516-lowell.png",
-        alt: "Exterior at 4516 Lowell Boulevard",
-        width: 3891,
-        height: 2918,
+        src: "/portfolio/lowell-st.jpg",
+        alt: "Exterior of a Lowell Street custom residence",
+        width: 1600,
+        height: 1200,
       },
       stats: [
         { label: "Bedrooms", value: "5" },
@@ -226,11 +242,11 @@ export const config: Config = {
     },
     {
       neighborhood: "Observatory Park",
-      address: "Cook St",
+      title: "Cook",
       image: {
-        src: "/portfolio/2664-s-cook.png",
-        alt: "Exterior at 2664 South Cook Street",
-        width: 1537,
+        src: "/portfolio/cook-st.jpg",
+        alt: "Exterior of a Cook Street luxury custom home in Observatory Park",
+        width: 1364,
         height: 1023,
       },
       stats: [
