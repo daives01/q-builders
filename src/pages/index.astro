@@ -97,10 +97,10 @@ import PhotoSwipeGallery from "../components/PhotoSwipeGallery.astro";
                             >
                             </div>
                             {
-                                config.gallery.map((image, index) => (
+                                config.portfolio.map((home, index) => (
                                     <img
-                                        src={image.src}
-                                        alt={`Gallery image ${index + 1}`}
+                                        src={home.image.src}
+                                        alt={home.image.alt}
                                         class={`about-gallery-image absolute inset-0 w-full h-full object-cover rounded-lg transition-opacity duration-[1500ms] ease-in-out ${index === 0 ? "opacity-100" : "opacity-0"}`}
                                         data-index={index}
                                         loading="lazy"

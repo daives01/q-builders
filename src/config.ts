@@ -130,10 +130,10 @@ export const config: Config = {
   portfolio: [
     {
       neighborhood: "Berkeley",
-      address: "3890 Wolff St",
+      address: "Wolff St",
       image: {
-        src: "/portfolio/3890-wolff.png",
-        alt: "White brick exterior at 3890 Wolff Street",
+        src: "/portfolio/3968-wolff.png",
+        alt: "Front exterior of 3968 wolff",
         width: 3840,
         height: 2160,
       },
@@ -146,7 +146,7 @@ export const config: Config = {
     },
     {
       neighborhood: "South Denver",
-      address: "2186 S Sherman St",
+      address: "Sherman St",
       image: {
         src: "/portfolio/2186-sherman.png",
         alt: "Front exterior and yard at 2186 South Sherman Street",
@@ -162,7 +162,7 @@ export const config: Config = {
     },
     {
       neighborhood: "Berkeley",
-      address: "3916 N Raleigh St",
+      address: "Raleigh St",
       image: {
         src: "/portfolio/3916-raleigh.png",
         alt: "Completed exterior at 3916 North Raleigh Street",
@@ -178,7 +178,7 @@ export const config: Config = {
     },
     {
       neighborhood: "Berkeley",
-      address: "4545 N Raleigh St",
+      address: "Raleigh St",
       image: {
         src: "/portfolio/4545-raleigh.png",
         alt: "Exterior at 4545 North Raleigh Street",
@@ -193,8 +193,8 @@ export const config: Config = {
       ],
     },
     {
-      neighborhood: "",
-      address: "11916 W Brandt Pl",
+      neighborhood: "West Gold Meadows",
+      address: "Brandt Pl",
       image: {
         src: "/portfolio/11916-w-brandt.png",
         alt: "Exterior at 11916 West Brandt Place",
@@ -202,15 +202,15 @@ export const config: Config = {
         height: 768,
       },
       stats: [
-        { label: "Bedrooms", value: "" },
-        { label: "Bathrooms", value: "" },
-        { label: "Square Feet", value: "" },
-        { label: "Garage", value: "" },
+        { label: "Bedrooms", value: "4" },
+        { label: "Bathrooms", value: "3.5" },
+        { label: "Square Feet", value: "3800" },
+        { label: "Garage", value: "2" },
       ],
     },
     {
       neighborhood: "",
-      address: "4516 Lowell Blvd",
+      address: "Lowell St",
       image: {
         src: "/portfolio/4516-lowell.png",
         alt: "Exterior at 4516 Lowell Boulevard",
@@ -226,7 +226,7 @@ export const config: Config = {
     },
     {
       neighborhood: "Observatory Park",
-      address: "2664 S Cook",
+      address: "Cook St",
       image: {
         src: "/portfolio/2664-s-cook.png",
         alt: "Exterior at 2664 South Cook Street",
