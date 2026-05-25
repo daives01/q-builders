@@ -1,296 +1,389 @@
- ---
- import { config } from '../config';
- ---
+---
+import { config } from "../config";
+---
 
-<div id="hero-backgrounds" class="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
-	<img id="hero-blueprint" src={config.hero.blueprintImage} alt="" class="hero-layer absolute inset-0 w-full h-full object-cover transition-opacity duration-[var(--transition-slow)] ease-in-out" style="opacity: 1;" fetchpriority="high" />
-	<img id="hero-framing" src={config.hero.framingImage} alt="" class="hero-layer absolute inset-0 w-full h-full object-cover transition-opacity duration-[var(--transition-slow)] ease-in-out" style="opacity: 0;" />
-	<img id="hero-house" src={config.hero.houseImage} alt="" class="hero-layer absolute inset-0 w-full h-full object-cover transition-opacity duration-[var(--transition-slow)] ease-in-out" style="opacity: 0;" />
-	<div id="hero-overlay" class="absolute inset-0 bg-black/40" />
+<div
+    id="hero-backgrounds"
+    class="fixed inset-0 pointer-events-none z-0"
+    aria-hidden="true"
+>
+    <img
+        id="hero-blueprint"
+        src={config.hero.blueprintImage}
+        alt=""
+        class="hero-layer absolute inset-0 w-full h-full object-cover transition-opacity duration-[var(--transition-slow)] ease-in-out"
+        style="opacity: 1;"
+        fetchpriority="high"
+    />
+    <img
+        id="hero-framing"
+        src={config.hero.framingImage}
+        alt=""
+        class="hero-layer absolute inset-0 w-full h-full object-cover transition-opacity duration-[var(--transition-slow)] ease-in-out"
+        style="opacity: 0;"
+    />
+    <img
+        id="hero-house"
+        src={config.hero.houseImage}
+        alt=""
+        class="hero-layer absolute inset-0 w-full h-full object-cover transition-opacity duration-[var(--transition-slow)] ease-in-out"
+        style="opacity: 0;"
+    />
+    <div id="hero-overlay" class="absolute inset-0 bg-black/40"></div>
 </div>
 
-<section id="hero" class="relative h-screen z-10" aria-labelledby="hero-heading">
-	<div class="absolute inset-0 flex flex-col justify-center md:justify-end px-6 md:px-16 pb-24 md:pb-32">
-		<div class="max-w-7xl mx-auto w-full text-center md:text-left">
-			<h1 id="hero-heading" class="text-5xl md:text-6xl lg:text-7xl font-semibold text-white mb-6 md:mb-8 leading-[1.05] animate-fade-in stagger-1">
-				{config.hero.headline}
-			</h1>
-			<p class="text-lg md:text-xl lg:text-2xl text-white/90 mb-10 md:mb-12 font-light max-w-4xl md:max-w-5xl mx-auto md:mx-0 leading-relaxed animate-fade-in stagger-2">
-				{config.hero.subline}
-			</p>
-			<div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 animate-fade-in stagger-3">
-				<a href={`mailto:${config.hero.email}`} class="btn-primary group" aria-label="Start your project with Q Builders">
-					<span>Start Your Project</span>
-					<svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-					</svg>
-				</a>
-			</div>
-		</div>
-	</div>
-	<div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden md:block" aria-hidden="true">
-		<svg class="scroll-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-			<path d="M6 9l6 6 6-6" />
-		</svg>
-	</div>
+<section
+    id="hero"
+    class="relative h-screen z-10"
+    aria-labelledby="hero-heading"
+>
+    <div
+        class="absolute inset-0 flex flex-col justify-center md:justify-end px-6 md:px-16 pb-24 md:pb-32"
+    >
+        <div class="max-w-7xl mx-auto w-full text-center md:text-left">
+            <h1
+                id="hero-heading"
+                class="text-5xl md:text-6xl lg:text-7xl font-semibold text-white mb-6 md:mb-8 leading-[1.05] animate-fade-in stagger-1"
+            >
+                {config.hero.headline}
+            </h1>
+            <p
+                class="text-lg md:text-xl lg:text-2xl text-white/90 mb-10 md:mb-12 font-light max-w-4xl md:max-w-5xl mx-auto md:mx-0 leading-relaxed animate-fade-in stagger-2"
+            >
+                {config.hero.subline}
+            </p>
+            <div
+                class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 animate-fade-in stagger-3"
+            >
+                <a
+                    href="/portfolio"
+                    class="btn-primary btn-hero-primary"
+                    aria-label="See the full Q Builders portfolio"
+                >
+                    <span>See Full Portfolio</span>
+                </a>
+                <a
+                    href={`mailto:${config.hero.email}`}
+                    class="btn-secondary btn-hero-secondary"
+                    aria-label="Start your project with Q Builders"
+                >
+                    <span>Start Your Project</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div
+        class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden md:block"
+        aria-hidden="true"
+    >
+        <svg
+            class="scroll-arrow"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <path d="M6 9l6 6 6-6"></path>
+        </svg>
+    </div>
 </section>
 
 <style>
-	.scroll-arrow {
-		color: rgba(255, 255, 255, 0.6);
-		opacity: 0;
-		animation: arrow-fade-in 0.6s ease-out 3.2s forwards, bounce 2s ease-in-out 3.8s infinite;
-	}
+    .scroll-arrow {
+        color: rgba(255, 255, 255, 0.6);
+        opacity: 0;
+        animation:
+            arrow-fade-in 0.6s ease-out 3.2s forwards,
+            bounce 2s ease-in-out 3.8s infinite;
+    }
 
-	@keyframes arrow-fade-in {
-		from { opacity: 0; transform: translateY(-8px); }
-		to { opacity: 0.6; transform: translateY(0); }
-	}
+    @keyframes arrow-fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+        to {
+            opacity: 0.6;
+            transform: translateY(0);
+        }
+    }
 
-	@keyframes bounce {
-		0%, 100% { transform: translateY(0); opacity: 0.6; }
-		50% { transform: translateY(6px); opacity: 1; }
-	}
+    @keyframes bounce {
+        0%,
+        100% {
+            transform: translateY(0);
+            opacity: 0.6;
+        }
+        50% {
+            transform: translateY(6px);
+            opacity: 1;
+        }
+    }
 </style>
 
 <style>
-	@keyframes fade-in {
-		from { opacity: 0; transform: translateY(20px); }
-		to { opacity: 1; transform: translateY(0); }
-	}
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
-	.animate-fade-in {
-		animation: fade-in 1s ease-out 0.5s backwards;
-	}
+    .animate-fade-in {
+        animation: fade-in 1s ease-out 0.5s backwards;
+    }
 
-	.stagger-1 {
-		animation-delay: 2.2s;
-	}
+    .stagger-1 {
+        animation-delay: 2.2s;
+    }
 
-	.stagger-2 {
-		animation-delay: 2.4s;
-	}
+    .stagger-2 {
+        animation-delay: 2.4s;
+    }
 
-	.stagger-3 {
-		animation-delay: 2.6s;
-	}
+    .stagger-3 {
+        animation-delay: 2.6s;
+    }
 
-	.hero-layer {
-		will-change: opacity;
-	}
+    .hero-layer {
+        will-change: opacity;
+    }
 </style>
 
-  <script>
-	const initHeroEffects = () => {
-		const heroSection = document.getElementById('hero');
-		const blueprint = document.getElementById('hero-blueprint');
-		const framing = document.getElementById('hero-framing');
-		const house = document.getElementById('hero-house');
+<script>
+    const initHeroEffects = () => {
+        const heroSection = document.getElementById("hero");
+        const blueprint = document.getElementById("hero-blueprint");
+        const framing = document.getElementById("hero-framing");
+        const house = document.getElementById("hero-house");
 
-		if (!heroSection || !blueprint || !framing || !house) return;
+        if (!heroSection || !blueprint || !framing || !house) return;
 
-		let isDesktop = window.innerWidth >= 768;
-		const spotlightRadius = 350;
-		const easingFactor = 0.8;
-		const gradientMidOpacity = 0.3;
-		const gradientMidMultiplier = 0.5;
-		const centerOpacity = 0.0;
-		const outerOpacity = 1;
-		const delayBlueprintFade = 1000;
-		const delayHouseFadeIn = 2000;
-		const delaySpotlightStart = 3000;
+        let isDesktop = window.innerWidth >= 768;
+        const spotlightRadius = 350;
+        const easingFactor = 0.8;
+        const gradientMidOpacity = 0.3;
+        const gradientMidMultiplier = 0.5;
+        const centerOpacity = 0.0;
+        const outerOpacity = 1;
+        const delayBlueprintFade = 1000;
+        const delayHouseFadeIn = 2000;
+        const delaySpotlightStart = 3000;
 
-		// Track mouse position - will be updated by mouse events
-		let mouseX = 0;
-		let mouseY = 0;
-		let currentX = 0;
-		let currentY = 0;
-		let waitingForMouse = false;
-		let animationFrame: ReturnType<typeof requestAnimationFrame> | null = null;
-		let spotlightActive = false;
+        // Track mouse position - will be updated by mouse events
+        let mouseX = 0;
+        let mouseY = 0;
+        let currentX = 0;
+        let currentY = 0;
+        let waitingForMouse = false;
+        let animationFrame: ReturnType<typeof requestAnimationFrame> | null =
+            null;
+        let spotlightActive = false;
 
-		// Velocity tracking
-		let lastX = 0;
-		let lastY = 0;
-		let smoothedVelocity = 0;
-		const velocitySmoothing = .03;
-		const maxVelocity = 50; // Velocity at which we hit minimum size
+        // Velocity tracking
+        let lastX = 0;
+        let lastY = 0;
+        let smoothedVelocity = 0;
+        const velocitySmoothing = 0.03;
+        const maxVelocity = 50; // Velocity at which we hit minimum size
 
-		// Dynamic spotlight params
-		const minRadius = 100;
-		const maxRadius = spotlightRadius; // 350
-		const minMidMultiplier = 1; // Tight edge when fast
-		const maxMidMultiplier = gradientMidMultiplier; // 0.5 - soft edge when slow
-		const minMidOpacity = 0.0;
-		const maxMidOpacity = gradientMidOpacity;
+        // Dynamic spotlight params
+        const minRadius = 100;
+        const maxRadius = spotlightRadius; // 350
+        const minMidMultiplier = 1; // Tight edge when fast
+        const maxMidMultiplier = gradientMidMultiplier; // 0.5 - soft edge when slow
+        const minMidOpacity = 0.0;
+        const maxMidOpacity = gradientMidOpacity;
 
-		// Fade-in animation
-		let currentRadius = 0;
-		let spotlightFadeStartTime = 0;
-		const spotlightFadeDuration = 400;
-		let fadeInComplete = false;
+        // Fade-in animation
+        let currentRadius = 0;
+        let spotlightFadeStartTime = 0;
+        const spotlightFadeDuration = 400;
+        let fadeInComplete = false;
 
-		blueprint.style.opacity = '1';
-		framing.style.opacity = '0';
-		house.style.opacity = '0';
+        blueprint.style.opacity = "1";
+        framing.style.opacity = "0";
+        house.style.opacity = "0";
 
-		const easeOutCubic = (t: number): number => 1 - Math.pow(1 - t, 3);
+        const easeOutCubic = (t: number): number => 1 - Math.pow(1 - t, 3);
 
-		const startSpotlight = () => {
-			currentX = mouseX;
-			currentY = mouseY;
-			lastX = currentX;
-			lastY = currentY;
-			spotlightFadeStartTime = Date.now();
-			currentRadius = 0;
-			fadeInComplete = false;
-			spotlightActive = true;
-			animate();
-		};
+        const startSpotlight = () => {
+            currentX = mouseX;
+            currentY = mouseY;
+            lastX = currentX;
+            lastY = currentY;
+            spotlightFadeStartTime = Date.now();
+            currentRadius = 0;
+            fadeInComplete = false;
+            spotlightActive = true;
+            animate();
+        };
 
-		const updateMousePosition = (e: MouseEvent) => {
-			mouseX = e.clientX;
-			mouseY = e.clientY;
+        const updateMousePosition = (e: MouseEvent) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
 
-			// Start spotlight on first move after 3 seconds
-			if (waitingForMouse) {
-				waitingForMouse = false;
-				startSpotlight();
-			}
-		};
+            // Start spotlight on first move after 3 seconds
+            if (waitingForMouse) {
+                waitingForMouse = false;
+                startSpotlight();
+            }
+        };
 
-		const update = () => {
-			if (!isDesktop || !spotlightActive) return;
+        const update = () => {
+            if (!isDesktop || !spotlightActive) return;
 
-			currentX += (mouseX - currentX) * easingFactor;
-			currentY += (mouseY - currentY) * easingFactor;
+            currentX += (mouseX - currentX) * easingFactor;
+            currentY += (mouseY - currentY) * easingFactor;
 
-			// Calculate and smooth velocity
-			const dx = currentX - lastX;
-			const dy = currentY - lastY;
-			const instantVelocity = Math.sqrt(dx * dx + dy * dy);
-			smoothedVelocity += (instantVelocity - smoothedVelocity) * velocitySmoothing;
-			lastX = currentX;
-			lastY = currentY;
+            // Calculate and smooth velocity
+            const dx = currentX - lastX;
+            const dy = currentY - lastY;
+            const instantVelocity = Math.sqrt(dx * dx + dy * dy);
+            smoothedVelocity +=
+                (instantVelocity - smoothedVelocity) * velocitySmoothing;
+            lastX = currentX;
+            lastY = currentY;
 
-			// Map velocity to spotlight params (0 = slow, 1 = fast)
-			const velocityFactor = Math.min(smoothedVelocity / maxVelocity, 1);
+            // Map velocity to spotlight params (0 = slow, 1 = fast)
+            const velocityFactor = Math.min(smoothedVelocity / maxVelocity, 1);
 
-			// Fade-in animation
-			const elapsed = Date.now() - spotlightFadeStartTime;
-			const fadeProgress = easeOutCubic(Math.min(elapsed / spotlightFadeDuration, 1));
-			if (fadeProgress >= 1) fadeInComplete = true;
+            // Fade-in animation
+            const elapsed = Date.now() - spotlightFadeStartTime;
+            const fadeProgress = easeOutCubic(
+                Math.min(elapsed / spotlightFadeDuration, 1),
+            );
+            if (fadeProgress >= 1) fadeInComplete = true;
 
-			// Calculate dynamic radius (larger when slow, smaller when fast)
-			const targetRadius = maxRadius - (maxRadius - minRadius) * velocityFactor;
-			const dynamicRadius = fadeInComplete ? targetRadius : targetRadius * fadeProgress;
-			currentRadius = dynamicRadius;
+            // Calculate dynamic radius (larger when slow, smaller when fast)
+            const targetRadius =
+                maxRadius - (maxRadius - minRadius) * velocityFactor;
+            const dynamicRadius = fadeInComplete
+                ? targetRadius
+                : targetRadius * fadeProgress;
+            currentRadius = dynamicRadius;
 
-			// Calculate dynamic gradient (softer when slow, tighter when fast)
-			const dynamicMidMultiplier = maxMidMultiplier + (minMidMultiplier - maxMidMultiplier) * velocityFactor;
+            // Calculate dynamic gradient (softer when slow, tighter when fast)
+            const dynamicMidMultiplier =
+                maxMidMultiplier +
+                (minMidMultiplier - maxMidMultiplier) * velocityFactor;
 
-			// Calculate dynamic gradient opacity (softer when slow, tighter when fast)
-			const dynamicMidOpacity = maxMidOpacity + (minMidOpacity - maxMidOpacity) * velocityFactor;
+            // Calculate dynamic gradient opacity (softer when slow, tighter when fast)
+            const dynamicMidOpacity =
+                maxMidOpacity +
+                (minMidOpacity - maxMidOpacity) * velocityFactor;
 
-			const maskGradient = `radial-gradient(circle ${currentRadius}px at ${currentX}px ${currentY}px, rgba(0,0,0,${centerOpacity}) 0%, rgba(0,0,0,${dynamicMidOpacity}) ${currentRadius * dynamicMidMultiplier}px, rgba(0,0,0,${outerOpacity}) ${currentRadius}px)`;
+            const maskGradient = `radial-gradient(circle ${currentRadius}px at ${currentX}px ${currentY}px, rgba(0,0,0,${centerOpacity}) 0%, rgba(0,0,0,${dynamicMidOpacity}) ${currentRadius * dynamicMidMultiplier}px, rgba(0,0,0,${outerOpacity}) ${currentRadius}px)`;
 
-			house.style.maskImage = maskGradient;
-			house.style.webkitMaskImage = maskGradient;
-		};
+            house.style.maskImage = maskGradient;
+            house.style.webkitMaskImage = maskGradient;
+        };
 
-		const animate = () => {
-			if (isDesktop && spotlightActive) {
-				update();
-				animationFrame = requestAnimationFrame(animate);
-			}
-		};
+        const animate = () => {
+            if (isDesktop && spotlightActive) {
+                update();
+                animationFrame = requestAnimationFrame(animate);
+            }
+        };
 
-		const startDesktopEffects = () => {
-			// Track mouse position from any mouse event
-			document.addEventListener('mousemove', updateMousePosition, { passive: true });
-			document.addEventListener('mouseenter', updateMousePosition, { passive: true });
+        const startDesktopEffects = () => {
+            // Track mouse position from any mouse event
+            document.addEventListener("mousemove", updateMousePosition, {
+                passive: true,
+            });
+            document.addEventListener("mouseenter", updateMousePosition, {
+                passive: true,
+            });
 
-			setTimeout(() => {
-				blueprint.style.opacity = '0';
-				framing.style.opacity = '1';
-			}, delayBlueprintFade);
+            setTimeout(() => {
+                blueprint.style.opacity = "0";
+                framing.style.opacity = "1";
+            }, delayBlueprintFade);
 
-			setTimeout(() => {
-				house.style.opacity = '1';
-			}, delayHouseFadeIn);
+            setTimeout(() => {
+                house.style.opacity = "1";
+            }, delayHouseFadeIn);
 
-			setTimeout(() => {
-				// Wait for first mouse move after delay
-				waitingForMouse = true;
-			}, delaySpotlightStart);
-		};
+            setTimeout(() => {
+                // Wait for first mouse move after delay
+                waitingForMouse = true;
+            }, delaySpotlightStart);
+        };
 
-		const startMobileEffects = () => {
-			setTimeout(() => {
-				blueprint.style.opacity = '0';
-				framing.style.opacity = '1';
-			}, delayBlueprintFade);
+        const startMobileEffects = () => {
+            setTimeout(() => {
+                blueprint.style.opacity = "0";
+                framing.style.opacity = "1";
+            }, delayBlueprintFade);
 
-			setTimeout(() => {
-				framing.style.opacity = '0';
-				house.style.opacity = '1';
-			}, delayHouseFadeIn);
-		};
+            setTimeout(() => {
+                framing.style.opacity = "0";
+                house.style.opacity = "1";
+            }, delayHouseFadeIn);
+        };
 
-		if (isDesktop) {
-			startDesktopEffects();
-		} else {
-			startMobileEffects();
-		}
+        if (isDesktop) {
+            startDesktopEffects();
+        } else {
+            startMobileEffects();
+        }
 
-		const handleResize = () => {
-			const newIsDesktop = window.innerWidth >= 768;
+        const handleResize = () => {
+            const newIsDesktop = window.innerWidth >= 768;
 
-			if (newIsDesktop !== isDesktop) {
-				isDesktop = newIsDesktop;
+            if (newIsDesktop !== isDesktop) {
+                isDesktop = newIsDesktop;
 
-				document.removeEventListener('mousemove', updateMousePosition);
-				document.removeEventListener('mouseenter', updateMousePosition);
-				if (animationFrame) cancelAnimationFrame(animationFrame);
-				animationFrame = null;
-				spotlightActive = false;
+                document.removeEventListener("mousemove", updateMousePosition);
+                document.removeEventListener("mouseenter", updateMousePosition);
+                if (animationFrame) cancelAnimationFrame(animationFrame);
+                animationFrame = null;
+                spotlightActive = false;
 
-				// Reset state for new viewport
-				mouseX = 0;
-				mouseY = 0;
-				currentX = 0;
-				currentY = 0;
-				waitingForMouse = false;
+                // Reset state for new viewport
+                mouseX = 0;
+                mouseY = 0;
+                currentX = 0;
+                currentY = 0;
+                waitingForMouse = false;
 
-				blueprint.style.opacity = '1';
-				framing.style.opacity = '0';
-				house.style.opacity = '0';
-				house.style.maskImage = '';
-				house.style.webkitMaskImage = '';
+                blueprint.style.opacity = "1";
+                framing.style.opacity = "0";
+                house.style.opacity = "0";
+                house.style.maskImage = "";
+                house.style.webkitMaskImage = "";
 
-				if (isDesktop) {
-					startDesktopEffects();
-				} else {
-					startMobileEffects();
-				}
-			}
-		};
+                if (isDesktop) {
+                    startDesktopEffects();
+                } else {
+                    startMobileEffects();
+                }
+            }
+        };
 
-		window.addEventListener('resize', handleResize, { passive: true });
+        window.addEventListener("resize", handleResize, { passive: true });
 
-		return () => {
-			window.removeEventListener('resize', handleResize);
-			document.removeEventListener('mousemove', updateMousePosition);
-			document.removeEventListener('mouseenter', updateMousePosition);
-			if (animationFrame) cancelAnimationFrame(animationFrame);
-			house.style.maskImage = '';
-			house.style.webkitMaskImage = '';
-		};
-	};
+        return () => {
+            window.removeEventListener("resize", handleResize);
+            document.removeEventListener("mousemove", updateMousePosition);
+            document.removeEventListener("mouseenter", updateMousePosition);
+            if (animationFrame) cancelAnimationFrame(animationFrame);
+            house.style.maskImage = "";
+            house.style.webkitMaskImage = "";
+        };
+    };
 
-	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', initHeroEffects);
-	} else {
-		initHeroEffects();
-	}
-  </script>
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initHeroEffects);
+    } else {
+        initHeroEffects();
+    }
+</script>

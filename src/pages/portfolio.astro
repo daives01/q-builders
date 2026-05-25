@@ -125,8 +125,6 @@ const spreads = config.portfolio.reduce<(typeof config.portfolio)[]>(
                                                 class="aspect-[1.18/1] w-full bg-[var(--color-surface-container)] object-cover"
                                                 src={home.image.src}
                                                 alt={home.image.alt}
-                                                width={home.image.width}
-                                                height={home.image.height}
                                                 data-carousel-image
                                                 data-spread-index={spreadIndex}
                                                 loading={
@@ -227,8 +225,6 @@ const spreads = config.portfolio.reduce<(typeof config.portfolio)[]>(
                                     class="aspect-[1.08/1] w-full bg-[var(--color-surface-container)] object-cover"
                                     src={home.image.src}
                                     alt={home.image.alt}
-                                    width={home.image.width}
-                                    height={home.image.height}
                                     loading={index === 0 ? "eager" : "lazy"}
                                     fetchpriority={
                                         index === 0 ? "high" : "auto"
