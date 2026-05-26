@@ -3,10 +3,22 @@ import Layout from "../layouts/Layout.astro";
 import { config } from "../config";
 
 const featured = config.portfolio[0];
-const spreads = config.portfolio.reduce<(typeof config.portfolio)[]>(
-    (groups, home, index) => {
-        if (index % 2 === 0) groups.push([home]);
-        else groups[groups.length - 1].push(home);
+const dreamHomeCta = {
+    kind: "cta" as const,
+    title: "Your Dream Home",
+    image: {
+        src: "/portfolio/dream-home.png",
+        alt: "A bright custom home concept ready to become a client's dream home",
+    },
+};
+const portfolioItems = [
+    ...config.portfolio.map((home) => ({ kind: "home" as const, ...home })),
+    dreamHomeCta,
+];
+const spreads = portfolioItems.reduce<(typeof portfolioItems)[]>(
+    (groups, item, index) => {
+        if (index % 2 === 0) groups.push([item]);
+        else groups[groups.length - 1].push(item);
         return groups;
     },
     [],
@@ -112,14 +124,14 @@ const spreads = config.portfolio.reduce<(typeof config.portfolio)[]>(
                         {
                             spreads.map((spread, spreadIndex) => (
                                 <div class="grid min-w-full grid-cols-2">
-                                    {spread.map((home, homeIndex) => (
+                                    {spread.map((item, homeIndex) => (
                                         <article
                                             class={`relative flex min-h-[37rem] flex-col bg-white p-6 lg:p-8 ${homeIndex === 0 ? "border-r border-black/15" : ""}`}
                                         >
                                             <img
                                                 class="aspect-[1.18/1] w-full bg-[var(--color-surface-container)] object-cover"
-                                                src={home.image.src}
-                                                alt={home.image.alt}
+                                                src={item.image.src}
+                                                alt={item.image.alt}
                                                 data-carousel-image
                                                 data-spread-index={spreadIndex}
                                                 loading={
@@ -133,28 +145,112 @@ const spreads = config.portfolio.reduce<(typeof config.portfolio)[]>(
                                                         : "auto"
                                                 }
                                             />
-                                            <div class="mt-6 border-b border-black/65 pb-4 md:mt-8">
-                                                <p class="text-[0.7rem] font-bold uppercase tracking-[0.13em] text-black">
-                                                    {home.neighborhood}
-                                                </p>
-                                                <h2 class="mt-2 text-[2rem] font-light leading-none text-black md:text-[2.7rem]">
-                                                    {home.title}
-                                                </h2>
-                                            </div>
-                                            <dl class="mt-4 grid grid-cols-4 divide-x divide-black/35">
-                                                {home.stats
-                                                    .slice(0, 4)
-                                                    .map((stat) => (
-                                                        <div class="min-w-0 px-2 text-center first:pl-0 last:pr-0">
-                                                            <dd class="min-h-[2rem] [overflow-wrap:anywhere] text-[1.25rem] font-light leading-none text-black md:text-[2rem]">
-                                                                {stat.value}
-                                                            </dd>
-                                                            <dt class="mx-auto mt-2 max-w-[5.5rem] text-[0.5rem] font-bold uppercase leading-tight text-black/85 md:text-[0.52rem]">
-                                                                {stat.label}
-                                                            </dt>
+                                            {item.kind === "home" ? (
+                                                <>
+                                                    <div class="mt-6 border-b border-black/65 pb-4 md:mt-8">
+                                                        <p class="text-[0.7rem] font-bold uppercase tracking-[0.13em] text-black">
+                                                            {item.neighborhood}
+                                                        </p>
+                                                        <h2 class="mt-2 text-[2rem] font-light leading-none text-black md:text-[2.7rem]">
+                                                            {item.title}
+                                                        </h2>
+                                                    </div>
+                                                    <dl class="mt-4 grid grid-cols-4 divide-x divide-black/35">
+                                                        {item.stats
+                                                            .slice(0, 4)
+                                                            .map((stat) => (
+                                                                <div class="min-w-0 px-2 text-center first:pl-0 last:pr-0">
+                                                                    <dd class="min-h-[2rem] [overflow-wrap:anywhere] text-[1.25rem] font-light leading-none text-black md:text-[2rem]">
+                                                                        {stat.value}
+                                                                    </dd>
+                                                                    <dt class="mx-auto mt-2 max-w-[5.5rem] text-[0.5rem] font-bold uppercase leading-tight text-black/85 md:text-[0.52rem]">
+                                                                        {stat.label}
+                                                                    </dt>
+                                                                </div>
+                                                            ))}
+                                                    </dl>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <div class="mt-6 border-b border-black/65 pb-4 md:mt-8">
+                                                        <p class="text-[0.7rem] font-bold uppercase tracking-[0.13em] text-black">
+                                                            Start Your Project
+                                                        </p>
+                                                        <h2 class="mt-2 text-[2rem] font-light leading-none text-black md:text-[2.7rem]">
+                                                            {item.title}
+                                                        </h2>
+                                                    </div>
+                                                    <div class="mt-4 flex min-h-[4.6rem] flex-col items-start gap-3">
+                                                        <p class="min-w-0 text-lg font-semibold leading-tight text-[var(--color-primary)]">
+                                                            {config.hero.email}
+                                                        </p>
+                                                        <div class="flex flex-wrap gap-3">
+                                                            <a
+                                                                href={`mailto:${config.hero.email}`}
+                                                                class="btn-primary min-w-[7.5rem] justify-center px-4 py-3 text-sm"
+                                                                aria-label={`Send email to ${config.hero.email}`}
+                                                            >
+                                                                <svg
+                                                                    class="h-4 w-4"
+                                                                    fill="none"
+                                                                    stroke="currentColor"
+                                                                    viewBox="0 0 24 24"
+                                                                    aria-hidden="true"
+                                                                >
+                                                                    <path
+                                                                        stroke-linecap="round"
+                                                                        stroke-linejoin="round"
+                                                                        stroke-width="2"
+                                                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                                                                    />
+                                                                </svg>
+                                                                <span>Email</span>
+                                                            </a>
+                                                            <button
+                                                                class="btn-secondary min-w-[7.5rem] justify-center px-4 py-3 text-sm"
+                                                                type="button"
+                                                                aria-label={`Copy ${config.hero.email} to clipboard`}
+                                                                data-copy-email={config.hero.email}
+                                                            >
+                                                                <span data-copy-default class="inline-flex items-center gap-2">
+                                                                    <svg
+                                                                        class="h-4 w-4"
+                                                                        fill="none"
+                                                                        stroke="currentColor"
+                                                                        viewBox="0 0 24 24"
+                                                                        aria-hidden="true"
+                                                                    >
+                                                                        <path
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            stroke-width="2"
+                                                                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                                                                        />
+                                                                    </svg>
+                                                                    <span>Copy</span>
+                                                                </span>
+                                                                <span data-copy-success hidden class="inline-flex items-center gap-2">
+                                                                    <svg
+                                                                        class="h-4 w-4 text-[var(--color-primary-container)]"
+                                                                        fill="none"
+                                                                        stroke="currentColor"
+                                                                        viewBox="0 0 24 24"
+                                                                        aria-hidden="true"
+                                                                    >
+                                                                        <path
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            stroke-width="2"
+                                                                            d="M5 13l4 4L19 7"
+                                                                        />
+                                                                    </svg>
+                                                                    <span>Copied</span>
+                                                                </span>
+                                                            </button>
                                                         </div>
-                                                    ))}
-                                            </dl>
+                                                    </div>
+                                                </>
+                                            )}
                                         </article>
                                     ))}
                                     {spread.length === 1 && (
@@ -213,40 +309,121 @@ const spreads = config.portfolio.reduce<(typeof config.portfolio)[]>(
             >
                 <div class="flex gap-4">
                     {
-                        config.portfolio.map((home, index) => (
+                        portfolioItems.map((item, index) => (
                             <article class="flex w-[88vw] shrink-0 snap-center scroll-ml-[6vw] scroll-mr-[6vw] flex-col bg-white p-4 shadow-[0_18px_50px_-34px_rgba(0,0,0,0.55)] ring-1 ring-black/10">
-                                <p class="mb-4 text-[0.58rem] font-semibold uppercase tracking-[0.24em] text-black/70">
-                                    Q Builders Completed Homes
-                                </p>
                                 <img
                                     class="aspect-[1.08/1] w-full bg-[var(--color-surface-container)] object-cover"
-                                    src={home.image.src}
-                                    alt={home.image.alt}
+                                    src={item.image.src}
+                                    alt={item.image.alt}
                                     loading={index === 0 ? "eager" : "lazy"}
                                     fetchpriority={
                                         index === 0 ? "high" : "auto"
                                     }
                                 />
-                                <div class="mt-5 border-b border-black/65 pb-4">
-                                    <p class="text-[0.68rem] font-bold uppercase tracking-[0.13em] text-black">
-                                        {home.neighborhood}
-                                    </p>
-                                    <h2 class="mt-2 text-[1.9rem] font-light leading-none text-black">
-                                        {home.title}
-                                    </h2>
-                                </div>
-                                <dl class="mt-4 grid grid-cols-4 divide-x divide-black/35">
-                                    {home.stats.slice(0, 4).map((stat) => (
-                                        <div class="min-w-0 px-1.5 text-center first:pl-0 last:pr-0">
-                                            <dd class="min-h-[1.4rem] [overflow-wrap:anywhere] text-[1.1rem] font-light leading-none text-black">
-                                                {stat.value}
-                                            </dd>
-                                            <dt class="mx-auto mt-2 max-w-[4.7rem] text-[0.45rem] font-bold uppercase leading-tight text-black/85">
-                                                {stat.label}
-                                            </dt>
+                                {item.kind === "home" ? (
+                                    <>
+                                        <div class="mt-5 border-b border-black/65 pb-4">
+                                            <p class="text-[0.68rem] font-bold uppercase tracking-[0.13em] text-black">
+                                                {item.neighborhood}
+                                            </p>
+                                            <h2 class="mt-2 text-[1.9rem] font-light leading-none text-black">
+                                                {item.title}
+                                            </h2>
                                         </div>
-                                    ))}
-                                </dl>
+                                        <dl class="mt-4 grid grid-cols-4 divide-x divide-black/35">
+                                            {item.stats.slice(0, 4).map((stat) => (
+                                                <div class="min-w-0 px-1.5 text-center first:pl-0 last:pr-0">
+                                                    <dd class="min-h-[1.4rem] [overflow-wrap:anywhere] text-[1.1rem] font-light leading-none text-black">
+                                                        {stat.value}
+                                                    </dd>
+                                                    <dt class="mx-auto mt-2 max-w-[4.7rem] text-[0.45rem] font-bold uppercase leading-tight text-black/85">
+                                                        {stat.label}
+                                                    </dt>
+                                                </div>
+                                            ))}
+                                        </dl>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div class="mt-5 border-b border-black/65 pb-4">
+                                            <p class="text-[0.68rem] font-bold uppercase tracking-[0.13em] text-black">
+                                                Start Your Project
+                                            </p>
+                                            <h2 class="mt-2 text-[1.9rem] font-light leading-none text-black">
+                                                {item.title}
+                                            </h2>
+                                        </div>
+                                        <div class="mt-4 flex min-h-[7rem] flex-col gap-3">
+                                            <p class="[overflow-wrap:anywhere] text-center text-base font-semibold leading-tight text-[var(--color-primary)]">
+                                                {config.hero.email}
+                                            </p>
+                                            <div class="grid grid-cols-2 gap-3">
+                                                <a
+                                                    href={`mailto:${config.hero.email}`}
+                                                    class="btn-primary justify-center px-4 py-3 text-sm"
+                                                    aria-label={`Send email to ${config.hero.email}`}
+                                                >
+                                                    <svg
+                                                        class="h-4 w-4"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        viewBox="0 0 24 24"
+                                                        aria-hidden="true"
+                                                    >
+                                                        <path
+                                                            stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                                                        />
+                                                    </svg>
+                                                    <span>Email</span>
+                                                </a>
+                                                <button
+                                                    class="btn-secondary justify-center px-4 py-3 text-sm"
+                                                    type="button"
+                                                    aria-label={`Copy ${config.hero.email} to clipboard`}
+                                                    data-copy-email={config.hero.email}
+                                                >
+                                                    <span data-copy-default class="inline-flex items-center gap-2">
+                                                        <svg
+                                                            class="h-4 w-4"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            viewBox="0 0 24 24"
+                                                            aria-hidden="true"
+                                                        >
+                                                            <path
+                                                                stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                                                            />
+                                                        </svg>
+                                                        <span>Copy</span>
+                                                    </span>
+                                                    <span data-copy-success hidden class="inline-flex items-center gap-2">
+                                                        <svg
+                                                            class="h-4 w-4 text-[var(--color-primary-container)]"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            viewBox="0 0 24 24"
+                                                            aria-hidden="true"
+                                                        >
+                                                            <path
+                                                                stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M5 13l4 4L19 7"
+                                                            />
+                                                        </svg>
+                                                        <span>Copied</span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </>
+                                )}
                             </article>
                         ))
                     }
@@ -271,6 +448,34 @@ const spreads = config.portfolio.reduce<(typeof config.portfolio)[]>(
         const images = Array.from(
             document.querySelectorAll("[data-carousel-image]"),
         ) as HTMLImageElement[];
+        const copyButtons = Array.from(
+            document.querySelectorAll("[data-copy-email]"),
+        ) as HTMLButtonElement[];
+
+        copyButtons.forEach((button) => {
+            const defaultState = button.querySelector("[data-copy-default]");
+            const successState = button.querySelector("[data-copy-success]");
+
+            if (!defaultState || !successState) return;
+
+            button.addEventListener("click", async () => {
+                const email = button.dataset.copyEmail;
+                if (!email) return;
+
+                try {
+                    await navigator.clipboard.writeText(email);
+                    (defaultState as HTMLElement).hidden = true;
+                    (successState as HTMLElement).hidden = false;
+
+                    setTimeout(() => {
+                        (defaultState as HTMLElement).hidden = false;
+                        (successState as HTMLElement).hidden = true;
+                    }, 2000);
+                } catch (err) {
+                    console.error("Failed to copy:", err);
+                }
+            });
+        });
 
         if (track && prev && next && dots.length) {
             let current = 0;
