@@ -208,11 +208,13 @@ const spreads = config.portfolio.reduce<(typeof config.portfolio)[]>(
                 }
             </div>
 
-            <div class="-mx-4 overflow-x-auto px-4 pb-3 lg:hidden">
-                <div class="flex snap-x snap-mandatory gap-4">
+            <div
+                class="-mx-4 snap-x snap-mandatory overflow-x-auto overscroll-x-contain px-[6vw] pb-3 [scroll-padding-inline:6vw] lg:hidden"
+            >
+                <div class="flex gap-4">
                     {
                         config.portfolio.map((home, index) => (
-                            <article class="flex min-w-[88vw] snap-center flex-col bg-white p-4 shadow-[0_18px_50px_-34px_rgba(0,0,0,0.55)] ring-1 ring-black/10">
+                            <article class="flex w-[88vw] shrink-0 snap-center scroll-ml-[6vw] scroll-mr-[6vw] flex-col bg-white p-4 shadow-[0_18px_50px_-34px_rgba(0,0,0,0.55)] ring-1 ring-black/10">
                                 <p class="mb-4 text-[0.58rem] font-semibold uppercase tracking-[0.24em] text-black/70">
                                     Q Builders Completed Homes
                                 </p>

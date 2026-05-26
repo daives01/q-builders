@@ -23,5 +23,8 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
+# local editor settings
+.vscode/
+
 # local playwright mcp artifacts
 .playwright-mcp/
