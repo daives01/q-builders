@@ -10,7 +10,7 @@ interface Props {
 const {
 	title = 'Q Builders | Custom homes in Denver',
 	description = 'Custom home builder in Denver, Colorado. 75+ homes built across the front range. Expert craftsmanship, transparent communication, and hands-on project management.',
-	image = '/hero-image.jpeg'
+	image = '/portfolio/wolff-st.jpg'
 } = Astro.props;
 
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
@@ -23,7 +23,7 @@ const siteUrl = Astro.site?.href || 'https://qbuilderscolorado.com';
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="theme-color" content="#07241a" />
-		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link rel="icon" href="/logo.svg" type="image/svg+xml" />
 		{canonical && <link rel="canonical" href={canonical} />}
 		<meta name="generator" content={Astro.generator} />
 

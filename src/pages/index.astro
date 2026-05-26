@@ -6,6 +6,9 @@ import PhotoSwipeGallery from "../components/PhotoSwipeGallery.astro";
 
 const lightboxWidth = 1600;
 const lightboxHeight = 1200;
+const aboutImages = config.portfolio.filter(
+    (home) => home.image.src !== config.hero.houseImage,
+);
 ---
 
 <Layout
@@ -100,7 +103,7 @@ const lightboxHeight = 1200;
                             >
                             </div>
                             {
-                                config.portfolio.map((home, index) => (
+                                aboutImages.map((home, index) => (
                                     <img
                                         src={home.image.src}
                                         alt={home.image.alt}
@@ -278,6 +281,16 @@ const lightboxHeight = 1200;
                             ))
                         }
                     </div>
+                </div>
+
+                <div class="mt-12 flex justify-center">
+                    <a
+                        href="/portfolio"
+                        class="btn-primary text-base px-6 py-4"
+                        aria-label="See past Q Builders projects"
+                    >
+                        <span>See Previous Builds</span>
+                    </a>
                 </div>
 
                 <PhotoSwipeGallery />

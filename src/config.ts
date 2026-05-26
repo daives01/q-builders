@@ -38,9 +38,9 @@ export const config: Config = {
   hero: {
     headline: "Q Builders",
     subline: "Custom residential construction along Denver's front range",
-    blueprintImage: "/hero-blueprint-old.jpg",
-    framingImage: "/hero-framing.jpg",
-    houseImage: "/hero-image.jpeg",
+    blueprintImage: "/hero-blueprint.webp",
+    framingImage: "/hero-framing.webp",
+    houseImage: "/portfolio/wolff-st.jpg",
     email: "qbuilders123@gmail.com",
   },
   about: {

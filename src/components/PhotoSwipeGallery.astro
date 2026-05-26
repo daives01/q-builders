@@ -5,7 +5,7 @@ import 'photoswipe/style.css';
 <script>
 	import PhotoSwipeLightbox from 'photoswipe/lightbox';
 
-	let lightbox;
+	let lightbox: PhotoSwipeLightbox | undefined;
 
 	const initPhotoSwipe = () => {
 		const galleries = document.querySelectorAll('[data-pswp-gallery]');
