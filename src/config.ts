@@ -41,7 +41,7 @@ export const config: Config = {
     blueprintImage: "/hero-blueprint.webp",
     framingImage: "/hero-framing.webp",
     houseImage: "/portfolio/wolff-st.jpg",
-    email: "qbuilders123@gmail.com",
+    email: "contact@qbuilderscolorado.com",
   },
   about: {
     bio: "We are a premier custom home builder specializing in duplexes and luxury residences throughout Denver's front range. Our team combines exceptional craftsmanship with modern design to deliver homes that exceed expectations. From initial concept to final walkthrough, we handle every detail with precision and care.",
