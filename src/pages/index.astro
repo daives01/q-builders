@@ -80,7 +80,7 @@ const aboutImages = config.portfolio.filter(
                 </div>
             </details>
             <a
-                href="#hero"
+                href="#home"
                 class="order-2 flex items-center gap-3 hover:opacity-80 transition-opacity md:order-none"
                 aria-label="Q Builders"
             >
@@ -154,10 +154,6 @@ const aboutImages = config.portfolio.filter(
                         <div
                             class="relative order-1 lg:order-2 h-[320px] md:h-[450px]"
                         >
-                            <div
-                                class="absolute -inset-4 border border-[var(--color-brass)]/30 rounded-lg opacity-70"
-                            >
-                            </div>
                             {
                                 aboutImages.map((home, index) => (
                                     <img
@@ -186,10 +182,6 @@ const aboutImages = config.portfolio.filter(
                         class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center"
                     >
                         <div class="relative group">
-                            <div
-                                class="absolute -inset-4 border border-[var(--color-brass)]/30 rounded-lg opacity-70"
-                            >
-                            </div>
                             <div class="relative overflow-hidden rounded-lg">
                                 <picture class="block">
                                     <source
@@ -261,7 +253,7 @@ const aboutImages = config.portfolio.filter(
                     <div class="flex gap-4 pr-6 snap-x snap-mandatory">
                         {
                             config.gallery.map((image, index) => (
-                                <figure class="group relative w-[78vw] max-w-[23rem] shrink-0 snap-start overflow-hidden rounded-lg bg-[var(--color-surface-container-lowest)] ring-1 ring-[var(--color-brass)]/35">
+                                <figure class="group relative w-[78vw] max-w-[23rem] shrink-0 snap-start overflow-hidden rounded-lg bg-[var(--color-surface-container-lowest)]">
                                     <a
                                         href={image.src}
                                         data-pswp-item
@@ -293,7 +285,7 @@ const aboutImages = config.portfolio.filter(
                     <div class="columns-3 gap-5 space-y-5">
                         {
                             config.gallery.map((image, index) => (
-                                <figure class="group relative overflow-hidden rounded-lg break-inside-avoid aspect-[4/3] transition-all duration-300 ring-1 ring-[var(--color-brass)]/25 hover:ring-[var(--color-brass)]">
+                                <figure class="group relative overflow-hidden rounded-lg break-inside-avoid aspect-[4/3]">
                                     <a
                                         href={image.src}
                                         data-pswp-item

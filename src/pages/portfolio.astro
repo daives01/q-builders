@@ -184,7 +184,7 @@ const spreads = portfolioItems.reduce<(typeof portfolioItems)[]>(
                                             class={`relative flex min-h-[37rem] flex-col bg-white p-6 lg:p-8 ${homeIndex === 0 ? "border-r border-black/15" : ""}`}
                                         >
                                             <img
-                                                class="aspect-[1.18/1] w-full bg-[var(--color-surface-container)] object-cover"
+                                                class="aspect-[1.18/1] w-full rounded-[var(--radius-sm)] bg-[var(--color-surface-container)] object-cover"
                                                 src={item.image.src}
                                                 alt={item.image.alt}
                                                 data-carousel-image
@@ -367,7 +367,7 @@ const spreads = portfolioItems.reduce<(typeof portfolioItems)[]>(
                         portfolioItems.map((item, index) => (
                             <article class="flex w-[88vw] shrink-0 snap-center scroll-ml-[6vw] scroll-mr-[6vw] flex-col bg-white p-4 shadow-[0_18px_50px_-34px_rgba(0,0,0,0.55)] ring-1 ring-black/10">
                                 <img
-                                    class="aspect-[1.08/1] w-full bg-[var(--color-surface-container)] object-cover"
+                                    class="aspect-[1.08/1] w-full rounded-[var(--radius-sm)] bg-[var(--color-surface-container)] object-cover"
                                     src={item.image.src}
                                     alt={item.image.alt}
                                     loading={index === 0 ? "eager" : "lazy"}
