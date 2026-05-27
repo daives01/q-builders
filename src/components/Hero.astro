@@ -156,6 +156,17 @@ import { config } from "../config";
     .hero-layer {
         will-change: opacity;
     }
+
+    .hero-intro-skipped .animate-fade-in {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+
+    .hero-intro-skipped .scroll-arrow {
+        animation: bounce 2s ease-in-out infinite;
+        opacity: 0.6;
+    }
 </style>
 
 <script>
@@ -167,6 +178,7 @@ import { config } from "../config";
 
         if (!heroSection || !blueprint || !framing || !house) return;
 
+        const introStorageKey = "q-builders-home-intro-played";
         let isDesktop = window.innerWidth >= 768;
         const spotlightRadius = 350;
         const easingFactor = 0.8;
@@ -202,6 +214,31 @@ import { config } from "../config";
         const maxMidMultiplier = gradientMidMultiplier; // 0.5 - soft edge when slow
         const minMidOpacity = 0.0;
         const maxMidOpacity = gradientMidOpacity;
+
+        const hasIntroPlayed = () => {
+            try {
+                return window.sessionStorage.getItem(introStorageKey) === "true";
+            } catch {
+                return false;
+            }
+        };
+
+        const markIntroPlayed = () => {
+            try {
+                window.sessionStorage.setItem(introStorageKey, "true");
+            } catch {
+                // Storage can be unavailable in private browsing contexts.
+            }
+        };
+
+        const showCompletedHero = () => {
+            heroSection.classList.add("hero-intro-skipped");
+            blueprint.style.opacity = "0";
+            framing.style.opacity = isDesktop ? "1" : "0";
+            house.style.opacity = "1";
+            house.style.maskImage = "";
+            house.style.webkitMaskImage = "";
+        };
 
         // Fade-in animation
         let currentRadius = 0;
@@ -329,6 +366,70 @@ import { config } from "../config";
                 house.style.opacity = "1";
             }, delayHouseFadeIn);
         };
+
+        if (hasIntroPlayed()) {
+            showCompletedHero();
+
+            if (isDesktop) {
+                document.addEventListener("mousemove", updateMousePosition, {
+                    passive: true,
+                });
+                document.addEventListener("mouseenter", updateMousePosition, {
+                    passive: true,
+                });
+                waitingForMouse = true;
+            }
+
+            const handleSkippedResize = () => {
+                const wasDesktop = isDesktop;
+                isDesktop = window.innerWidth >= 768;
+                showCompletedHero();
+
+                if (isDesktop && !wasDesktop) {
+                    document.addEventListener("mousemove", updateMousePosition, {
+                        passive: true,
+                    });
+                    document.addEventListener(
+                        "mouseenter",
+                        updateMousePosition,
+                        {
+                            passive: true,
+                        },
+                    );
+                    waitingForMouse = true;
+                }
+
+                if (!isDesktop && wasDesktop) {
+                    document.removeEventListener(
+                        "mousemove",
+                        updateMousePosition,
+                    );
+                    document.removeEventListener(
+                        "mouseenter",
+                        updateMousePosition,
+                    );
+                    if (animationFrame) cancelAnimationFrame(animationFrame);
+                    animationFrame = null;
+                    spotlightActive = false;
+                    waitingForMouse = false;
+                }
+            };
+
+            window.addEventListener("resize", handleSkippedResize, {
+                passive: true,
+            });
+
+            return () => {
+                window.removeEventListener("resize", handleSkippedResize);
+                document.removeEventListener("mousemove", updateMousePosition);
+                document.removeEventListener("mouseenter", updateMousePosition);
+                if (animationFrame) cancelAnimationFrame(animationFrame);
+                house.style.maskImage = "";
+                house.style.webkitMaskImage = "";
+            };
+        }
+
+        markIntroPlayed();
 
         if (isDesktop) {
             startDesktopEffects();
