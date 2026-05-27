@@ -21,17 +21,73 @@ const aboutImages = config.portfolio.filter(
         aria-label="Main navigation"
     >
         <div
-            class="w-full px-4 py-3 md:px-8 md:py-4 flex justify-between items-center"
+            class="w-full min-w-0 px-4 py-3 md:px-8 md:py-4 flex justify-between items-center"
         >
+            <details class="nav-menu relative order-1 md:hidden">
+                <summary
+                    class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-[var(--radius-md)] border-0 text-[var(--color-primary)] transition-colors hover:text-[var(--color-brass-dark)]"
+                    aria-label="Open navigation menu"
+                >
+                    <svg
+                        class="h-8 w-8"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M4 7h16"></path>
+                        <path d="M4 12h16"></path>
+                        <path d="M4 17h16"></path>
+                    </svg>
+                </summary>
+                <div
+                    class="fixed left-0 right-0 top-[4.25rem] grid overflow-hidden border-0 bg-[var(--color-surface)]/98 text-left shadow-[0_18px_45px_-28px_rgba(0,0,0,0.55)] backdrop-blur-[var(--backdrop-blur)]"
+                >
+                    {
+                        [
+                            "about",
+                            "owner",
+                            "gallery",
+                            ...(config.testimonials.length > 0
+                                ? ["testimonials"]
+                                : []),
+                        ].map((section) => (
+                            <a
+                                href={`#${section}`}
+                                class="border-t border-[var(--color-outline-variant)]/60 px-4 py-4 text-sm font-semibold uppercase tracking-[0.1em] text-[var(--color-on-surface-variant)] transition-colors first:border-t-0 hover:text-[var(--color-primary)]"
+                                aria-label={`Navigate to ${section}`}
+                            >
+                                {section.charAt(0).toUpperCase() + section.slice(1)}
+                            </a>
+                        ))
+                    }
+                    <a
+                        href="/portfolio"
+                        class="border-t border-[var(--color-outline-variant)]/60 px-4 py-4 text-sm font-semibold uppercase tracking-[0.1em] text-[var(--color-on-surface-variant)] transition-colors hover:text-[var(--color-primary)]"
+                        aria-label="View portfolio"
+                    >
+                        Portfolio
+                    </a>
+                    <a
+                        href="#contact"
+                        class="border-t border-[var(--color-outline-variant)]/60 px-4 py-4 text-sm font-semibold uppercase tracking-[0.1em] text-[var(--color-on-surface-variant)] transition-colors hover:text-[var(--color-primary)]"
+                        aria-label="Navigate to contact"
+                    >
+                        Contact
+                    </a>
+                </div>
+            </details>
             <a
                 href="#hero"
-                class="hidden md:flex items-center gap-3 hover:opacity-80 transition-opacity"
+                class="order-2 flex items-center gap-3 hover:opacity-80 transition-opacity md:order-none"
                 aria-label="Q Builders"
             >
-                <img src="/logo.svg" alt="Q Builders" class="h-12 w-auto" />
+                <img src="/logo.svg" alt="Q Builders" class="h-10 w-auto md:h-12" />
             </a>
             <div
-                class="flex items-center justify-around w-full md:justify-end md:w-auto gap-1 md:gap-2"
+                class="hidden items-center gap-2 md:flex md:w-auto md:justify-end"
             >
                 {
                     [
@@ -44,7 +100,7 @@ const aboutImages = config.portfolio.filter(
                     ].map((section) => (
                         <a
                             href={`#${section}`}
-                            class="nav-link px-3 py-2 md:px-4 md:py-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)] text-xs md:text-sm font-semibold uppercase tracking-[0.1em] transition-all rounded hover:bg-[var(--color-secondary-container)]/25"
+                            class="nav-link px-4 py-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)] text-sm font-semibold uppercase tracking-[0.1em] transition-all rounded"
                             aria-label={`Navigate to ${section}`}
                         >
                             {section.charAt(0).toUpperCase() + section.slice(1)}
@@ -53,14 +109,14 @@ const aboutImages = config.portfolio.filter(
                 }
                 <a
                     href="/portfolio"
-                    class="nav-link px-3 py-2 md:px-4 md:py-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)] text-xs md:text-sm font-semibold uppercase tracking-[0.1em] transition-all rounded hover:bg-[var(--color-secondary-container)]/25"
+                    class="nav-link px-4 py-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)] text-sm font-semibold uppercase tracking-[0.1em] transition-all rounded"
                     aria-label="View portfolio"
                 >
                     Portfolio
                 </a>
                 <a
                     href="#contact"
-                    class="nav-link px-3 py-2 md:px-4 md:py-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)] text-xs md:text-sm font-semibold uppercase tracking-[0.1em] transition-all rounded hover:bg-[var(--color-secondary-container)]/25"
+                    class="nav-link px-4 py-2 text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)] text-sm font-semibold uppercase tracking-[0.1em] transition-all rounded"
                     aria-label="Navigate to contact"
                 >
                     Contact

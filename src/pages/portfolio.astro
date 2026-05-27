@@ -31,45 +31,100 @@ const spreads = portfolioItems.reduce<(typeof portfolioItems)[]>(
     image={featured.image.src}
 >
     <nav
-        class="fixed left-0 right-0 top-0 z-50 flex items-center justify-between gap-4 border-b border-[var(--color-outline-variant)] bg-[var(--color-surface)]/95 px-4 py-3 backdrop-blur-[var(--backdrop-blur)] md:px-8 md:py-4"
+        class="fixed left-0 right-0 top-0 z-50 flex min-w-0 items-center justify-between gap-3 border-b border-[var(--color-outline-variant)] bg-[var(--color-surface)]/95 px-4 py-3 backdrop-blur-[var(--backdrop-blur)] md:gap-4 md:px-8 md:py-4"
         aria-label="Main navigation"
     >
+        <details class="nav-menu relative order-1 md:hidden">
+            <summary
+                class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-[var(--radius-md)] border-0 text-[var(--color-primary)] transition-colors hover:text-[var(--color-brass-dark)]"
+                aria-label="Open navigation menu"
+            >
+                <svg
+                    class="h-8 w-8"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    aria-hidden="true"
+                >
+                    <path d="M4 7h16"></path>
+                    <path d="M4 12h16"></path>
+                    <path d="M4 17h16"></path>
+                </svg>
+            </summary>
+            <div
+                class="fixed left-0 right-0 top-[4.25rem] grid overflow-hidden border-0 bg-[var(--color-surface)]/98 text-left shadow-[0_18px_45px_-28px_rgba(0,0,0,0.55)] backdrop-blur-[var(--backdrop-blur)]"
+            >
+                <a
+                    href="/#about"
+                    class="border-t border-[var(--color-outline-variant)]/60 px-4 py-4 text-sm font-semibold uppercase tracking-[0.1em] text-[var(--color-on-surface-variant)] transition-colors first:border-t-0 hover:text-[var(--color-primary)]"
+                >
+                    About
+                </a>
+                <a
+                    href="/#owner"
+                    class="border-t border-[var(--color-outline-variant)]/60 px-4 py-4 text-sm font-semibold uppercase tracking-[0.1em] text-[var(--color-on-surface-variant)] transition-colors hover:text-[var(--color-primary)]"
+                >
+                    Owner
+                </a>
+                <a
+                    href="/#gallery"
+                    class="border-t border-[var(--color-outline-variant)]/60 px-4 py-4 text-sm font-semibold uppercase tracking-[0.1em] text-[var(--color-on-surface-variant)] transition-colors hover:text-[var(--color-primary)]"
+                >
+                    Gallery
+                </a>
+                <a
+                    href="/portfolio"
+                    aria-current="page"
+                    class="border-t border-[var(--color-outline-variant)]/60 px-4 py-4 text-sm font-semibold uppercase tracking-[0.1em] text-[var(--color-primary)] transition-colors"
+                >
+                    Portfolio
+                </a>
+                <a
+                    href="/#contact"
+                    class="border-t border-[var(--color-outline-variant)]/60 px-4 py-4 text-sm font-semibold uppercase tracking-[0.1em] text-[var(--color-on-surface-variant)] transition-colors hover:text-[var(--color-primary)]"
+                >
+                    Contact
+                </a>
+            </div>
+        </details>
         <a
             href="/"
-            class="flex items-center gap-3 transition-opacity hover:opacity-80"
+            class="order-2 flex items-center gap-3 transition-opacity hover:opacity-80 md:order-none"
             aria-label="Q Builders home"
         >
             <img src="/logo.svg" alt="Q Builders" class="h-10 w-auto md:h-12" />
         </a>
-        <div class="flex items-center gap-1 md:gap-2">
+        <div class="hidden items-center gap-2 md:flex">
             <a
                 href="/#about"
-                class="px-2 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--color-on-surface-variant)] transition-colors hover:text-[var(--color-primary)] md:px-4 md:text-sm"
+                class="px-4 py-2 text-sm font-semibold uppercase tracking-[0.1em] text-[var(--color-on-surface-variant)] transition-colors hover:text-[var(--color-primary)]"
             >
                 About
             </a>
             <a
                 href="/#owner"
-                class="px-2 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--color-on-surface-variant)] transition-colors hover:text-[var(--color-primary)] md:px-4 md:text-sm"
+                class="px-4 py-2 text-sm font-semibold uppercase tracking-[0.1em] text-[var(--color-on-surface-variant)] transition-colors hover:text-[var(--color-primary)]"
             >
                 Owner
             </a>
             <a
                 href="/#gallery"
-                class="px-2 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--color-on-surface-variant)] transition-colors hover:text-[var(--color-primary)] md:px-4 md:text-sm"
+                class="px-4 py-2 text-sm font-semibold uppercase tracking-[0.1em] text-[var(--color-on-surface-variant)] transition-colors hover:text-[var(--color-primary)]"
             >
                 Gallery
             </a>
             <a
                 href="/portfolio"
                 aria-current="page"
-                class="px-2 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--color-primary)] md:px-4 md:text-sm"
+                class="px-4 py-2 text-sm font-semibold uppercase tracking-[0.1em] text-[var(--color-primary)]"
             >
                 Portfolio
             </a>
             <a
                 href="/#contact"
-                class="px-2 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--color-on-surface-variant)] transition-colors hover:text-[var(--color-primary)] md:px-4 md:text-sm"
+                class="px-4 py-2 text-sm font-semibold uppercase tracking-[0.1em] text-[var(--color-on-surface-variant)] transition-colors hover:text-[var(--color-primary)]"
             >
                 Contact
             </a>
