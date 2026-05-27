@@ -21,7 +21,7 @@ const siteUrl = Astro.site?.href || 'https://qbuilderscolorado.com';
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 		<meta name="theme-color" content="#07241a" />
 		<link rel="icon" href="/logo.svg" type="image/svg+xml" />
 		{canonical && <link rel="canonical" href={canonical} />}
@@ -123,6 +123,7 @@ const siteUrl = Astro.site?.href || 'https://qbuilderscolorado.com';
 		})} />
  	</head>
  	<body class="antialiased">
+		<div class="viewport-ceiling" aria-hidden="true"></div>
  		<slot />
  	</body>
  </html>

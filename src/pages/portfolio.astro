@@ -31,7 +31,7 @@ const spreads = portfolioItems.reduce<(typeof portfolioItems)[]>(
     image={featured.image.src}
 >
     <nav
-        class="fixed left-0 right-0 top-0 z-50 flex min-w-0 items-center justify-between gap-3 border-b border-[var(--color-outline-variant)] bg-[var(--color-surface)]/95 px-4 py-3 backdrop-blur-[var(--backdrop-blur)] md:gap-4 md:px-8 md:py-4"
+        class="site-nav fixed left-0 right-0 top-0 z-50 flex min-w-0 items-center justify-between gap-3 bg-[var(--color-surface)] px-4 py-3 md:gap-4 md:px-8 md:py-4"
         aria-label="Main navigation"
     >
         <details class="nav-menu relative order-1 md:hidden">
@@ -131,8 +131,12 @@ const spreads = portfolioItems.reduce<(typeof portfolioItems)[]>(
         </div>
     </nav>
 
+    <script is:inline>
+        document.body.classList.add("site-nav-visible");
+    </script>
+
     <main
-        class="min-h-screen bg-[#eeeeec] px-4 pb-10 pt-24 text-[var(--color-on-surface)] md:px-8 md:pb-14 md:pt-28"
+        class="min-h-screen bg-[var(--color-surface)] px-4 pb-10 pt-24 text-[var(--color-on-surface)] md:px-8 md:pb-14 md:pt-28"
     >
         <section
             class="mx-auto flex min-h-[calc(100vh-9rem)] max-w-[104rem] flex-col justify-center"

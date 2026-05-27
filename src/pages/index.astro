@@ -17,7 +17,7 @@ const aboutImages = config.portfolio.filter(
 >
     <nav
         id="navbar"
-        class="fixed top-0 left-0 right-0 z-50 transition-all duration-[var(--transition-medium)] transform -translate-y-full"
+        class="site-nav fixed top-0 left-0 right-0 z-50 -translate-y-full transform bg-[var(--color-surface)] transition-transform duration-[var(--transition-medium)]"
         aria-label="Main navigation"
     >
         <div
@@ -498,23 +498,13 @@ const aboutImages = config.portfolio.filter(
 
             if (navbar) {
                 if (scrollY > 100) {
+                    document.body.classList.add("site-nav-visible");
                     navbar.classList.remove("-translate-y-full");
-                    navbar.classList.add(
-                        "translate-y-0",
-                        "bg-[var(--color-surface)]/95",
-                        "backdrop-blur-[var(--backdrop-blur)]",
-                        "border-b",
-                        "border-[var(--color-outline-variant)]",
-                    );
+                    navbar.classList.add("translate-y-0");
                 } else {
+                    document.body.classList.remove("site-nav-visible");
                     navbar.classList.add("-translate-y-full");
-                    navbar.classList.remove(
-                        "translate-y-0",
-                        "bg-[var(--color-surface)]/95",
-                        "backdrop-blur-[var(--backdrop-blur)]",
-                        "border-b",
-                        "border-[var(--color-outline-variant)]",
-                    );
+                    navbar.classList.remove("translate-y-0");
                 }
             }
 
