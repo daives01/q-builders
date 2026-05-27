@@ -7,29 +7,32 @@ import { config } from "../config";
     class="fixed inset-0 pointer-events-none z-0"
     aria-hidden="true"
 >
-    <img
-        id="hero-blueprint"
-        src={config.hero.blueprintImage}
-        alt=""
-        class="hero-layer absolute inset-0 w-full h-full object-cover transition-opacity duration-[var(--transition-slow)] ease-in-out"
-        style="opacity: 1;"
-        fetchpriority="high"
-    />
-    <img
-        id="hero-framing"
-        src={config.hero.framingImage}
-        alt=""
-        class="hero-layer absolute inset-0 w-full h-full object-cover transition-opacity duration-[var(--transition-slow)] ease-in-out"
-        style="opacity: 0;"
-    />
-    <img
-        id="hero-house"
-        src={config.hero.houseImage}
-        alt=""
-        class="hero-layer absolute inset-0 w-full h-full object-cover transition-opacity duration-[var(--transition-slow)] ease-in-out"
-        style="opacity: 0;"
-    />
-    <div id="hero-overlay" class="absolute inset-0 bg-black/40"></div>
+    <div class="absolute inset-0 bg-[var(--color-surface)]"></div>
+    <div id="hero-xray-layers" class="absolute inset-0">
+        <img
+            id="hero-blueprint"
+            src={config.hero.blueprintImage}
+            alt=""
+            class="hero-layer absolute inset-0 w-full h-full object-cover transition-opacity duration-[var(--transition-slow)] ease-in-out"
+            style="opacity: 1;"
+            fetchpriority="high"
+        />
+        <img
+            id="hero-framing"
+            src={config.hero.framingImage}
+            alt=""
+            class="hero-layer absolute inset-0 w-full h-full object-cover transition-opacity duration-[var(--transition-slow)] ease-in-out"
+            style="opacity: 0;"
+        />
+        <img
+            id="hero-house"
+            src={config.hero.houseImage}
+            alt=""
+            class="hero-layer absolute inset-0 w-full h-full object-cover transition-opacity duration-[var(--transition-slow)] ease-in-out"
+            style="opacity: 0;"
+        />
+        <div id="hero-overlay" class="absolute inset-0 bg-black/40"></div>
+    </div>
 </div>
 
 <section
@@ -172,11 +175,14 @@ import { config } from "../config";
 <script>
     const initHeroEffects = () => {
         const heroSection = document.getElementById("home");
+        const xrayLayers = document.getElementById("hero-xray-layers");
         const blueprint = document.getElementById("hero-blueprint");
         const framing = document.getElementById("hero-framing");
         const house = document.getElementById("hero-house");
 
-        if (!heroSection || !blueprint || !framing || !house) return;
+        if (!heroSection || !xrayLayers || !blueprint || !framing || !house) {
+            return;
+        }
 
         const introStorageKey = "q-builders-home-intro-played";
         let isDesktop = window.innerWidth >= 768;
@@ -195,9 +201,11 @@ import { config } from "../config";
         let mouseY = 0;
         let currentX = 0;
         let currentY = 0;
+        let hasMousePosition = false;
         let waitingForMouse = false;
         let animationFrame: ReturnType<typeof requestAnimationFrame> | null =
             null;
+        let scrollFrame: ReturnType<typeof requestAnimationFrame> | null = null;
         let spotlightActive = false;
 
         // Velocity tracking
@@ -240,6 +248,43 @@ import { config } from "../config";
             house.style.webkitMaskImage = "";
         };
 
+        const updateHeroWipe = () => {
+            scrollFrame = null;
+
+            const heroBottom = heroSection.getBoundingClientRect().bottom;
+            const wipeOffset = 72;
+            const wipeEdge = Math.max(0, heroBottom + wipeOffset);
+            const wipeMask = `linear-gradient(to bottom, black 0px, black ${wipeEdge}px, transparent ${wipeEdge}px, transparent 100%)`;
+
+            xrayLayers.style.maskImage = wipeMask;
+            xrayLayers.style.webkitMaskImage = wipeMask;
+
+            if (wipeEdge <= 0 && spotlightActive) {
+                spotlightActive = false;
+                waitingForMouse = false;
+                if (animationFrame) cancelAnimationFrame(animationFrame);
+                animationFrame = null;
+            }
+
+            if (
+                wipeEdge > 0 &&
+                isDesktop &&
+                !spotlightActive &&
+                house.style.opacity !== "0"
+            ) {
+                if (hasMousePosition) {
+                    startSpotlight();
+                } else {
+                    waitingForMouse = true;
+                }
+            }
+        };
+
+        const requestHeroWipeUpdate = () => {
+            if (scrollFrame) return;
+            scrollFrame = requestAnimationFrame(updateHeroWipe);
+        };
+
         // Fade-in animation
         let currentRadius = 0;
         let spotlightFadeStartTime = 0;
@@ -267,6 +312,7 @@ import { config } from "../config";
         const updateMousePosition = (e: MouseEvent) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
+            hasMousePosition = true;
 
             // Start spotlight on first move after 3 seconds
             if (waitingForMouse) {
@@ -355,6 +401,11 @@ import { config } from "../config";
             }, delaySpotlightStart);
         };
 
+        updateHeroWipe();
+        window.addEventListener("scroll", requestHeroWipeUpdate, {
+            passive: true,
+        });
+
         const startMobileEffects = () => {
             setTimeout(() => {
                 blueprint.style.opacity = "0";
@@ -418,14 +469,22 @@ import { config } from "../config";
             window.addEventListener("resize", handleSkippedResize, {
                 passive: true,
             });
+            window.addEventListener("resize", requestHeroWipeUpdate, {
+                passive: true,
+            });
 
             return () => {
                 window.removeEventListener("resize", handleSkippedResize);
+                window.removeEventListener("resize", requestHeroWipeUpdate);
+                window.removeEventListener("scroll", requestHeroWipeUpdate);
                 document.removeEventListener("mousemove", updateMousePosition);
                 document.removeEventListener("mouseenter", updateMousePosition);
                 if (animationFrame) cancelAnimationFrame(animationFrame);
+                if (scrollFrame) cancelAnimationFrame(scrollFrame);
                 house.style.maskImage = "";
                 house.style.webkitMaskImage = "";
+                xrayLayers.style.maskImage = "";
+                xrayLayers.style.webkitMaskImage = "";
             };
         }
 
@@ -471,14 +530,22 @@ import { config } from "../config";
         };
 
         window.addEventListener("resize", handleResize, { passive: true });
+        window.addEventListener("resize", requestHeroWipeUpdate, {
+            passive: true,
+        });
 
         return () => {
             window.removeEventListener("resize", handleResize);
+            window.removeEventListener("resize", requestHeroWipeUpdate);
+            window.removeEventListener("scroll", requestHeroWipeUpdate);
             document.removeEventListener("mousemove", updateMousePosition);
             document.removeEventListener("mouseenter", updateMousePosition);
             if (animationFrame) cancelAnimationFrame(animationFrame);
+            if (scrollFrame) cancelAnimationFrame(scrollFrame);
             house.style.maskImage = "";
             house.style.webkitMaskImage = "";
+            xrayLayers.style.maskImage = "";
+            xrayLayers.style.webkitMaskImage = "";
         };
     };
 
