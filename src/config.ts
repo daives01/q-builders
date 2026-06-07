@@ -48,7 +48,7 @@ export const config: Config = {
   },
   owner: {
     name: "Tommy Cagle",
-    photo: "/profile-picture.jpg",
+    photo: "/tommy-2.jpeg",
     bio: "With 20+ years in the construction industry, Tommy has gained deep knowledge of every step of the home build process. That experience allows him to avoid costly mistakes and unexpected delays, spot and fix issues before they cause problems, and find ways to save cost without sacrificing quality. He knows the right questions to ask to help clients realize their dream house.",
     title: "Owner",
   },
